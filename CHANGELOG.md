@@ -1,6 +1,13 @@
 # Changelog
 
 This file records all notable changes made to the project.
+### [0.1.3](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.2...v0.1.3) (2026-03-27)
+
+
+### Bug Fixes
+
+* **release:** improve regex patterns for extracting version sections from CHANGELOG.md ([fcc28df](https://github.com/Janeirohurley/fluxo-desktop/commit/fcc28df943e1775dea18cbca710a73f48ef6caff))
+
 ### [0.1.2](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.1...v0.1.2) (2026-03-27)
 
 ### 0.1.1 (2026-03-27)
