@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import prompts from "prompts";
 
-// Définissez la liste des sous-dossiers
 const directoriesToCreate = [
   "api",
   "components",
@@ -15,33 +14,40 @@ const directoriesToCreate = [
   "common"
 ];
 
-// Fonction utilitaire pour créer un fichier index.ts vide
 function createIndexFile(dirPath) {
   const indexPath = path.join(dirPath, "index.ts");
-  // Le contenu initial peut être vide ou contenir un commentaire
-  const content = `// Index du module généré automatiquement\n`;
+  const content = "// Auto-generated module index\n";
+
   try {
-    fs.writeFileSync(indexPath, content, { flag: "wx" }); // 'wx' signifie écrire seulement si le fichier n'existe pas
-    console.log(`  -> Fichier index.ts créé dans : ${dirPath}`);
-  } catch (error) {
-    // Ignore si le fichier existe déjà
+    fs.writeFileSync(indexPath, content, { flag: "wx" });
+    console.log(`  -> index.ts created in: ${dirPath}`);
+  } catch {
+    // Ignore if the file already exists.
   }
 }
 
-async function generateFolders() {
+async function resolveModuleName() {
+  const cliName = process.argv[2]?.trim();
+  if (cliName) {
+    return cliName;
+  }
+
   const response = await prompts({
     type: "text",
     name: "parentName",
-    message:
-      "Quel nom souhaitez-vous donner au module (ex: auth, userProfile) ?",
+    message: "What module name do you want to create? (ex: auth, assets)",
     validate: (value) =>
-      value.trim().length > 0 ? true : `Le nom ne peut pas être vide.`,
+      value.trim().length > 0 ? true : "Module name cannot be empty.",
   });
 
-  const moduleName = response.parentName.trim();
+  return response.parentName?.trim() ?? "";
+}
+
+async function generateFolders() {
+  const moduleName = await resolveModuleName();
 
   if (!moduleName) {
-    console.log("Opération annulée.");
+    console.log("Operation cancelled.");
     return;
   }
 
@@ -49,44 +55,35 @@ async function generateFolders() {
   let createdCount = 0;
   let fileCount = 0;
 
-  // 1. Assurez-vous que le dossier de base existe
   if (!fs.existsSync(baseDir)) {
-    console.log(`\nLe dossier parent "${baseDir}" n'existe pas. Création...`);
+    console.log(`\nCreating module root: ${baseDir}`);
     fs.mkdirSync(baseDir, { recursive: true });
-    createdCount++;
+    createdCount += 1;
   } else {
-    console.log(
-      `\nLe dossier parent "${baseDir}" existe déjà. Vérification des sous-dossiers et fichiers manquants...`
-    );
+    console.log(`\nModule root already exists: ${baseDir}`);
   }
 
-  // Crée le fichier index.ts DANS le dossier parent
   createIndexFile(baseDir);
-  fileCount++;
+  fileCount += 1;
 
-  // 2. Parcours et création des sous-dossiers et de leur index.ts
   directoriesToCreate.forEach((subDir) => {
     const fullDirPath = path.join(baseDir, subDir);
 
     if (!fs.existsSync(fullDirPath)) {
       fs.mkdirSync(fullDirPath, { recursive: true });
-      console.log(`- Créé : ${fullDirPath}`);
-      createdCount++;
-    } else {
-      // console.log(`- Existe déjà (ignoré) : ${fullDirPath}`);
+      console.log(`- Created: ${fullDirPath}`);
+      createdCount += 1;
     }
 
-    // Crée le fichier index.ts DANS le sous-dossier
     createIndexFile(fullDirPath);
-    fileCount++;
+    fileCount += 1;
   });
 
-  console.log(
-    `\nStructure pour "${moduleName}" complétée avec succès dans "src/modules/"!`
-  );
-  console.log(
-    `Total: ${createdCount} dossiers et ${fileCount} fichiers index.ts créés ou mis à jour.`
-  );
+  console.log(`\nModule \"${moduleName}\" scaffold completed inside src/modules/.`);
+  console.log(`Created ${createdCount} directories and ${fileCount} index files.`);
 }
 
-generateFolders().catch(console.error);
+generateFolders().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
