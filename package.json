@@ -3,15 +3,39 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Fluxo desktop and web client built with React, reusable custom UI, TanStack Query, TanStack Router, Axios and Tailwind CSS v4.",
+  "description": "Fluxo multi-tenant ERP desktop client built with Tauri, React, TanStack Router, TanStack Query, Axios and Tailwind CSS v4.",
+  "homepage": "https://github.com/Janeirohurley/fluxo-desktop",
+  "bugs": {
+    "url": "https://github.com/Janeirohurley/fluxo-desktop/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Janeirohurley/fluxo-desktop.git"
+  },
+  "author": "Janeiro Hurley",
+  "license": "UNLICENSED",
+  "keywords": [
+    "fluxo",
+    "erp",
+    "desktop",
+    "react",
+    "tauri",
+    "multi-tenant"
+  ],
+  "packageManager": "pnpm@10.21.0",
   "scripts": {
     "dev": "pnpm run router && vite",
     "build": "pnpm run router && tsc && vite build",
+    "build:desktop": "pnpm run build && tauri build",
     "preview": "vite preview",
     "router": "npx @tanstack/router-cli generate --project ./src --output ./src/routeTree.gen.ts",
     "tauri": "tauri",
     "generate:module": "node folderGenerator.js",
-    "check": "tsc -p tsconfig.json"
+    "check": "tsc -p tsconfig.json",
+    "sync:tauri-version": "node scripts/sync-tauri-version.js",
+    "release": "standard-version",
+    "postbump": "pnpm run sync:tauri-version && git add package.json src-tauri/Cargo.toml src-tauri/tauri.conf.json",
+    "release:push": "git push --follow-tags origin main"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.6",
@@ -33,6 +57,7 @@
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.6.0",
     "prompts": "^2.4.2",
+    "standard-version": "^9.5.0",
     "tailwindcss": "^4.1.12",
     "typescript": "~5.8.3",
     "vite": "^7.0.4"

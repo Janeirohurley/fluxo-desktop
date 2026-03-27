@@ -1,0 +1,17 @@
+{
+  "header": "# Changelog\n\nThis file records all notable changes made to the project.",
+  "types": [
+    { "type": "feat", "section": "Features" },
+    { "type": "fix", "section": "Bug Fixes" },
+    { "type": "refactor", "section": "Code Refactors" },
+    { "type": "perf", "section": "Performance Improvements" },
+    { "type": "docs", "section": "Documentation" },
+    { "type": "test", "section": "Tests" },
+    { "type": "build", "section": "Build System" },
+    { "type": "ci", "section": "Continuous Integration" },
+    { "type": "chore", "hidden": true }
+  ],
+  "commitUrlFormat": "https://github.com/Janeirohurley/fluxo-desktop/commit/{{hash}}",
+  "compareUrlFormat": "https://github.com/Janeirohurley/fluxo-desktop/compare/{{previousTag}}...{{currentTag}}",
+  "issueUrlFormat": "https://github.com/Janeirohurley/fluxo-desktop/issues/{{id}}"
+}

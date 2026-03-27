@@ -1,0 +1,107 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release_web:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.21.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Sync Tauri version
+        run: pnpm run sync:tauri-version
+
+      - name: Generate TanStack route tree
+        run: pnpm run router
+
+      - name: Type check
+        run: pnpm run check
+
+      - name: Build frontend
+        run: pnpm run build
+
+      - name: Extract release notes
+        run: node scripts/extract-release-notes.js "${{ github.ref_name }}" release-notes.md
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Fluxo Desktop ${{ github.ref_name }}
+          body_path: release-notes.md
+          draft: false
+          prerelease: false
+
+  build_tauri_windows:
+    runs-on: windows-latest
+    needs: release_web
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.21.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Sync Tauri version
+        run: pnpm run sync:tauri-version
+
+      - name: Generate TanStack route tree
+        run: pnpm run router
+
+      - name: Type check
+        run: pnpm run check
+
+      - name: Build web frontend
+        run: pnpm run build
+
+      - name: Build and attach Tauri bundles
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: Fluxo Desktop ${{ github.ref_name }}
+          releaseDraft: false
+          prerelease: false
+          includeDebug: false
+          includeRelease: true
