@@ -1,6 +1,8 @@
 # Changelog
 
 This file records all notable changes made to the project.
+### [0.1.2](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.1...v0.1.2) (2026-03-27)
+
 ### 0.1.1 (2026-03-27)
 
 
