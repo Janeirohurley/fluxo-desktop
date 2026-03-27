@@ -17,8 +17,11 @@ if (!fs.existsSync(changelogPath)) {
 }
 
 const changelog = fs.readFileSync(changelogPath, "utf8");
-const headingPattern = new RegExp(`^##\\s+\\[?${version.replace(/\./g, "\\.")}\\]?([^\\n]*)$`, "m");
-const headingMatch = changelog.match(headingPattern);
+const versionHeadingPattern = new RegExp(
+  `^#{2,3}\\s+\\[?${version.replace(/\./g, "\\.")}\\]?([^\\n]*)$`,
+  "m",
+);
+const headingMatch = versionHeadingPattern.exec(changelog);
 
 if (!headingMatch || headingMatch.index === undefined) {
   console.error(`Could not find version ${version} in CHANGELOG.md`);
@@ -27,8 +30,12 @@ if (!headingMatch || headingMatch.index === undefined) {
 
 const sectionStart = headingMatch.index;
 const afterHeading = changelog.slice(sectionStart);
-const nextHeadingMatch = afterHeading.slice(1).match(/\n##\s+/);
-const sectionEnd = nextHeadingMatch ? sectionStart + 1 + nextHeadingMatch.index : changelog.length;
+const nextVersionHeadingMatch = afterHeading
+  .slice(1)
+  .match(/\n#{2,3}\s+\[?\d+\.\d+\.\d+\]?([^\n]*)/);
+const sectionEnd = nextVersionHeadingMatch
+  ? sectionStart + 1 + nextVersionHeadingMatch.index
+  : changelog.length;
 const section = changelog.slice(sectionStart, sectionEnd).trim();
 
 fs.writeFileSync(path.resolve(process.cwd(), outputFile), `${section}\n`, "utf8");
