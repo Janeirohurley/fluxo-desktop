@@ -98,6 +98,8 @@ jobs:
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
         with:
           tagName: ${{ github.ref_name }}
           releaseName: Fluxo Desktop ${{ github.ref_name }}
@@ -105,3 +107,20 @@ jobs:
           prerelease: false
           includeDebug: false
           includeRelease: true
+        # ÉTAPE CRUCIALE : Générer le update.json automatiquement
+      - name: Generate Update JSON
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}".Replace("v", "")
+          # Ce script récupère les signatures générées et crée le fichier update.json
+          node scripts/generate-updater-json.js $version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and Push update.json
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add update.json
+          git commit -m "chore: update updater info for ${{ github.ref_name }}"
+          git push origin main
