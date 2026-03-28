@@ -107,12 +107,22 @@ jobs:
           prerelease: false
           includeDebug: false
           includeRelease: true
-        # ÉTAPE CRUCIALE : Générer le update.json automatiquement
+
+      - name: Inspect generated Tauri bundle files
+        shell: pwsh
+        run: |
+          $bundleDir = "src-tauri/target/release/bundle"
+          Write-Host "Inspecting generated bundle files in $bundleDir"
+          if (Test-Path $bundleDir) {
+            Get-ChildItem -Path $bundleDir -Recurse -File | Select-Object FullName, Length | Format-Table -AutoSize
+          } else {
+            Write-Error "Bundle directory not found: $bundleDir"
+          }
+
       - name: Generate Update JSON
         shell: pwsh
         run: |
           $version = "${{ github.ref_name }}".Replace("v", "")
-          # Ce script récupère les signatures générées et crée le fichier update.json
           node scripts/generate-updater-json.js $version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
