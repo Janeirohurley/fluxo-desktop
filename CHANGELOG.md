@@ -1,6 +1,13 @@
 # Changelog
 
 This file records all notable changes made to the project.
+### [0.1.12](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.11...v0.1.12) (2026-03-28)
+
+
+### Features
+
+* **auth:** enhance error handling for backend unavailability and update loading messages ([0583070](https://github.com/Janeirohurley/fluxo-desktop/commit/0583070e4c67f16a4e0d65dfe051d677569c94f7))
+
 ### [0.1.11](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.10...v0.1.11) (2026-03-28)
 
 ### [0.1.10](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.9...v0.1.10) (2026-03-28)
