@@ -1,6 +1,13 @@
 # Changelog
 
 This file records all notable changes made to the project.
+### [0.1.6](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.5...v0.1.6) (2026-03-28)
+
+
+### Features
+
+* **release:** add inspection of generated Tauri bundle files and improve signature file handling ([d36af1a](https://github.com/Janeirohurley/fluxo-desktop/commit/d36af1a0395aa3c9abc094134c07c5dae96fb721))
+
 ### [0.1.5](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.4...v0.1.5) (2026-03-28)
 
 
