@@ -1,6 +1,13 @@
 # Changelog
 
 This file records all notable changes made to the project.
+### [0.1.8](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.7...v0.1.8) (2026-03-28)
+
+
+### Bug Fixes
+
+* **release:** ensure correct reference and handle no changes in update.json commit ([f764d95](https://github.com/Janeirohurley/fluxo-desktop/commit/f764d954308d445351da047f5b1a780b350b5789))
+
 ### [0.1.7](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.6...v0.1.7) (2026-03-28)
 
 
