@@ -1,6 +1,13 @@
 # Changelog
 
 This file records all notable changes made to the project.
+### [0.1.10](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.9...v0.1.10) (2026-03-28)
+
+
+### Bug Fixes
+
+* revert version to 0.1.8 and update release asset filename in updater script ([c04ed87](https://github.com/Janeirohurley/fluxo-desktop/commit/c04ed87e6edd0fb2cb5f8289856f0e3165586e35))
+
 ### [0.1.9](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.8...v0.1.9) (2026-03-28)
 
 
