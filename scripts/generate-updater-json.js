@@ -80,6 +80,7 @@ if (!signaturePath) {
 }
 
 const artifactFileName = path.basename(signaturePath, ".sig");
+const releaseAssetFileName = artifactFileName.replaceAll(" ", ".");
 
 const updateData = {
   version,
@@ -88,7 +89,7 @@ const updateData = {
   platforms: {
     "windows-x86_64": {
       signature: fs.readFileSync(signaturePath, "utf8").trim(),
-      url: `${repoUrl}/${artifactFileName}`,
+      url: `${repoUrl}/${releaseAssetFileName}`,
     },
   },
 };
@@ -99,4 +100,4 @@ fs.writeFileSync(
   "utf8",
 );
 
-console.log(`update.json genere avec succes pour la version ${version} depuis ${artifactFileName}`);
+console.log(`update.json genere avec succes pour la version ${version} depuis ${releaseAssetFileName}`);

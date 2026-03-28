@@ -1,0 +1,11 @@
+{
+  "version": "0.1.9",
+  "notes": "Mise a jour automatique vers la version 0.1.9",
+  "pub_date": "2026-03-28T18:40:03.370Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSOGUrV2RmeFVzWGxnYW05L2pzdm5sZWVLS3NrSXpnYWZJcyt0ZkwycnA2WXNrMGZRMDZOZ2wrOVZzZVpXUFFtSGg5K1dFbEIzS0xYdkVIdjRnODhXY1RrcjdUU0hhaUFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc0NzIzMTk5CWZpbGU6Rmx1eG8gRGVza3RvcF8wLjEuOV94NjRfZW4tVVMubXNpCkc0dkJQVjlLTWFYVmFzYm93RmZRaFhIRGY3KzBDZXJCVzh2OTc3LzBUcnF3VmJCNlYvdDZHa1IxRlA3UkYrSlRwNkt2NW5Sd0ZDa2ZwbUZTUGphOER3PT0K",
+      "url": "https://github.com/JaneiroHurley/fluxo-desktop/releases/download/v0.1.9/Fluxo.Desktop_0.1.9_x64_en-US.msi"
+    }
+  }
+}
