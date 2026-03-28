@@ -52,7 +52,14 @@ function pickPreferredSignatureFile(signatureFiles, currentVersion) {
     path.basename(filePath).toLowerCase().includes(normalizedVersion),
   );
   const candidates = versionMatches.length > 0 ? versionMatches : signatureFiles;
-  const priorityPatterns = [/\.msi\.zip\.sig$/i, /\.nsis\.zip\.sig$/i, /\.app\.tar\.gz\.sig$/i];
+  const priorityPatterns = [
+    /\.msi\.sig$/i,
+    /-setup\.exe\.sig$/i,
+    /\.msi\.zip\.sig$/i,
+    /\.nsis\.zip\.sig$/i,
+    /\.app\.tar\.gz\.sig$/i,
+    /\.appimage(\.tar\.gz)?\.sig$/i,
+  ];
 
   for (const pattern of priorityPatterns) {
     const match = candidates.find((filePath) => pattern.test(filePath));
