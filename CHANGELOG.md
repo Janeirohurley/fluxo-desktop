@@ -1,6 +1,13 @@
 # Changelog
 
 This file records all notable changes made to the project.
+### [0.1.7](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.6...v0.1.7) (2026-03-28)
+
+
+### Features
+
+* **updater:** enhance signature file matching patterns and ensure updater artifacts are created ([2d31998](https://github.com/Janeirohurley/fluxo-desktop/commit/2d319985d957b204ceccdec4a4442bfc7477af55))
+
 ### [0.1.6](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.5...v0.1.6) (2026-03-28)
 
 
