@@ -1,6 +1,13 @@
 # Changelog
 
 This file records all notable changes made to the project.
+### [0.1.9](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.8...v0.1.9) (2026-03-28)
+
+
+### Bug Fixes
+
+* **release:** remove redundant ref specification in checkout step ([5de36ae](https://github.com/Janeirohurley/fluxo-desktop/commit/5de36ae20cb8a5a1d0cb887b09ea28c86813df69))
+
 ### [0.1.8](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.7...v0.1.8) (2026-03-28)
 
 
