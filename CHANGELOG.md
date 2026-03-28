@@ -1,6 +1,15 @@
 # Changelog
 
 This file records all notable changes made to the project.
+### [0.1.4](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.3...v0.1.4) (2026-03-28)
+
+
+### Features
+
+* **notification:** add UpdateNotification component to main application ([e697654](https://github.com/Janeirohurley/fluxo-desktop/commit/e6976547e46924e7d0816751e237848170e5fb70))
+* **theme:** add theme provider and toggle functionality ([f801fa0](https://github.com/Janeirohurley/fluxo-desktop/commit/f801fa04fe1fb80afb057bad85a5290004d80d2e))
+* **updater:** add updater and process plugins, implement update notification component ([1a76174](https://github.com/Janeirohurley/fluxo-desktop/commit/1a76174ab677f9aecc6ca9a93fba418f8f5796da))
+
 ### [0.1.3](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.2...v0.1.3) (2026-03-27)
 
 
