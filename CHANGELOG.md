@@ -1,6 +1,13 @@
 # Changelog
 
 This file records all notable changes made to the project.
+### [0.1.5](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.4...v0.1.5) (2026-03-28)
+
+
+### Code Refactors
+
+* **generate-updater-json:** migrate to ES modules and improve error handling ([517a29a](https://github.com/Janeirohurley/fluxo-desktop/commit/517a29ac8670bd1633072d551a2ab367a1b42baa))
+
 ### [0.1.4](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.3...v0.1.4) (2026-03-28)
 
 
