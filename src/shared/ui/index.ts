@@ -5,3 +5,5 @@ export * from "./card";
 export * from "./divider";
 export * from "./field";
 export * from "./spinner";
+export * from "./theme-toggle";
+export * from "./Toggle";

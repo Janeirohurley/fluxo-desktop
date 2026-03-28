@@ -2,7 +2,7 @@ import { useState, type PropsWithChildren } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useAccessSession, useStoredAccessKey } from "@/modules/auth/hooks/useAccessSession";
-
+import { ThemeToggle } from "@/shared/ui";
 
 export function MainShell({ children }: PropsWithChildren) {
   const [opened, setOpened] = useState(false);
@@ -36,11 +36,18 @@ export function MainShell({ children }: PropsWithChildren) {
             </Link>
           </div>
 
-          <div className="text-right">
-            <p className="font-semibold">{session?.company?.name ?? "No tenant connected"}</p>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              {session ? `${session.plan.name} - ${session.modules.length} module(s)` : hasStoredKey ? "Stored key waiting for validation" : "Connect an access key"}
-            </p>
+          <div className="flex items-center gap-4">
+            <ThemeToggle label="Mode sombre" size="md" />
+            <div className="text-right">
+              <p className="font-semibold">{session?.company?.name ?? "No tenant connected"}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                {session
+                  ? `${session.plan.name} - ${session.modules.length} module(s)`
+                  : hasStoredKey
+                    ? "Stored key waiting for validation"
+                    : "Connect an access key"}
+              </p>
+            </div>
           </div>
         </div>
       </header>
