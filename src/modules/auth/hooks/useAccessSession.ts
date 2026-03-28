@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchAccessSession } from "@/modules/auth/api/auth.api";
+import { fetchAccessSession, isBackendUnavailableError } from "@/modules/auth/api/auth.api";
 import { getStoredAccessKey, subscribeToAccessKeyChanges } from "@/shared/lib/access-key-storage";
 
 export const authQueryKeys = {
@@ -19,5 +19,7 @@ export function useAccessSession() {
     queryFn: fetchAccessSession,
     enabled: Boolean(accessKey),
     retry: false,
+    refetchInterval: (query) => (isBackendUnavailableError(query.state.error) ? 10_000 : false),
+    refetchIntervalInBackground: true,
   });
 }

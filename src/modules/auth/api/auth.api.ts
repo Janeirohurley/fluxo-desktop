@@ -26,7 +26,19 @@ export async function validateAccessKey(accessKey: string): Promise<AccessSessio
   return mapAccessSession(response.data.data);
 }
 
+export function isBackendUnavailableError(error: unknown) {
+  return (
+    error instanceof AxiosError &&
+    !error.response &&
+    (error.code === AxiosError.ERR_NETWORK || error.message === "Network Error")
+  );
+}
+
 export function getAuthErrorMessage(error: unknown) {
+  if (isBackendUnavailableError(error)) {
+    return "Le serveur Fluxo est indisponible pour le moment. Une nouvelle tentative pourra etre faite dans 10 secondes.";
+  }
+
   if (error instanceof AxiosError) {
     return (error.response?.data as { message?: string } | undefined)?.message ?? error.message;
   }
