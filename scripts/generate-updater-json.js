@@ -1,37 +1,50 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const version = process.argv[2]; // Récupère la version passée par l'Action
-const repoUrl =
-  "https://github.com/JaneiroHurley/fluxo-desktop/releases/download/v" +
-  version;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Structure du fichier update.json
+const [, , version] = process.argv;
+
+if (!version) {
+  console.error("Usage: node scripts/generate-updater-json.js <version>");
+  process.exit(1);
+}
+
+const repoUrl = `https://github.com/JaneiroHurley/fluxo-desktop/releases/download/v${version}`;
+const signaturePath = path.resolve(
+  __dirname,
+  "..",
+  "src-tauri",
+  "target",
+  "release",
+  "bundle",
+  "msi",
+  `fluxo-desktop_${version}_x64_en-US.msi.zip.sig`,
+);
+
+if (!fs.existsSync(signaturePath)) {
+  console.error(`Erreur : fichier de signature non trouve a ${signaturePath}`);
+  process.exit(1);
+}
+
 const updateData = {
-  version: version,
-  notes: "Mise à jour automatique vers la version " + version,
+  version,
+  notes: `Mise a jour automatique vers la version ${version}`,
   pub_date: new Date().toISOString(),
   platforms: {
     "windows-x86_64": {
-      signature: "", // Sera rempli par le script
+      signature: fs.readFileSync(signaturePath, "utf8").trim(),
       url: `${repoUrl}/fluxo-desktop_${version}_x64_en-US.msi.zip`,
     },
   },
 };
 
-// Logique pour lire la signature .sig générée par Tauri sur Windows
-const sigPath = path.join(
-  __dirname,
-  `../src-tauri/target/release/bundle/msi/fluxo-desktop_${version}_x64_en-US.msi.zip.sig`,
+fs.writeFileSync(
+  path.resolve(process.cwd(), "update.json"),
+  `${JSON.stringify(updateData, null, 2)}\n`,
+  "utf8",
 );
 
-if (fs.existsSync(sigPath)) {
-  updateData.platforms["windows-x86_64"].signature = fs
-    .readFileSync(sigPath, "utf-8")
-    .trim();
-  fs.writeFileSync("update.json", JSON.stringify(updateData, null, 2));
-  console.log("update.json généré avec succès !");
-} else {
-  console.error("Erreur : Fichier de signature non trouvé à " + sigPath);
-  process.exit(1);
-}
+console.log(`update.json genere avec succes pour la version ${version}`);
