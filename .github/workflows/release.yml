@@ -132,7 +132,10 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git pull --rebase origin main
           git add update.json
           git diff --cached --quiet && echo "No update.json changes to commit" && exit 0
           git commit -m "chore: update updater info for ${{ github.ref_name }}"
+          git pull --rebase origin main
           git push origin HEAD:main
