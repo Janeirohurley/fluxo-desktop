@@ -9,7 +9,7 @@ import { authQueryKeys, useAccessSession, useStoredAccessKey } from "@/modules/a
 import appIcon from "@/assets/app-icon.png";
 import { clearStoredAccessKey, setStoredAccessKey } from "@/shared/lib/access-key-storage";
 import { hasStoredLocalAppLock, saveLocalAppLock } from "@/shared/lib/local-app-lock";
-import { Alert, Button, Card, Field, Spinner } from "@/shared/ui";
+import { Alert, Button, Card, Field, Spinner, ThemeToggle } from "@/shared/ui";
 
 export function AccessKeyPage() {
   const queryClient = useQueryClient();
@@ -109,6 +109,12 @@ export function AccessKeyPage() {
 
   return (
     <div className="mx-auto grid w-full max-w-md gap-6">
+      <div className="flex justify-center">
+        <div className="rounded-full border border-slate-200 bg-white/80 px-4 py-2 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-950/80">
+          <ThemeToggle label="Mode sombre" size="md" />
+        </div>
+      </div>
+
       <div className="text-center">
         <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-[0_18px_40px_-24px_rgba(15,23,42,0.75)] dark:bg-slate-900">
           <img src={appIcon} alt="Fluxo" className="h-full w-full object-cover" />

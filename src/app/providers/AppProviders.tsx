@@ -2,6 +2,7 @@ import { PropsWithChildren } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 import { AppLockProvider } from "./AppLockProvider";
+import { ThemeProvider } from "./ThemeProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,7 +17,9 @@ const queryClient = new QueryClient({
 export function AppProviders({ children }: PropsWithChildren) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AppLockProvider>{children}</AppLockProvider>
+      <ThemeProvider>
+        <AppLockProvider>{children}</AppLockProvider>
+      </ThemeProvider>
       <Toaster
         position="top-right"
         richColors
