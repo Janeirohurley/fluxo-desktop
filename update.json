@@ -1,11 +1,11 @@
 {
-  "version": "0.1.11",
-  "notes": "Mise a jour automatique vers la version 0.1.11",
-  "pub_date": "2026-03-28T19:50:32.523Z",
+  "version": "0.1.12",
+  "notes": "Mise a jour automatique vers la version 0.1.12",
+  "pub_date": "2026-03-28T20:36:48.967Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSOGUrV2RmeFVzWG14ZFNLZURwZURIaVdabkIrOUJJVUhwZm44SlJ0QjFRQUh5UWRjMDYxKzJRM0ltZ3VVTkw1VTJBQ1BBMm1SNEJQcnpyOG55Sm1sQ1VBdkdUSUZkSndRPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc0NzI3NDI3CWZpbGU6Rmx1eG8gRGVza3RvcF8wLjEuMTFfeDY0X2VuLVVTLm1zaQpwMlp5VjNvOWVMZVFDMmYvR0cxUThHM3FhT1hNdlcrUU1UdXBYdDJodVU5djU0Mmw1cjgyZXliVUtTL3FYZmg1VTFUdDBkWFN6Z0xGd1R1T1pQTjJBZz09Cg==",
-      "url": "https://github.com/JaneiroHurley/fluxo-desktop/releases/download/v0.1.11/Fluxo.Desktop_0.1.11_x64_en-US.msi"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSOGUrV2RmeFVzWHZhN1dtZ3MxSUg3LzZtQStLSXE2NWtuZ2owdEdrak8ra0hjUElnYS9BQU1NeTBBYW85ZFNCWi9OMmNSSDAzS0FGT0NjclhNQVA3ekh1YytxNFZzbUFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzc0NzMwMjAzCWZpbGU6Rmx1eG8gRGVza3RvcF8wLjEuMTJfeDY0X2VuLVVTLm1zaQpkY21uVnJvaEpESGRnT0pLU3pkdW8ycGV5MHI0MXlTajB0R012L25Gd2ZqcnBuV3JKMU9nN1A0UzRJc2ZTOWM5THBuSVJvS2lUZDMzaTJwZVI0MlJCZz09Cg==",
+      "url": "https://github.com/JaneiroHurley/fluxo-desktop/releases/download/v0.1.12/Fluxo.Desktop_0.1.12_x64_en-US.msi"
     }
   }
 }
