@@ -1,6 +1,6 @@
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useMemo, useState, type MouseEvent, useRef, useEffect, useCallback } from "react";
+import React, { useMemo, useState, useRef, useEffect, useCallback } from "react";
 import { Search, ChevronLeft, ChevronRight, ChevronUp, ChevronDown, Pin, Download, Loader2, AlertCircle, Inbox, Trash2, Archive, Mail, Copy, Edit, Eye, EyeOff, Plus, GripVertical, Maximize2, Minimize2, PlusCircle, X, FileDown, Files, FileCheck, ArrowDown01 } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -68,7 +68,7 @@ function SingleSelectDropdown({ options, value, onChange, placeholder, title }: 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
+        const handleClickOutside = (event: globalThis.MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setIsOpen(false);
             }
@@ -169,7 +169,7 @@ function MultiSelectDropdown({ options, value, onChange, placeholder, title }: {
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
+        const handleClickOutside = (event: globalThis.MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setIsOpen(false);
             }
@@ -349,7 +349,7 @@ function DraggableRow<T>({
     isFocused: boolean;
     onFocus: () => void;
     onContextMenu: (e: React.MouseEvent) => void;
-    onClick: (e: MouseEvent<HTMLTableRowElement>) => void;
+    onClick: (e: React.MouseEvent<HTMLTableRowElement>) => void;
     getRowId: (row: T) => string | number;
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
@@ -678,7 +678,7 @@ function DataTable<T>({
     // Sauvegarder les données quand elles changent
     useEffect(() => {
         if (isDataLoaded && actualData.length > 0) {
-            saveTableData(tableId, actualData, getRowId);
+            saveTableData(tableId, actualData, (row) => String(getRowId(row)));
         }
     }, [actualData, tableId, getRowId, isDataLoaded]);
     const [detailsRow, setDetailsRow] = useState<T | null>(null);
@@ -766,7 +766,7 @@ function DataTable<T>({
             const newData = arrayMove(actualData, oldIndex, newIndex);
 
             // Save reordered data locally
-            saveTableData(tableId, newData, getRowId);
+            saveTableData(tableId, newData, (row) => String(getRowId(row)));
 
             // Notify parent with the reordered full dataset if callback exists
             if (onReorder) {
@@ -1847,7 +1847,7 @@ function DataTable<T>({
                                                 onContextMenu={(e) => handleContextMenu(e, row)}
                                                 onMouseEnter={() => setHoveredRowId(rowId)}
                                                 onMouseLeave={() => setHoveredRowId(null)}
-                                                onClick={(e: MouseEvent<HTMLTableRowElement>) => {
+                                                onClick={(e: React.MouseEvent<HTMLTableRowElement>) => {
                                                     const t = e.target as HTMLElement | null;
                                                     if (t && typeof t.closest === 'function' && t.closest('button,a,input,svg,label')) return;
                                                     if (e.ctrlKey || e.metaKey) {

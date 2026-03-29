@@ -1,4 +1,43 @@
 {
-  "welcome": "Welcome to Fluxo {{companyName}}",
-  "fallbackCompany": "your company"
+  "fallbackCompany": "your company",
+  "badge": "Dynamic overview",
+  "heroTitle": "Welcome to Fluxo {{companyName}}",
+  "heroDescription": "See your tenant global state, active modules, available indicators and cross-module signals returned by the backend.",
+  "planLabel": "Active plan",
+  "keyPrefixLabel": "Key prefix",
+  "loadingTitle": "Loading overview",
+  "loadingDescription": "Fluxo is fetching the dynamic indicators for your company.",
+  "errorTitle": "Overview unavailable",
+  "errorDescription": "The backend could not provide the dynamic overview for the moment.",
+  "retryAction": "Reload overview",
+  "summary": {
+    "activeModules": "Active modules",
+    "readyModules": "Ready modules",
+    "insights": "Insights",
+    "criticalInsights": "Critical insights"
+  },
+  "crossModuleTitle": "Cross-module view",
+  "crossModuleDescription": "This section combines signals from several modules to provide a global reading of the company.",
+  "crossModuleEnabled": "Cross-module analysis enabled",
+  "crossModuleDisabled": "Cross-module analysis disabled",
+  "crossModuleInsights": "Cross-module insights",
+  "filters": {
+    "title": "Overview filters",
+    "allModules": "All modules",
+    "moduleLabel": "Module to analyze",
+    "modulePlaceholder": "Choose a module",
+    "moduleSearch": "Search a module",
+    "hideEmpty": "Hide empty modules",
+    "visibleModules": "{{count}} visible modules",
+    "generatedAt": "Last generated"
+  },
+  "focus": {
+    "titleGlobal": "Global analytics cockpit",
+    "titleModule": "Analytics cockpit for {{module}}",
+    "descriptionGlobal": "Fluxo highlights the most useful curves, trends and indicators here so the business can be read quickly.",
+    "noCharts": "No detailed chart is available for this selection.",
+    "moduleInsights": "Module insights"
+  },
+  "noCrossModuleKpis": "No cross-module KPI available for the moment.",
+  "noInsights": "No insight to display for the moment."
 }
