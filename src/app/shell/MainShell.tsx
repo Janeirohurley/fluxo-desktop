@@ -1,65 +1,59 @@
-import { useState, type PropsWithChildren } from "react";
-import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
-import { useTranslation } from "react-i18next";
-import { useAccessSession, useStoredAccessKey } from "@/modules/auth/hooks/useAccessSession";
-import { LanguageSwitcher } from "@/shared/components/LanguageSwitcher";
-import { ThemeToggle } from "@/shared/ui";
+import {type PropsWithChildren } from "react";
+import { LayoutDashboard, LucideIcon} from "lucide-react";
+import { useAccessSession } from "@/modules/auth/hooks/useAccessSession";
 
+import { Sidebar } from "@/shared/ui/Sidebar";
+import { motion } from "framer-motion"
+import { useSidebar } from "@/shared/hooks/useSidebar";
+import { AppHeader } from "@/shared/ui/AppHeader";
+
+/**
+ * Item de navigation pour les menus
+ */
+export interface NavItem {
+  label: string;
+  to?: string;
+  icon: LucideIcon;
+  children?: NavItem[];
+}
 export function MainShell({ children }: PropsWithChildren) {
-  const [opened, setOpened] = useState(false);
   const { data: session } = useAccessSession();
-  const storedAccessKey = useStoredAccessKey();
-  const hasStoredKey = Boolean(storedAccessKey);
-  const { t } = useTranslation(["shell", "common"]);
+  const { sidebarCollapsed } = useSidebar();
+
+  const navItems: Array<NavItem> = [
+    { label: "Tableau de bord", to: "/", icon: LayoutDashboard },
+  ]
+
+
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b border-border bg-white/80 backdrop-blur dark:bg-slate-950/80">
-        <div className="mx-auto flex h-[74px] max-w-7xl items-center justify-between px-6">
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={() => setOpened((value) => !value)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-white text-foreground sm:hidden dark:bg-slate-950"
-            >
-              {opened ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
+    <div className="min-h-screen bg-background text-foreground relative">
+      {/* SIDEBAR GAUCHE */}
+      <Sidebar title={session?.company?.name || ""} navItems={navItems} />
+      {/* CONTENU PRINCIPAL */}
+      <div
+        className={`
+                    flex-1
+                    transition-all duration-300
+                    dark:bg-gray-950
+                    overflow-hidden
+                    
+                    ${sidebarCollapsed ? "ml-20" : "ml-60"}
+                `}
+      >
+        <AppHeader
+          navItems={navItems}
+        />
 
-            <Link to="/" className="rounded-full px-2 py-1 transition hover:bg-secondary">
-              <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-[0_16px_40px_-22px_rgba(29,65,122,0.95)]">
-                  <span className="text-sm font-bold">F</span>
-                </div>
-                <div>
-                  <p className="text-lg font-bold">Fluxo</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">{t("shell:workspace")}</p>
-                </div>
-              </div>
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <LanguageSwitcher />
-            <ThemeToggle label={t("common:theme.darkMode")} size="md" />
-            <div className="text-right">
-              <p className="font-semibold">{session?.company?.name ?? t("shell:noTenant")}</p>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                {session
-                  ? t("shell:modulesCount", { planName: session.plan.name, count: session.modules.length })
-                  : hasStoredKey
-                    ? t("shell:storedKeyWaiting")
-                    : t("shell:connectAccessKey")}
-              </p>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div className="mx-auto flex max-w-7xl gap-6 px-6 py-6">
-  
-
-        <div className="min-w-0 flex-1 py-2">{children}</div>
+        <main className="w-full max-w-full mx-auto px-6 py-8 overflow-x-hidden">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+          >
+            {children}
+          </motion.div>
+        </main>
       </div>
     </div>
   );
