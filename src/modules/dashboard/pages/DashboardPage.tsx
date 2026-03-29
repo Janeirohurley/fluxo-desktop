@@ -151,7 +151,7 @@ export function DashboardPage() {
             searchPlaceholder={t("filters.moduleSearch")}
           />
 
-          <div className="grid gap-3 rounded-2xl border border-border bg-background/70 p-4">
+          <div className="grid gap-3 rounded-md border border-border bg-background/70 p-4">
             <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-white">
               <Filter className="h-4 w-4 text-blue-600 dark:text-blue-300" />
               {t("filters.title")}
@@ -162,7 +162,7 @@ export function DashboardPage() {
                 checked={hideEmptyModules}
                 onChange={setHideEmptyModules}
                 label={t("filters.hideEmpty")}
-                size="sm"
+                size="md"
               />
               <span className="text-sm text-slate-500 dark:text-slate-400">
                 {t("filters.visibleModules", { count: filteredModules.length })}
@@ -175,7 +175,7 @@ export function DashboardPage() {
                   key={period}
                   type="button"
                   onClick={() => setPeriodWindow(period)}
-                  className={`rounded-full px-3 py-1 text-xs font-medium transition ${
+                  className={`rounded-md px-3 py-1 text-xs font-medium transition ${
                     periodWindow === period
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary text-secondary-foreground"
