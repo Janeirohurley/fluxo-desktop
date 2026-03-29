@@ -1,6 +1,13 @@
 # Changelog
 
 This file records all notable changes made to the project.
+### [0.1.14](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.13...v0.1.14) (2026-03-29)
+
+
+### Features
+
+* **dependencies:** ajout de nouvelles dépendances et mise à jour des résolutions dans pnpm-lock.yaml ([a46a8a6](https://github.com/Janeirohurley/fluxo-desktop/commit/a46a8a664c18590a136ddedd3e3c23ce4e12bcc2))
+
 ### [0.1.13](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.12...v0.1.13) (2026-03-29)
 
 
