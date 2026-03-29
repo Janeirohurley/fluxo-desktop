@@ -1,7 +1,9 @@
 import { useState, type PropsWithChildren } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useAccessSession, useStoredAccessKey } from "@/modules/auth/hooks/useAccessSession";
+import { LanguageSwitcher } from "@/shared/components/LanguageSwitcher";
 import { ThemeToggle } from "@/shared/ui";
 
 export function MainShell({ children }: PropsWithChildren) {
@@ -9,6 +11,7 @@ export function MainShell({ children }: PropsWithChildren) {
   const { data: session } = useAccessSession();
   const storedAccessKey = useStoredAccessKey();
   const hasStoredKey = Boolean(storedAccessKey);
+  const { t } = useTranslation(["shell", "common"]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -30,22 +33,23 @@ export function MainShell({ children }: PropsWithChildren) {
                 </div>
                 <div>
                   <p className="text-lg font-bold">Fluxo</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">Tenant workspace</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">{t("shell:workspace")}</p>
                 </div>
               </div>
             </Link>
           </div>
 
           <div className="flex items-center gap-4">
-            <ThemeToggle label="Mode sombre" size="md" />
+            <LanguageSwitcher />
+            <ThemeToggle label={t("common:theme.darkMode")} size="md" />
             <div className="text-right">
-              <p className="font-semibold">{session?.company?.name ?? "No tenant connected"}</p>
+              <p className="font-semibold">{session?.company?.name ?? t("shell:noTenant")}</p>
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 {session
-                  ? `${session.plan.name} - ${session.modules.length} module(s)`
+                  ? t("shell:modulesCount", { planName: session.plan.name, count: session.modules.length })
                   : hasStoredKey
-                    ? "Stored key waiting for validation"
-                    : "Connect an access key"}
+                    ? t("shell:storedKeyWaiting")
+                    : t("shell:connectAccessKey")}
               </p>
             </div>
           </div>

@@ -1,0 +1,8 @@
+{
+  "availableTitle": "Mise a jour v{{version}} disponible",
+  "downloadingDescription": "Telechargement des nouveaux composants de Fluxo...",
+  "availableDescription": "Une nouvelle version stable est prete a etre installee.",
+  "installing": "Installation en cours...",
+  "updateNow": "Mettre a jour maintenant",
+  "checkFailed": "Echec de la verification de mise a jour."
+}

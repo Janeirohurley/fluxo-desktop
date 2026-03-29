@@ -1,0 +1,7 @@
+{
+  "workspace": "Espace tenant",
+  "noTenant": "Aucun tenant connecte",
+  "storedKeyWaiting": "Cle locale en attente de verification",
+  "connectAccessKey": "Connectez une cle d'acces",
+  "modulesCount": "{{planName}} - {{count}} module(s)"
+}

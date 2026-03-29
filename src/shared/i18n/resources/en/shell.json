@@ -1,0 +1,7 @@
+{
+  "workspace": "Tenant workspace",
+  "noTenant": "No tenant connected",
+  "storedKeyWaiting": "Stored key waiting for validation",
+  "connectAccessKey": "Connect an access key",
+  "modulesCount": "{{planName}} - {{count}} module(s)"
+}

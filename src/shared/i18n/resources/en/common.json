@@ -1,0 +1,22 @@
+{
+  "actions": {
+    "refresh": "Refresh",
+    "retryNow": "Retry now",
+    "disconnect": "Disconnect",
+    "configureLater": "Configure later"
+  },
+  "languages": {
+    "fr": "FR",
+    "en": "EN",
+    "switcherLabel": "Language"
+  },
+  "theme": {
+    "darkMode": "Dark mode"
+  },
+  "status": {
+    "loading": "Loading..."
+  },
+  "errors": {
+    "unexpected": "An unexpected error occurred."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "actions": {
+    "refresh": "Actualiser",
+    "retryNow": "Reessayer maintenant",
+    "disconnect": "Deconnecter",
+    "configureLater": "Configurer plus tard"
+  },
+  "languages": {
+    "fr": "FR",
+    "en": "EN",
+    "switcherLabel": "Langue"
+  },
+  "theme": {
+    "darkMode": "Mode sombre"
+  },
+  "status": {
+    "loading": "Chargement..."
+  },
+  "errors": {
+    "unexpected": "Une erreur inattendue est survenue."
+  }
+}

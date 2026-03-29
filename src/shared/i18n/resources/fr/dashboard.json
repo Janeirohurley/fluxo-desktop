@@ -1,0 +1,4 @@
+{
+  "welcome": "Bienvenue sur Fluxo {{companyName}}",
+  "fallbackCompany": "votre entreprise"
+}
