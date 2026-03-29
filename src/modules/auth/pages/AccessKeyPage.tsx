@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
@@ -7,6 +8,7 @@ import { getAuthErrorMessage, validateAccessKey } from "@/modules/auth/api/auth.
 import { TenantSummaryCard } from "@/modules/auth/components/TenantSummaryCard";
 import { authQueryKeys, useAccessSession, useStoredAccessKey } from "@/modules/auth/hooks/useAccessSession";
 import appIcon from "@/assets/app-icon.png";
+import { LanguageSwitcher } from "@/shared/components/LanguageSwitcher";
 import { clearStoredAccessKey, setStoredAccessKey } from "@/shared/lib/access-key-storage";
 import { hasStoredLocalAppLock, saveLocalAppLock } from "@/shared/lib/local-app-lock";
 import { Alert, Button, Card, Field, Spinner, ThemeToggle } from "@/shared/ui";
@@ -16,6 +18,7 @@ export function AccessKeyPage() {
   const navigate = useNavigate();
   const storedAccessKey = useStoredAccessKey();
   const { data: session, isLoading, isError, error, refetch } = useAccessSession();
+  const { t } = useTranslation(["auth", "common"]);
   const [accessKey, setAccessKey] = useState(() => storedAccessKey ?? "");
   const [validatedAccessKey, setValidatedAccessKey] = useState<string | null>(null);
   const [localPassword, setLocalPassword] = useState("");
@@ -33,8 +36,10 @@ export function AccessKeyPage() {
       if (hasLocalPassword) {
         setStoredAccessKey(rawKey);
         await queryClient.invalidateQueries({ queryKey: authQueryKeys.session });
-        toast.success("Espace de travail connecte", {
-          description: `${validatedSession.company?.name ?? validatedSession.plan.name} est maintenant pret dans Fluxo.`,
+        toast.success(t("auth:messages.workspaceConnectedTitle"), {
+          description: t("auth:messages.workspaceConnectedDescription", {
+            name: validatedSession.company?.name ?? validatedSession.plan.name,
+          }),
         });
         navigate({ to: "/" });
         return;
@@ -44,7 +49,7 @@ export function AccessKeyPage() {
       setStepError(null);
     },
     onError: (mutationError) => {
-      toast.error("Cle d'acces refusee", {
+      toast.error(t("auth:messages.keyRejectedTitle"), {
         description: getAuthErrorMessage(mutationError),
       });
     },
@@ -52,8 +57,8 @@ export function AccessKeyPage() {
 
   const handleSave = async () => {
     if (!accessKey.trim()) {
-      toast.warning("Cle d'acces requise", {
-        description: "Collez la cle entreprise generee apres validation de l'abonnement.",
+      toast.warning(t("auth:messages.accessKeyRequiredTitle"), {
+        description: t("auth:messages.accessKeyRequiredDescription"),
       });
       return;
     }
@@ -68,8 +73,8 @@ export function AccessKeyPage() {
     setLocalPassword("");
     setConfirmLocalPassword("");
     setStepError(null);
-    toast("Cle d'acces supprimee", {
-      description: "La session tenant locale a ete retiree de cet appareil.",
+    toast(t("auth:messages.localKeyRemovedTitle"), {
+      description: t("auth:messages.localKeyRemovedDescription"),
     });
   };
 
@@ -80,27 +85,27 @@ export function AccessKeyPage() {
 
     setStoredAccessKey(validatedAccessKey);
     await queryClient.invalidateQueries({ queryKey: authQueryKeys.session });
-    toast.success("Espace de travail connecte", {
-      description: "Votre espace tenant est maintenant pret dans Fluxo.",
+    toast.success(t("auth:messages.workspaceConnectedTitle"), {
+      description: t("auth:messages.workspaceConnectedDefault"),
     });
     navigate({ to: "/" });
   };
 
   const handleConfigureLocalPassword = async () => {
     if (localPassword.trim().length < 4) {
-      setStepError("Utilisez au moins 4 caracteres pour le mot de passe local.");
+      setStepError(t("auth:validation.localPasswordMinLength"));
       return;
     }
 
     if (localPassword !== confirmLocalPassword) {
-      setStepError("La confirmation du mot de passe local ne correspond pas.");
+      setStepError(t("auth:validation.localPasswordMismatch"));
       return;
     }
 
     setStepError(null);
     await saveLocalAppLock(localPassword);
-    toast.success("Verrouillage local active", {
-      description: "Cet appareil demandera maintenant votre mot de passe local apres inactivite.",
+    toast.success(t("auth:messages.localLockEnabledTitle"), {
+      description: t("auth:messages.localLockEnabledDescription"),
     });
     await finalizeAccess();
   };
@@ -109,9 +114,10 @@ export function AccessKeyPage() {
 
   return (
     <div className="mx-auto grid w-full max-w-md gap-6">
-      <div className="flex justify-center">
+      <div className="flex items-center justify-center gap-3">
+        <LanguageSwitcher />
         <div className="rounded-full border border-slate-200 bg-white/80 px-4 py-2 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-950/80">
-          <ThemeToggle label="Mode sombre" size="md" />
+          <ThemeToggle label={t("common:theme.darkMode")} size="md" />
         </div>
       </div>
 
@@ -120,11 +126,9 @@ export function AccessKeyPage() {
           <img src={appIcon} alt="Fluxo" className="h-full w-full object-cover" />
         </div>
         <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
-          Accès Sécurisé ERP
+          {t("auth:page.title")}
         </h1>
-        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-          Authentification multi-tenant requise
-        </p>
+        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{t("auth:page.subtitle")}</p>
       </div>
 
       <div className="flex items-center justify-center">
@@ -142,23 +146,21 @@ export function AccessKeyPage() {
               <KeyRound className="h-7 w-7" />
             </div>
             <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
-              {isSetupStep ? "Protection locale" : "Cle d'entreprise"}
+              {isSetupStep ? t("auth:steps.localProtection") : t("auth:steps.accessKey")}
             </h2>
             <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-              {isSetupStep
-                ? "Ajoutez un mot de passe local pour verrouiller l'application apres inactivite. Cette etape reste facultative."
-                : "Saisissez votre identifiant tenant pour acceder au systeme"}
+              {isSetupStep ? t("auth:descriptions.localProtection") : t("auth:descriptions.accessKey")}
             </p>
           </div>
 
           {isError ? (
-            <Alert tone="danger" title="Cle invalide" icon={<ShieldCheck className="h-4 w-4" />}>
+            <Alert tone="danger" title={t("auth:alerts.invalidKey")} icon={<ShieldCheck className="h-4 w-4" />}>
               {getAuthErrorMessage(error)}
             </Alert>
           ) : null}
 
           {stepError ? (
-            <Alert tone="warning" title="Verification requise" icon={<ShieldCheck className="h-4 w-4" />}>
+            <Alert tone="warning" title={t("auth:alerts.verificationRequired")} icon={<ShieldCheck className="h-4 w-4" />}>
               {stepError}
             </Alert>
           ) : null}
@@ -167,27 +169,27 @@ export function AccessKeyPage() {
             <div className="grid gap-4">
               <Field
                 type="password"
-                label="Mot de passe local"
-                hint="Il sera demande pour deverrouiller l'application sur ce poste."
-                placeholder="Entrez un mot de passe local"
+                label={t("auth:fields.localPassword")}
+                hint={t("auth:fields.localPasswordHint")}
+                placeholder={t("auth:fields.localPasswordPlaceholder")}
                 value={localPassword}
                 onChange={(event) => setLocalPassword(event.currentTarget.value)}
               />
 
               <Field
                 type="password"
-                label="Confirmer le mot de passe"
-                placeholder="Confirmez le mot de passe local"
+                label={t("auth:fields.confirmLocalPassword")}
+                placeholder={t("auth:fields.confirmLocalPasswordPlaceholder")}
                 value={confirmLocalPassword}
                 onChange={(event) => setConfirmLocalPassword(event.currentTarget.value)}
               />
 
               <div className="grid gap-3">
                 <Button size="sm" leftIcon={<Lock className="h-4 w-4" />} onClick={() => void handleConfigureLocalPassword()}>
-                  Ajouter un mot de passe local
+                  {t("auth:actions.addLocalPassword")}
                 </Button>
                 <Button size="sm" variant="secondary" onClick={() => void finalizeAccess()}>
-                  Configurer plus tard
+                  {t("common:actions.configureLater")}
                 </Button>
               </div>
             </div>
@@ -195,9 +197,9 @@ export function AccessKeyPage() {
             <div className="grid gap-4">
               <Field
                 type="password"
-                label="Identifiant tenant"
-                hint="Exemple : flx_live_..."
-                placeholder="FLUX-XXX-XXXX"
+                label={t("auth:fields.tenantId")}
+                hint={t("auth:fields.tenantHint")}
+                placeholder={t("auth:fields.tenantPlaceholder")}
                 value={accessKey}
                 onChange={(event) => setAccessKey(event.currentTarget.value)}
               />
@@ -208,7 +210,7 @@ export function AccessKeyPage() {
                 onClick={() => void handleSave()}
                 disabled={saveAccessKeyMutation.isPending}
               >
-                Valider le tenant
+                {t("auth:actions.validateTenant")}
               </Button>
             </div>
           )}
@@ -217,26 +219,22 @@ export function AccessKeyPage() {
         <div className="border-t border-slate-200 bg-slate-50 px-8 py-4 dark:border-slate-800 dark:bg-slate-900/70">
           <div className="flex items-center justify-center gap-2 text-xs text-slate-500 dark:text-slate-400">
             <ShieldCheck className="h-3.5 w-3.5" />
-            <span>
-              {isSetupStep
-                ? "Protection locale optionnelle - Verrouillage automatique - Donnees toujours masquees"
-                : "Connexion securisee - Tenant isole - Audit de securite"}
-            </span>
+            <span>{isSetupStep ? t("auth:trust.localProtection") : t("auth:trust.connected")}</span>
           </div>
         </div>
       </Card>
 
       <div className="grid grid-cols-3 gap-3">
-        <TrustCard icon={<ShieldCheck className="h-4 w-4" />} label="Protection avancee" />
-        <TrustCard icon={<Server className="h-4 w-4" />} label="Infrastructure dediee" />
-        <TrustCard icon={<Building2 className="h-4 w-4" />} label="Acces entreprise" />
+        <TrustCard icon={<ShieldCheck className="h-4 w-4" />} label={t("auth:trust.advancedProtection")} />
+        <TrustCard icon={<Server className="h-4 w-4" />} label={t("auth:trust.dedicatedInfrastructure")} />
+        <TrustCard icon={<Building2 className="h-4 w-4" />} label={t("auth:trust.enterpriseAccess")} />
       </div>
 
       {isLoading ? (
         <Card className="p-6">
           <div className="flex items-center gap-3">
             <Spinner className="text-emerald-500" />
-            <p>Verification de la session en cours...</p>
+            <p>{t("auth:messages.sessionChecking")}</p>
           </div>
         </Card>
       ) : null}
@@ -246,16 +244,16 @@ export function AccessKeyPage() {
           <TenantSummaryCard session={session} />
           <div className="flex flex-wrap items-center gap-4">
             <Button variant="secondary" onClick={() => void refetch()}>
-              Actualiser la session tenant
+              {t("auth:actions.refreshSession")}
             </Button>
             <Button variant="secondary" leftIcon={<Trash2 className="h-4 w-4" />} onClick={handleDisconnect}>
-              Supprimer la cle locale
+              {t("auth:actions.removeLocalKey")}
             </Button>
             <p className="w-full text-sm text-slate-500 dark:text-slate-400">
-              Prefixe de cle : {session.keyPrefix}
+              {t("auth:messages.sessionPrefix", { prefix: session.keyPrefix })}
               {session.expiresAt
-                ? ` - expire le ${new Date(session.expiresAt).toLocaleString()}`
-                : " - sans expiration"}
+                ? t("auth:messages.sessionExpires", { date: new Date(session.expiresAt).toLocaleString() })
+                : t("auth:messages.sessionNoExpiration")}
             </p>
           </div>
         </div>

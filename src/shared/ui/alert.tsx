@@ -17,7 +17,7 @@ type AlertProps = HTMLAttributes<HTMLDivElement> & {
 
 export function Alert({ className, tone = "info", title, icon, children, ...props }: AlertProps) {
   return (
-    <div className={cn("rounded-xl border p-4 text-sm", toneClasses[tone], className)} {...props}>
+    <div className={cn("rounded-md border p-4 text-sm", toneClasses[tone], className)} {...props}>
       <div className="flex items-start gap-3">
         {icon ? <div className="mt-0.5 shrink-0">{icon}</div> : null}
         <div className="min-w-0">

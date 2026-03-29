@@ -1,0 +1,49 @@
+{
+  "title": "Assets",
+  "description": "Company asset view with search, sorting, category and status filters, then detailed reading inside the table.",
+  "stats": {
+    "totalAssets": "Total assets",
+    "withFinance": "With finance",
+    "assigned": "Assigned",
+    "maintenance": "In maintenance"
+  },
+  "table": {
+    "inventoryCode": "Inventory code",
+    "name": "Name",
+    "category": "Category",
+    "status": "Status",
+    "brand": "Brand",
+    "model": "Model",
+    "serialNumber": "Serial number",
+    "purchaseValue": "Purchase value",
+    "assignmentCount": "Assignments",
+    "maintenanceCount": "Maintenance",
+    "updatedAt": "Updated at",
+    "na": "N/A",
+    "loadError": "Unable to load assets."
+  },
+  "create": {
+    "title": "Add an asset",
+    "description": "Create a new asset directly from the table.",
+    "inventoryCode": "Inventory code",
+    "name": "Name",
+    "brand": "Brand",
+    "model": "Model",
+    "serialNumber": "Serial number",
+    "category": "Category",
+    "status": "Status",
+    "categoryPlaceholder": "Choose a category",
+    "statusPlaceholder": "Choose a status",
+    "cancel": "Cancel",
+    "submit": "Add asset",
+    "submitting": "Creating...",
+    "validationError": "Please fill in the required asset fields.",
+    "success": "Asset created successfully.",
+    "error": "Unable to create the asset."
+  },
+  "actions": {
+    "updateError": "Unable to update this asset.",
+    "deleteSuccess": "Asset deleted successfully.",
+    "deleteError": "Unable to delete this asset."
+  }
+}

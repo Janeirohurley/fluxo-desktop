@@ -1,0 +1,48 @@
+{
+  "fallbackCompany": "votre entreprise",
+  "badge": "Vue d'ensemble dynamique",
+  "heroTitle": "Bienvenue sur Fluxo {{companyName}}",
+  "heroDescription": "Retrouvez l'etat global de votre tenant, les modules actifs, les indicateurs disponibles et les signaux transverses remontes par le backend.",
+  "planLabel": "Plan actif",
+  "keyPrefixLabel": "Prefixe de cle",
+  "loadingTitle": "Chargement de l'overview",
+  "loadingDescription": "Fluxo recupere les indicateurs dynamiques de votre entreprise.",
+  "errorTitle": "Overview indisponible",
+  "errorDescription": "Le backend n'a pas pu fournir la vue d'ensemble dynamique pour le moment.",
+  "retryAction": "Recharger l'overview",
+  "summary": {
+    "activeModules": "Modules actifs",
+    "readyModules": "Modules prets",
+    "insights": "Insights",
+    "criticalInsights": "Insights critiques"
+  },
+  "crossModuleTitle": "Lecture transverse",
+  "crossModuleDescription": "Cette section combine les signaux venant de plusieurs modules pour donner une lecture globale de l'entreprise.",
+  "crossModuleEnabled": "Analyse croisee active",
+  "crossModuleDisabled": "Analyse croisee inactive",
+  "crossModuleInsights": "Insights transverses",
+  "filters": {
+    "title": "Filtrage de l'overview",
+    "allModules": "Tous les modules",
+    "moduleLabel": "Module a analyser",
+    "modulePlaceholder": "Choisir un module",
+    "moduleSearch": "Rechercher un module",
+    "hideEmpty": "Masquer les modules vides",
+    "visibleModules": "{{count}} modules visibles",
+    "generatedAt": "Derniere generation",
+    "periodAll": "Tout",
+    "periodValue": "{{count}} periodes"
+  },
+  "focus": {
+    "titleGlobal": "Cockpit analytique global",
+    "titleModule": "Cockpit analytique du module {{module}}",
+    "descriptionGlobal": "Fluxo met en avant ici les courbes, les tendances et les indicateurs les plus utiles pour lire rapidement la situation de l'entreprise.",
+    "noCharts": "Aucun graphique detaille n'est disponible pour cette selection.",
+    "moduleInsights": "Insights du module",
+    "selectedMetric": "KPI selectionne",
+    "periodAll": "Lecture complete",
+    "periodValue": "Lecture sur {{count}} periodes"
+  },
+  "noCrossModuleKpis": "Aucun KPI transverse disponible pour le moment.",
+  "noInsights": "Aucun insight a afficher pour le moment."
+}
