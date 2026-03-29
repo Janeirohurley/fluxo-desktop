@@ -1,6 +1,17 @@
 # Changelog
 
 This file records all notable changes made to the project.
+### [0.1.13](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.12...v0.1.13) (2026-03-29)
+
+
+### Features
+
+* add DataTableInput component and Sidebar component with navigation functionality ([ffb6cec](https://github.com/Janeirohurley/fluxo-desktop/commit/ffb6ceca4a7b025d1cc1d030dd5b8afc0c0027ba))
+* **assets:** implement asset management features including CRUD operations, API integration, and internationalization support ([848eb0b](https://github.com/Janeirohurley/fluxo-desktop/commit/848eb0b2eda369bf794ac9e20ae8a09366d62b7c))
+* **dashboard:** enhance dashboard overview with new components and API integration ([1a396e4](https://github.com/Janeirohurley/fluxo-desktop/commit/1a396e4ecd2567f5ec5fe9803f3f8a1998280090))
+* **dashboard:** enhance ModuleOverviewCard and OverviewChartPanel with new metrics and period filtering ([2ba1f39](https://github.com/Janeirohurley/fluxo-desktop/commit/2ba1f394d41b0077ba74c1df8a88703af049564d))
+* **i18n:** implement multi-language support with French and English translations ([7ba9056](https://github.com/Janeirohurley/fluxo-desktop/commit/7ba9056d8f104f16e7a86aef8111c92e7e3009a5))
+
 ### [0.1.12](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.11...v0.1.12) (2026-03-28)
 
 
