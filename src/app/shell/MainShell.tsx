@@ -1,5 +1,6 @@
-import {type PropsWithChildren } from "react";
-import { LayoutDashboard, LucideIcon} from "lucide-react";
+import { type PropsWithChildren } from "react";
+import { Box, LayoutDashboard, LucideIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useAccessSession } from "@/modules/auth/hooks/useAccessSession";
 
 import { Sidebar } from "@/shared/ui/Sidebar";
@@ -19,10 +20,13 @@ export interface NavItem {
 export function MainShell({ children }: PropsWithChildren) {
   const { data: session } = useAccessSession();
   const { sidebarCollapsed } = useSidebar();
+  const { t } = useTranslation("shell");
 
-  const navItems: Array<NavItem> = [
-    { label: "Tableau de bord", to: "/", icon: LayoutDashboard },
-  ]
+  const navItems: Array<NavItem> = [{ label: t("nav.dashboard"), to: "/", icon: LayoutDashboard }];
+
+  if (session?.modules.includes("assets")) {
+    navItems.push({ label: t("nav.assets"), to: "/assets", icon: Box });
+  }
 
 
 

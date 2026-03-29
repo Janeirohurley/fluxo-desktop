@@ -1,0 +1,49 @@
+{
+  "title": "Assets",
+  "description": "Vue patrimoine de l'entreprise avec recherche, tri, filtres par categorie et statut, puis lecture detaillee dans la table.",
+  "stats": {
+    "totalAssets": "Actifs totaux",
+    "withFinance": "Avec finance",
+    "assigned": "Affectes",
+    "maintenance": "En maintenance"
+  },
+  "table": {
+    "inventoryCode": "Code inventaire",
+    "name": "Nom",
+    "category": "Categorie",
+    "status": "Statut",
+    "brand": "Marque",
+    "model": "Modele",
+    "serialNumber": "Numero de serie",
+    "purchaseValue": "Valeur d'achat",
+    "assignmentCount": "Affectations",
+    "maintenanceCount": "Maintenances",
+    "updatedAt": "Mise a jour",
+    "na": "N/A",
+    "loadError": "Impossible de charger les assets."
+  },
+  "create": {
+    "title": "Ajouter un asset",
+    "description": "Creez un nouvel asset directement depuis la table.",
+    "inventoryCode": "Code inventaire",
+    "name": "Nom",
+    "brand": "Marque",
+    "model": "Modele",
+    "serialNumber": "Numero de serie",
+    "category": "Categorie",
+    "status": "Statut",
+    "categoryPlaceholder": "Choisir une categorie",
+    "statusPlaceholder": "Choisir un statut",
+    "cancel": "Annuler",
+    "submit": "Ajouter l'asset",
+    "submitting": "Creation...",
+    "validationError": "Veuillez remplir les champs obligatoires de l'asset.",
+    "success": "Asset cree avec succes.",
+    "error": "Impossible de creer l'asset."
+  },
+  "actions": {
+    "updateError": "Impossible de mettre a jour cet asset.",
+    "deleteSuccess": "Asset supprime avec succes.",
+    "deleteError": "Impossible de supprimer cet asset."
+  }
+}

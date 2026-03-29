@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AssetsIndexRouteImport } from './routes/assets/index'
 import { Route as AuthAccessKeyRouteImport } from './routes/auth/access-key'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssetsIndexRoute = AssetsIndexRouteImport.update({
+  id: '/assets/',
+  path: '/assets/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthAccessKeyRoute = AuthAccessKeyRouteImport.update({
@@ -26,27 +32,31 @@ const AuthAccessKeyRoute = AuthAccessKeyRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth/access-key': typeof AuthAccessKeyRoute
+  '/assets/': typeof AssetsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth/access-key': typeof AuthAccessKeyRoute
+  '/assets': typeof AssetsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth/access-key': typeof AuthAccessKeyRoute
+  '/assets/': typeof AssetsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth/access-key'
+  fullPaths: '/' | '/auth/access-key' | '/assets/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth/access-key'
-  id: '__root__' | '/' | '/auth/access-key'
+  to: '/' | '/auth/access-key' | '/assets'
+  id: '__root__' | '/' | '/auth/access-key' | '/assets/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthAccessKeyRoute: typeof AuthAccessKeyRoute
+  AssetsIndexRoute: typeof AssetsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assets/': {
+      id: '/assets/'
+      path: '/assets'
+      fullPath: '/assets/'
+      preLoaderRoute: typeof AssetsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/access-key': {
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthAccessKeyRoute: AuthAccessKeyRoute,
+  AssetsIndexRoute: AssetsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
