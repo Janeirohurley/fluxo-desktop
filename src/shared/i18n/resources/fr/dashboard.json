@@ -29,14 +29,19 @@
     "moduleSearch": "Rechercher un module",
     "hideEmpty": "Masquer les modules vides",
     "visibleModules": "{{count}} modules visibles",
-    "generatedAt": "Derniere generation"
+    "generatedAt": "Derniere generation",
+    "periodAll": "Tout",
+    "periodValue": "{{count}} periodes"
   },
   "focus": {
     "titleGlobal": "Cockpit analytique global",
     "titleModule": "Cockpit analytique du module {{module}}",
     "descriptionGlobal": "Fluxo met en avant ici les courbes, les tendances et les indicateurs les plus utiles pour lire rapidement la situation de l'entreprise.",
     "noCharts": "Aucun graphique detaille n'est disponible pour cette selection.",
-    "moduleInsights": "Insights du module"
+    "moduleInsights": "Insights du module",
+    "selectedMetric": "KPI selectionne",
+    "periodAll": "Lecture complete",
+    "periodValue": "Lecture sur {{count}} periodes"
   },
   "noCrossModuleKpis": "Aucun KPI transverse disponible pour le moment.",
   "noInsights": "Aucun insight a afficher pour le moment."

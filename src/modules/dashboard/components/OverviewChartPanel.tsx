@@ -4,6 +4,8 @@ import { formatMetricLabel, formatMetricValue } from "./dashboard.utils";
 type OverviewChartPanelProps = {
   title: string;
   chartData: unknown;
+  accentColor?: string;
+  subtitle?: string;
 };
 
 type SeriesPoint = {
@@ -74,7 +76,7 @@ function buildLinePath(values: number[], width: number, height: number, maxValue
     .join(" ");
 }
 
-function renderLineChart(title: string, points: SeriesPoint[]) {
+function renderLineChart(title: string, points: SeriesPoint[], accentColor?: string, subtitle?: string) {
   const seriesKeys = Array.from(new Set(points.flatMap((point) => Object.keys(point.values)))).slice(0, 4);
 
   if (seriesKeys.length === 0) {
@@ -91,7 +93,7 @@ function renderLineChart(title: string, points: SeriesPoint[]) {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-sm font-semibold text-slate-900 dark:text-white">{title}</p>
-          <p className="text-xs text-slate-500 dark:text-slate-400">Lecture de tendance</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">{subtitle ?? "Lecture de tendance"}</p>
         </div>
         <div className="flex flex-wrap gap-2">
           {seriesKeys.map((key, index) => (
@@ -134,7 +136,7 @@ function renderLineChart(title: string, points: SeriesPoint[]) {
                 <path
                   d={path}
                   fill="none"
-                  stroke={chartPalette[index % chartPalette.length]}
+                  stroke={index === 0 && accentColor ? accentColor : chartPalette[index % chartPalette.length]}
                   strokeWidth="3"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -149,7 +151,7 @@ function renderLineChart(title: string, points: SeriesPoint[]) {
                       cx={x}
                       cy={y}
                       r="4"
-                      fill={chartPalette[index % chartPalette.length]}
+                      fill={index === 0 && accentColor ? accentColor : chartPalette[index % chartPalette.length]}
                       stroke="white"
                       strokeWidth="2"
                     />
@@ -172,7 +174,7 @@ function renderLineChart(title: string, points: SeriesPoint[]) {
   );
 }
 
-function renderBarChart(title: string, points: SeriesPoint[]) {
+function renderBarChart(title: string, points: SeriesPoint[], accentColor?: string, subtitle?: string) {
   const firstSeriesKey = Object.keys(points[0]?.values ?? {})[0];
 
   if (!firstSeriesKey) {
@@ -185,7 +187,7 @@ function renderBarChart(title: string, points: SeriesPoint[]) {
     <Card className="grid gap-4 p-5">
       <div>
         <p className="text-sm font-semibold text-slate-900 dark:text-white">{title}</p>
-        <p className="text-xs text-slate-500 dark:text-slate-400">{formatMetricLabel(firstSeriesKey)}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">{subtitle ?? formatMetricLabel(firstSeriesKey)}</p>
       </div>
 
       <div className="grid gap-3">
@@ -201,8 +203,13 @@ function renderBarChart(title: string, points: SeriesPoint[]) {
               </div>
               <div className="h-2.5 rounded-full bg-slate-200 dark:bg-slate-800">
                 <div
-                  className="h-2.5 rounded-full bg-[linear-gradient(90deg,#1d417a,#10b981)]"
-                  style={{ width: `${ratio}%` }}
+                  className="h-2.5 rounded-full"
+                  style={{
+                    width: `${ratio}%`,
+                    background: accentColor
+                      ? `linear-gradient(90deg, ${accentColor}, #10b981)`
+                      : "linear-gradient(90deg,#1d417a,#10b981)",
+                  }}
                 />
               </div>
             </div>
@@ -213,7 +220,7 @@ function renderBarChart(title: string, points: SeriesPoint[]) {
   );
 }
 
-function renderMetricObject(title: string, data: unknown) {
+function renderMetricObject(title: string, data: unknown, subtitle?: string) {
   const metrics = extractObjectMetrics(data);
 
   if (metrics.length === 0) {
@@ -224,7 +231,7 @@ function renderMetricObject(title: string, data: unknown) {
     <Card className="grid gap-4 p-5">
       <div>
         <p className="text-sm font-semibold text-slate-900 dark:text-white">{title}</p>
-        <p className="text-xs text-slate-500 dark:text-slate-400">Synthese du graphique</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">{subtitle ?? "Synthese du graphique"}</p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
@@ -241,18 +248,18 @@ function renderMetricObject(title: string, data: unknown) {
   );
 }
 
-export function OverviewChartPanel({ title, chartData }: OverviewChartPanelProps) {
+export function OverviewChartPanel({ title, chartData, accentColor, subtitle }: OverviewChartPanelProps) {
   const points = extractSeriesPoints(chartData);
 
   if (points.length > 0) {
     const seriesCount = Array.from(new Set(points.flatMap((point) => Object.keys(point.values)))).length;
 
     if (seriesCount > 1 || points.length >= 6) {
-      return renderLineChart(title, points);
+      return renderLineChart(title, points, accentColor, subtitle);
     }
 
-    return renderBarChart(title, points);
+    return renderBarChart(title, points, accentColor, subtitle);
   }
 
-  return renderMetricObject(title, chartData);
+  return renderMetricObject(title, chartData, subtitle);
 }
