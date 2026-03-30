@@ -46,6 +46,76 @@
     "deleteSuccess": "Asset deleted successfully.",
     "deleteError": "Unable to delete this asset."
   },
+  "references": {
+    "open": "Manage references",
+    "back": "Back to assets",
+    "title": "Asset references",
+    "description": "Manage the categories, statuses and intervention types used by your asset workflows, still through the same reusable table engine.",
+    "stats": {
+      "categories": "Categories",
+      "statuses": "Statuses",
+      "interventionTypes": "Intervention types"
+    },
+    "table": {
+      "name": "Name",
+      "createdAt": "Created at",
+      "updatedAt": "Updated at",
+      "loadError": "Unable to load this reference."
+    },
+    "form": {
+      "name": "Name",
+      "cancel": "Cancel",
+      "submit": "Add",
+      "submitting": "Creating..."
+    },
+    "sections": {
+      "categories": {
+        "title": "Categories",
+        "description": "Classify assets by business or operational families.",
+        "createTitle": "Add a category",
+        "createDescription": "Add a new asset category so it can be reused in your forms and in the main assets table.",
+        "namePlaceholder": "Example: Network, Furniture, Vehicle",
+        "createValidationError": "Please provide a category name.",
+        "createSuccess": "Category created successfully.",
+        "createError": "Unable to create this category.",
+        "updateValidationError": "Category name cannot be empty.",
+        "updateSuccess": "Category updated successfully.",
+        "updateError": "Unable to update this category.",
+        "deleteSuccess": "Category deleted successfully.",
+        "deleteError": "Unable to delete this category."
+      },
+      "statuses": {
+        "title": "Statuses",
+        "description": "Define the lifecycle states available for your assets.",
+        "createTitle": "Add a status",
+        "createDescription": "Add a new asset status for your management flows and asset health tracking.",
+        "namePlaceholder": "Example: In service, Out of service",
+        "createValidationError": "Please provide a status name.",
+        "createSuccess": "Status created successfully.",
+        "createError": "Unable to create this status.",
+        "updateValidationError": "Status name cannot be empty.",
+        "updateSuccess": "Status updated successfully.",
+        "updateError": "Unable to update this status.",
+        "deleteSuccess": "Status deleted successfully.",
+        "deleteError": "Unable to delete this status."
+      },
+      "interventionTypes": {
+        "title": "Intervention types",
+        "description": "Structure the maintenance and technical intervention types available to your teams.",
+        "createTitle": "Add an intervention type",
+        "createDescription": "Add an intervention type that can then be reused in asset maintenance logs.",
+        "namePlaceholder": "Example: Inspection, Repair, Preventive",
+        "createValidationError": "Please provide an intervention type name.",
+        "createSuccess": "Intervention type created successfully.",
+        "createError": "Unable to create this intervention type.",
+        "updateValidationError": "Intervention type name cannot be empty.",
+        "updateSuccess": "Intervention type updated successfully.",
+        "updateError": "Unable to update this intervention type.",
+        "deleteSuccess": "Intervention type deleted successfully.",
+        "deleteError": "Unable to delete this intervention type."
+      }
+    }
+  },
   "detail": {
     "back": "Back to assets",
     "loadingTitle": "Loading asset",
@@ -57,6 +127,19 @@
       "configured": "Configured",
       "missing": "Missing",
       "ongoing": "Ongoing"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "cancelEdit": "Cancel edit"
+    },
+    "exports": {
+      "snapshot": "Export snapshot",
+      "assignments": "Export assignments",
+      "maintenance": "Export maintenance",
+      "snapshotSuccess": "Asset snapshot exported.",
+      "assignmentsSuccess": "Assignment history exported.",
+      "maintenanceSuccess": "Maintenance history exported."
     },
     "stats": {
       "finance": "Asset finance",
@@ -104,9 +187,13 @@
       "historyTitle": "Assignment history",
       "validationError": "Please fill in the required assignment fields.",
       "submit": "Add assignment",
+      "updateSubmit": "Update assignment",
       "saving": "Creating...",
       "success": "Assignment created successfully.",
+      "updateSuccess": "Assignment updated successfully.",
       "error": "Unable to create this assignment.",
+      "deleteSuccess": "Assignment deleted successfully.",
+      "deleteError": "Unable to delete this assignment.",
       "empty": "No assignment has been recorded yet."
     },
     "maintenance": {
@@ -119,9 +206,13 @@
       "historyTitle": "Maintenance history",
       "validationError": "Please choose an intervention type.",
       "submit": "Add log",
+      "updateSubmit": "Update log",
       "saving": "Creating...",
       "success": "Maintenance log created successfully.",
+      "updateSuccess": "Maintenance log updated successfully.",
       "error": "Unable to create this maintenance log.",
+      "deleteSuccess": "Maintenance log deleted successfully.",
+      "deleteError": "Unable to delete this maintenance log.",
       "empty": "No maintenance has been recorded yet."
     }
   }

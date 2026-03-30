@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssetsIndexRouteImport } from './routes/assets/index'
 import { Route as AuthAccessKeyRouteImport } from './routes/auth/access-key'
+import { Route as AssetsReferencesRouteImport } from './routes/assets/references'
 import { Route as AssetsAssetIdRouteImport } from './routes/assets/$assetId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const AuthAccessKeyRoute = AuthAccessKeyRouteImport.update({
   path: '/auth/access-key',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AssetsReferencesRoute = AssetsReferencesRouteImport.update({
+  id: '/assets/references',
+  path: '/assets/references',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssetsAssetIdRoute = AssetsAssetIdRouteImport.update({
   id: '/assets/$assetId',
   path: '/assets/$assetId',
@@ -38,12 +44,14 @@ const AssetsAssetIdRoute = AssetsAssetIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assets/$assetId': typeof AssetsAssetIdRoute
+  '/assets/references': typeof AssetsReferencesRoute
   '/auth/access-key': typeof AuthAccessKeyRoute
   '/assets/': typeof AssetsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assets/$assetId': typeof AssetsAssetIdRoute
+  '/assets/references': typeof AssetsReferencesRoute
   '/auth/access-key': typeof AuthAccessKeyRoute
   '/assets': typeof AssetsIndexRoute
 }
@@ -51,20 +59,38 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/assets/$assetId': typeof AssetsAssetIdRoute
+  '/assets/references': typeof AssetsReferencesRoute
   '/auth/access-key': typeof AuthAccessKeyRoute
   '/assets/': typeof AssetsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/assets/$assetId' | '/auth/access-key' | '/assets/'
+  fullPaths:
+    | '/'
+    | '/assets/$assetId'
+    | '/assets/references'
+    | '/auth/access-key'
+    | '/assets/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/assets/$assetId' | '/auth/access-key' | '/assets'
-  id: '__root__' | '/' | '/assets/$assetId' | '/auth/access-key' | '/assets/'
+  to:
+    | '/'
+    | '/assets/$assetId'
+    | '/assets/references'
+    | '/auth/access-key'
+    | '/assets'
+  id:
+    | '__root__'
+    | '/'
+    | '/assets/$assetId'
+    | '/assets/references'
+    | '/auth/access-key'
+    | '/assets/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AssetsAssetIdRoute: typeof AssetsAssetIdRoute
+  AssetsReferencesRoute: typeof AssetsReferencesRoute
   AuthAccessKeyRoute: typeof AuthAccessKeyRoute
   AssetsIndexRoute: typeof AssetsIndexRoute
 }
@@ -92,6 +118,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAccessKeyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/assets/references': {
+      id: '/assets/references'
+      path: '/assets/references'
+      fullPath: '/assets/references'
+      preLoaderRoute: typeof AssetsReferencesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assets/$assetId': {
       id: '/assets/$assetId'
       path: '/assets/$assetId'
@@ -105,6 +138,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AssetsAssetIdRoute: AssetsAssetIdRoute,
+  AssetsReferencesRoute: AssetsReferencesRoute,
   AuthAccessKeyRoute: AuthAccessKeyRoute,
   AssetsIndexRoute: AssetsIndexRoute,
 }

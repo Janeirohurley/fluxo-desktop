@@ -1,13 +1,32 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { ArrowLeft, Boxes, CircleDollarSign, ShieldCheck, Wrench } from "lucide-react";
+import {
+  ArrowLeft,
+  Boxes,
+  CircleDollarSign,
+  Download,
+  Pencil,
+  RotateCcw,
+  ShieldCheck,
+  Trash2,
+  Wrench,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
   createAssetAssignment,
   createAssetMaintenanceLog,
+  deleteAssetAssignment,
+  deleteAssetMaintenanceLog,
+  updateAssetAssignment,
+  updateAssetMaintenanceLog,
   upsertAssetFinance,
 } from "@/modules/assets/api/assets.api";
+import {
+  exportAssetAssignments,
+  exportAssetMaintenance,
+  exportAssetSnapshot,
+} from "@/modules/assets/lib/assets-export";
 import {
   assetsQueryKeys,
   useAssetDetail,
@@ -62,6 +81,20 @@ function formatCurrency(value?: number | null) {
   return new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 }).format(value);
 }
 
+function resolveErrorMessage(error: unknown, fallback: string) {
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "response" in error &&
+    typeof (error as { response?: unknown }).response === "object" &&
+    (error as { response?: { data?: { message?: string } } }).response?.data?.message
+  ) {
+    return (error as { response?: { data?: { message?: string } } }).response?.data?.message ?? fallback;
+  }
+
+  return fallback;
+}
+
 export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
   const { t } = useTranslation("assets");
   const navigate = useNavigate();
@@ -70,6 +103,8 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
   const [isSavingFinance, setIsSavingFinance] = useState(false);
   const [isSavingAssignment, setIsSavingAssignment] = useState(false);
   const [isSavingMaintenance, setIsSavingMaintenance] = useState(false);
+  const [editingAssignmentId, setEditingAssignmentId] = useState<string | null>(null);
+  const [editingMaintenanceId, setEditingMaintenanceId] = useState<string | null>(null);
   const [financeForm, setFinanceForm] = useState<FinanceFormState>({
     acquisitionDate: "",
     purchaseValue: "",
@@ -112,6 +147,20 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
     [interventionTypes],
   );
 
+  const buildDefaultAssignmentForm = (): AssignmentFormState => ({
+    employeeId: employees[0]?.id ?? "",
+    locationId: locations[0]?.id ?? "",
+    startDate: "",
+    endDate: "",
+  });
+
+  const buildDefaultMaintenanceForm = (): MaintenanceFormState => ({
+    interventionTypeId: interventionTypes[0]?.id ?? "",
+    description: "",
+    interventionCost: "",
+    provider: "",
+  });
+
   useEffect(() => {
     if (!asset) {
       return;
@@ -124,19 +173,15 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
         asset.financeData?.estimatedLifeYears != null ? String(asset.financeData.estimatedLifeYears) : "",
       residualValue: asset.financeData?.residualValue != null ? String(asset.financeData.residualValue) : "",
     });
-    setAssignmentForm((prev) => ({
-      employeeId: prev.employeeId || employees[0]?.id || "",
-      locationId: prev.locationId || locations[0]?.id || "",
-      startDate: prev.startDate,
-      endDate: prev.endDate,
-    }));
-    setMaintenanceForm((prev) => ({
-      interventionTypeId: prev.interventionTypeId || interventionTypes[0]?.id || "",
-      description: prev.description,
-      interventionCost: prev.interventionCost,
-      provider: prev.provider,
-    }));
-  }, [asset, employees, locations, interventionTypes]);
+
+    if (!editingAssignmentId) {
+      setAssignmentForm(buildDefaultAssignmentForm());
+    }
+
+    if (!editingMaintenanceId) {
+      setMaintenanceForm(buildDefaultMaintenanceForm());
+    }
+  }, [asset, employees, locations, interventionTypes, editingAssignmentId, editingMaintenanceId]);
 
   const refreshAsset = async () => {
     await queryClient.invalidateQueries({ queryKey: ["assets"] });
@@ -162,13 +207,13 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
       await refreshAsset();
     } catch (error) {
       console.error(error);
-      notify.error(t("detail.finance.error"));
+      notify.error(resolveErrorMessage(error, t("detail.finance.error")));
     } finally {
       setIsSavingFinance(false);
     }
   };
 
-  const handleCreateAssignment = async () => {
+  const handleSaveAssignment = async () => {
     if (!assignmentForm.employeeId || !assignmentForm.locationId || !assignmentForm.startDate) {
       notify.error(t("detail.assignments.validationError"));
       return;
@@ -177,29 +222,53 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
     setIsSavingAssignment(true);
 
     try {
-      await createAssetAssignment(assetId, {
-        employeeId: assignmentForm.employeeId,
-        locationId: assignmentForm.locationId,
-        startDate: assignmentForm.startDate,
-        endDate: assignmentForm.endDate || undefined,
-      });
-      notify.success(t("detail.assignments.success"));
-      setAssignmentForm({
-        employeeId: employees[0]?.id ?? "",
-        locationId: locations[0]?.id ?? "",
-        startDate: "",
-        endDate: "",
-      });
+      if (editingAssignmentId) {
+        await updateAssetAssignment(assetId, editingAssignmentId, {
+          employeeId: assignmentForm.employeeId,
+          locationId: assignmentForm.locationId,
+          startDate: assignmentForm.startDate,
+          endDate: assignmentForm.endDate || undefined,
+        });
+        notify.success(t("detail.assignments.updateSuccess"));
+      } else {
+        await createAssetAssignment(assetId, {
+          employeeId: assignmentForm.employeeId,
+          locationId: assignmentForm.locationId,
+          startDate: assignmentForm.startDate,
+          endDate: assignmentForm.endDate || undefined,
+        });
+        notify.success(t("detail.assignments.success"));
+      }
+
+      setEditingAssignmentId(null);
+      setAssignmentForm(buildDefaultAssignmentForm());
       await refreshAsset();
     } catch (error) {
       console.error(error);
-      notify.error(t("detail.assignments.error"));
+      notify.error(resolveErrorMessage(error, t("detail.assignments.error")));
     } finally {
       setIsSavingAssignment(false);
     }
   };
 
-  const handleCreateMaintenance = async () => {
+  const handleDeleteAssignment = async (assignmentId: string) => {
+    try {
+      await deleteAssetAssignment(assetId, assignmentId);
+
+      if (editingAssignmentId === assignmentId) {
+        setEditingAssignmentId(null);
+        setAssignmentForm(buildDefaultAssignmentForm());
+      }
+
+      notify.success(t("detail.assignments.deleteSuccess"));
+      await refreshAsset();
+    } catch (error) {
+      console.error(error);
+      notify.error(resolveErrorMessage(error, t("detail.assignments.deleteError")));
+    }
+  };
+
+  const handleSaveMaintenance = async () => {
     if (!maintenanceForm.interventionTypeId) {
       notify.error(t("detail.maintenance.validationError"));
       return;
@@ -208,26 +277,77 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
     setIsSavingMaintenance(true);
 
     try {
-      await createAssetMaintenanceLog(assetId, {
-        interventionTypeId: maintenanceForm.interventionTypeId,
-        description: maintenanceForm.description || undefined,
-        interventionCost: maintenanceForm.interventionCost ? Number(maintenanceForm.interventionCost) : undefined,
-        provider: maintenanceForm.provider || undefined,
-      });
-      notify.success(t("detail.maintenance.success"));
-      setMaintenanceForm({
-        interventionTypeId: interventionTypes[0]?.id ?? "",
-        description: "",
-        interventionCost: "",
-        provider: "",
-      });
+      if (editingMaintenanceId) {
+        await updateAssetMaintenanceLog(assetId, editingMaintenanceId, {
+          interventionTypeId: maintenanceForm.interventionTypeId,
+          description: maintenanceForm.description || undefined,
+          interventionCost: maintenanceForm.interventionCost ? Number(maintenanceForm.interventionCost) : undefined,
+          provider: maintenanceForm.provider || undefined,
+        });
+        notify.success(t("detail.maintenance.updateSuccess"));
+      } else {
+        await createAssetMaintenanceLog(assetId, {
+          interventionTypeId: maintenanceForm.interventionTypeId,
+          description: maintenanceForm.description || undefined,
+          interventionCost: maintenanceForm.interventionCost ? Number(maintenanceForm.interventionCost) : undefined,
+          provider: maintenanceForm.provider || undefined,
+        });
+        notify.success(t("detail.maintenance.success"));
+      }
+
+      setEditingMaintenanceId(null);
+      setMaintenanceForm(buildDefaultMaintenanceForm());
       await refreshAsset();
     } catch (error) {
       console.error(error);
-      notify.error(t("detail.maintenance.error"));
+      notify.error(resolveErrorMessage(error, t("detail.maintenance.error")));
     } finally {
       setIsSavingMaintenance(false);
     }
+  };
+
+  const handleDeleteMaintenance = async (maintenanceLogId: string) => {
+    try {
+      await deleteAssetMaintenanceLog(assetId, maintenanceLogId);
+
+      if (editingMaintenanceId === maintenanceLogId) {
+        setEditingMaintenanceId(null);
+        setMaintenanceForm(buildDefaultMaintenanceForm());
+      }
+
+      notify.success(t("detail.maintenance.deleteSuccess"));
+      await refreshAsset();
+    } catch (error) {
+      console.error(error);
+      notify.error(resolveErrorMessage(error, t("detail.maintenance.deleteError")));
+    }
+  };
+
+  const handleExportSnapshot = () => {
+    if (!asset) {
+      return;
+    }
+
+    exportAssetSnapshot(asset);
+    notify.success(t("detail.exports.snapshotSuccess"));
+  };
+
+  const handleExportAssignments = () => {
+    if (!asset) {
+      return;
+    }
+
+    exportAssetAssignments(asset, employeeMap, locationMap);
+    notify.success(t("detail.exports.assignmentsSuccess"));
+  };
+
+  const handleExportMaintenance = () => {
+    if (!asset) {
+      return;
+    }
+
+    exportAssetMaintenance(asset, interventionTypeMap);
+    notify.success(t("detail.exports.maintenanceSuccess"));
   };
 
   if (assetQuery.isLoading) {
@@ -260,9 +380,12 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
 
   return (
     <section className="grid gap-6">
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <Button variant="secondary" leftIcon={<ArrowLeft className="h-4 w-4" />} onClick={() => navigate({ to: "/assets" })}>
           {t("detail.back")}
+        </Button>
+        <Button variant="secondary" leftIcon={<Download className="h-4 w-4" />} onClick={handleExportSnapshot}>
+          {t("detail.exports.snapshot")}
         </Button>
       </div>
 
@@ -285,7 +408,11 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <SummaryStatCard label={t("detail.stats.finance")} value={asset.financeData ? t("detail.labels.configured") : t("detail.labels.missing")} icon={<CircleDollarSign className="h-6 w-6" />} />
+          <SummaryStatCard
+            label={t("detail.stats.finance")}
+            value={asset.financeData ? t("detail.labels.configured") : t("detail.labels.missing")}
+            icon={<CircleDollarSign className="h-6 w-6" />}
+          />
           <SummaryStatCard label={t("detail.stats.assignments")} value={asset.assignments.length} icon={<ShieldCheck className="h-6 w-6" />} />
           <SummaryStatCard label={t("detail.stats.maintenance")} value={asset.maintenanceLogs.length} icon={<Wrench className="h-6 w-6" />} />
           <SummaryStatCard label={t("detail.stats.identity")} value={asset.serialNumber || t("table.na")} icon={<Boxes className="h-6 w-6" />} />
@@ -327,7 +454,9 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
               <div className="rounded-2xl border border-border bg-background/70 p-4">
                 <p className="text-sm font-medium text-slate-700 dark:text-slate-300">{t("detail.stats.finance")}</p>
                 <p className="mt-2 text-lg font-semibold text-slate-900 dark:text-white">
-                  {asset.financeData ? `${formatCurrency(asset.financeData.purchaseValue)} · ${formatDate(asset.financeData.acquisitionDate)}` : t("detail.labels.missing")}
+                  {asset.financeData
+                    ? `${formatCurrency(asset.financeData.purchaseValue)} · ${formatDate(asset.financeData.acquisitionDate)}`
+                    : t("detail.labels.missing")}
                 </p>
               </div>
               <div className="rounded-2xl border border-border bg-background/70 p-4">
@@ -401,7 +530,19 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
       {activeSection === "assignments" ? (
         <Card className="grid gap-6 p-6 lg:grid-cols-[1fr_1.1fr]">
           <div className="grid gap-4">
-            <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{t("detail.assignments.title")}</h2>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{t("detail.assignments.title")}</h2>
+              <Button
+                variant="secondary"
+                size="sm"
+                leftIcon={<Download className="h-4 w-4" />}
+                onClick={handleExportAssignments}
+                disabled={asset.assignments.length === 0}
+              >
+                {t("detail.exports.assignments")}
+              </Button>
+            </div>
+
             <div className="grid gap-4">
               <label className="grid gap-2">
                 <span className="text-sm font-medium text-slate-700 dark:text-slate-200">{t("detail.assignments.employee")}</span>
@@ -448,9 +589,26 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
                 onChange={(event) => setAssignmentForm((prev) => ({ ...prev, endDate: event.target.value }))}
               />
             </div>
-            <div className="flex justify-end">
-              <Button onClick={() => void handleCreateAssignment()} disabled={isSavingAssignment}>
-                {isSavingAssignment ? t("detail.assignments.saving") : t("detail.assignments.submit")}
+
+            <div className="flex justify-end gap-3">
+              {editingAssignmentId ? (
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    setEditingAssignmentId(null);
+                    setAssignmentForm(buildDefaultAssignmentForm());
+                  }}
+                  leftIcon={<RotateCcw className="h-4 w-4" />}
+                >
+                  {t("detail.actions.cancelEdit")}
+                </Button>
+              ) : null}
+              <Button onClick={() => void handleSaveAssignment()} disabled={isSavingAssignment}>
+                {isSavingAssignment
+                  ? t("detail.assignments.saving")
+                  : editingAssignmentId
+                    ? t("detail.assignments.updateSubmit")
+                    : t("detail.assignments.submit")}
               </Button>
             </div>
           </div>
@@ -477,6 +635,32 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
                         {formatDate(assignment.startDate)} - {assignment.endDate ? formatDate(assignment.endDate) : t("detail.labels.ongoing")}
                       </Badge>
                     </div>
+                    <div className="mt-4 flex justify-end gap-2">
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        leftIcon={<Pencil className="h-4 w-4" />}
+                        onClick={() => {
+                          setEditingAssignmentId(assignment.id);
+                          setAssignmentForm({
+                            employeeId: assignment.employeeId,
+                            locationId: assignment.locationId,
+                            startDate: assignment.startDate,
+                            endDate: assignment.endDate ?? "",
+                          });
+                        }}
+                      >
+                        {t("detail.actions.edit")}
+                      </Button>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        leftIcon={<Trash2 className="h-4 w-4" />}
+                        onClick={() => void handleDeleteAssignment(assignment.id)}
+                      >
+                        {t("detail.actions.delete")}
+                      </Button>
+                    </div>
                   </div>
                 );
               })
@@ -490,7 +674,19 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
       {activeSection === "maintenance" ? (
         <Card className="grid gap-6 p-6 lg:grid-cols-[1fr_1.1fr]">
           <div className="grid gap-4">
-            <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{t("detail.maintenance.title")}</h2>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{t("detail.maintenance.title")}</h2>
+              <Button
+                variant="secondary"
+                size="sm"
+                leftIcon={<Download className="h-4 w-4" />}
+                onClick={handleExportMaintenance}
+                disabled={asset.maintenanceLogs.length === 0}
+              >
+                {t("detail.exports.maintenance")}
+              </Button>
+            </div>
+
             <div className="grid gap-4">
               <label className="grid gap-2">
                 <span className="text-sm font-medium text-slate-700 dark:text-slate-200">{t("detail.maintenance.interventionType")}</span>
@@ -524,9 +720,26 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
                 onChange={(event) => setMaintenanceForm((prev) => ({ ...prev, interventionCost: event.target.value }))}
               />
             </div>
-            <div className="flex justify-end">
-              <Button onClick={() => void handleCreateMaintenance()} disabled={isSavingMaintenance}>
-                {isSavingMaintenance ? t("detail.maintenance.saving") : t("detail.maintenance.submit")}
+
+            <div className="flex justify-end gap-3">
+              {editingMaintenanceId ? (
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    setEditingMaintenanceId(null);
+                    setMaintenanceForm(buildDefaultMaintenanceForm());
+                  }}
+                  leftIcon={<RotateCcw className="h-4 w-4" />}
+                >
+                  {t("detail.actions.cancelEdit")}
+                </Button>
+              ) : null}
+              <Button onClick={() => void handleSaveMaintenance()} disabled={isSavingMaintenance}>
+                {isSavingMaintenance
+                  ? t("detail.maintenance.saving")
+                  : editingMaintenanceId
+                    ? t("detail.maintenance.updateSubmit")
+                    : t("detail.maintenance.submit")}
               </Button>
             </div>
           </div>
@@ -549,6 +762,32 @@ export function AssetDetailPage({ assetId }: AssetDetailPageProps) {
                   <p className="mt-3 text-sm font-medium text-slate-900 dark:text-white">
                     {t("detail.maintenance.interventionCost")}: {formatCurrency(log.interventionCost)}
                   </p>
+                  <div className="mt-4 flex justify-end gap-2">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      leftIcon={<Pencil className="h-4 w-4" />}
+                      onClick={() => {
+                        setEditingMaintenanceId(log.id);
+                        setMaintenanceForm({
+                          interventionTypeId: log.interventionTypeId,
+                          description: log.description ?? "",
+                          interventionCost: log.interventionCost != null ? String(log.interventionCost) : "",
+                          provider: log.provider ?? "",
+                        });
+                      }}
+                    >
+                      {t("detail.actions.edit")}
+                    </Button>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      leftIcon={<Trash2 className="h-4 w-4" />}
+                      onClick={() => void handleDeleteMaintenance(log.id)}
+                    >
+                      {t("detail.actions.delete")}
+                    </Button>
+                  </div>
                 </div>
               ))
             ) : (

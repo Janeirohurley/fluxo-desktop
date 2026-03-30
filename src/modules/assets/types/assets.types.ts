@@ -53,6 +53,28 @@ export type InterventionType = {
   updatedAt: string;
 };
 
+export type AssetCategoryReference = AssetCategory;
+export type AssetStatusReference = AssetStatus;
+export type AssetInterventionTypeReference = InterventionType;
+
+export type CreateAssetCategoryPayload = {
+  name: string;
+};
+
+export type UpdateAssetCategoryPayload = Partial<CreateAssetCategoryPayload>;
+
+export type CreateAssetStatusPayload = {
+  name: string;
+};
+
+export type UpdateAssetStatusPayload = Partial<CreateAssetStatusPayload>;
+
+export type CreateInterventionTypePayload = {
+  name: string;
+};
+
+export type UpdateInterventionTypePayload = Partial<CreateInterventionTypePayload>;
+
 export type EmployeeOption = {
   id: string;
   employeeNumber: string;
@@ -109,9 +131,13 @@ export type AssetAssignmentPayload = {
   endDate?: string;
 };
 
+export type UpdateAssetAssignmentPayload = Partial<AssetAssignmentPayload>;
+
 export type MaintenanceLogPayload = {
   interventionTypeId: string;
   description?: string;
   interventionCost?: number;
   provider?: string;
 };
+
+export type UpdateMaintenanceLogPayload = Partial<MaintenanceLogPayload>;

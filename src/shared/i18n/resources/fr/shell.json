@@ -6,6 +6,7 @@
   "modulesCount": "{{planName}} - {{count}} module(s)",
   "nav": {
     "dashboard": "Tableau de bord",
-    "assets": "Assets"
+    "assets": "Assets",
+    "assetReferences": "References assets"
   }
 }

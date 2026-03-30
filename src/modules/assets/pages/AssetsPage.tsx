@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import { Boxes, CircleDollarSign, Plus, ShieldAlert, Wrench, X } from "lucide-react";
+import { Boxes, CircleDollarSign, Plus, Settings2, ShieldAlert, Wrench, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { createAsset, deleteAsset, updateAsset } from "@/modules/assets/api/assets.api";
 import { assetsQueryKeys, useAssets, useAssetCategories, useAssetStatuses } from "@/modules/assets/hooks/useAssets";
@@ -294,13 +294,6 @@ export function AssetsPage() {
       editable: false,
       render: (row) => formatDate(row.updatedAt),
     },
-    {
-      key: "updatedAt",
-      label: "Mise a jour",
-      sortable: true,
-      editable: false,
-      render: (row) => formatDate(row.updatedAt),
-    },
   ];
 
   return (
@@ -311,6 +304,16 @@ export function AssetsPage() {
           <p className="max-w-3xl text-sm text-slate-500 dark:text-slate-400">
             {t("description")}
           </p>
+        </div>
+
+        <div className="flex justify-end">
+          <Button
+            variant="secondary"
+            leftIcon={<Settings2 className="h-4 w-4" />}
+            onClick={() => navigate({ to: "/assets/references" })}
+          >
+            {t("references.open")}
+          </Button>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

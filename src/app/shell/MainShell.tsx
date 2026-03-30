@@ -1,5 +1,5 @@
 import { type PropsWithChildren } from "react";
-import { Box, LayoutDashboard, LucideIcon } from "lucide-react";
+import { Box, FolderTree, LayoutDashboard, LucideIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAccessSession } from "@/modules/auth/hooks/useAccessSession";
 
@@ -26,6 +26,7 @@ export function MainShell({ children }: PropsWithChildren) {
 
   if (session?.modules.includes("assets")) {
     navItems.push({ label: t("nav.assets"), to: "/assets", icon: Box });
+    navItems.push({ label: t("nav.assetReferences"), to: "/assets/references", icon: FolderTree });
   }
 
 

@@ -11,6 +11,8 @@ import {
   type InterventionType,
   type LocationOption,
   type MaintenanceLogPayload,
+  type UpdateAssetAssignmentPayload,
+  type UpdateMaintenanceLogPayload,
 } from "@/modules/assets/types/assets.types";
 
 type AssetCategoryDto = {
@@ -243,6 +245,25 @@ export async function createAssetAssignment(assetId: string, payload: AssetAssig
   return response.data;
 }
 
+export async function updateAssetAssignment(
+  assetId: string,
+  assignmentId: string,
+  payload: UpdateAssetAssignmentPayload,
+) {
+  const response = await apiClient.patch(`/api/assets/${assetId}/assignments/${assignmentId}`, {
+    employeeId: payload.employeeId || undefined,
+    locationId: payload.locationId || undefined,
+    startDate: payload.startDate || undefined,
+    endDate: payload.endDate || undefined,
+  });
+
+  return response.data;
+}
+
+export async function deleteAssetAssignment(assetId: string, assignmentId: string) {
+  await apiClient.delete(`/api/assets/${assetId}/assignments/${assignmentId}`);
+}
+
 export async function createAssetMaintenanceLog(assetId: string, payload: MaintenanceLogPayload) {
   const response = await apiClient.post(`/api/assets/${assetId}/maintenance`, {
     interventionTypeId: payload.interventionTypeId,
@@ -252,6 +273,25 @@ export async function createAssetMaintenanceLog(assetId: string, payload: Mainte
   });
 
   return response.data;
+}
+
+export async function updateAssetMaintenanceLog(
+  assetId: string,
+  maintenanceLogId: string,
+  payload: UpdateMaintenanceLogPayload,
+) {
+  const response = await apiClient.patch(`/api/assets/${assetId}/maintenance/${maintenanceLogId}`, {
+    interventionTypeId: payload.interventionTypeId || undefined,
+    description: payload.description || undefined,
+    interventionCost: payload.interventionCost ?? undefined,
+    provider: payload.provider || undefined,
+  });
+
+  return response.data;
+}
+
+export async function deleteAssetMaintenanceLog(assetId: string, maintenanceLogId: string) {
+  await apiClient.delete(`/api/assets/${assetId}/maintenance/${maintenanceLogId}`);
 }
 
 export async function fetchInterventionTypes() {

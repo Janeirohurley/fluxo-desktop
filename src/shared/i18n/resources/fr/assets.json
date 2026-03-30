@@ -46,6 +46,76 @@
     "deleteSuccess": "Asset supprime avec succes.",
     "deleteError": "Impossible de supprimer cet asset."
   },
+  "references": {
+    "open": "Gerer les references",
+    "back": "Retour aux assets",
+    "title": "References du module assets",
+    "description": "Administrez les categories, les statuts et les types d'intervention utilises par votre gestion d'assets, toujours depuis le meme moteur de table.",
+    "stats": {
+      "categories": "Categories",
+      "statuses": "Statuts",
+      "interventionTypes": "Types d'intervention"
+    },
+    "table": {
+      "name": "Nom",
+      "createdAt": "Cree le",
+      "updatedAt": "Mis a jour le",
+      "loadError": "Impossible de charger cette reference."
+    },
+    "form": {
+      "name": "Nom",
+      "cancel": "Annuler",
+      "submit": "Ajouter",
+      "submitting": "Creation..."
+    },
+    "sections": {
+      "categories": {
+        "title": "Categories",
+        "description": "Classez les assets par grandes familles metier ou logistiques.",
+        "createTitle": "Ajouter une categorie",
+        "createDescription": "Ajoutez une nouvelle categorie d'asset pour l'utiliser ensuite dans vos formulaires et dans la table principale.",
+        "namePlaceholder": "Exemple : Reseau, Mobilier, Vehicule",
+        "createValidationError": "Veuillez saisir un nom de categorie.",
+        "createSuccess": "Categorie creee avec succes.",
+        "createError": "Impossible de creer cette categorie.",
+        "updateValidationError": "Le nom de la categorie ne peut pas etre vide.",
+        "updateSuccess": "Categorie mise a jour avec succes.",
+        "updateError": "Impossible de mettre a jour cette categorie.",
+        "deleteSuccess": "Categorie supprimee avec succes.",
+        "deleteError": "Impossible de supprimer cette categorie."
+      },
+      "statuses": {
+        "title": "Statuts",
+        "description": "Definissez les etats de vie disponibles pour les assets.",
+        "createTitle": "Ajouter un statut",
+        "createDescription": "Ajoutez un nouveau statut d'asset pour vos flux de gestion et votre suivi d'etat.",
+        "namePlaceholder": "Exemple : En service, Hors service",
+        "createValidationError": "Veuillez saisir un nom de statut.",
+        "createSuccess": "Statut cree avec succes.",
+        "createError": "Impossible de creer ce statut.",
+        "updateValidationError": "Le nom du statut ne peut pas etre vide.",
+        "updateSuccess": "Statut mis a jour avec succes.",
+        "updateError": "Impossible de mettre a jour ce statut.",
+        "deleteSuccess": "Statut supprime avec succes.",
+        "deleteError": "Impossible de supprimer ce statut."
+      },
+      "interventionTypes": {
+        "title": "Types d'intervention",
+        "description": "Structurez les types de maintenance et d'interventions techniques disponibles.",
+        "createTitle": "Ajouter un type d'intervention",
+        "createDescription": "Ajoutez un type d'intervention qui sera utilisable dans les journaux de maintenance des assets.",
+        "namePlaceholder": "Exemple : Inspection, Reparation, Preventif",
+        "createValidationError": "Veuillez saisir un nom de type d'intervention.",
+        "createSuccess": "Type d'intervention cree avec succes.",
+        "createError": "Impossible de creer ce type d'intervention.",
+        "updateValidationError": "Le nom du type d'intervention ne peut pas etre vide.",
+        "updateSuccess": "Type d'intervention mis a jour avec succes.",
+        "updateError": "Impossible de mettre a jour ce type d'intervention.",
+        "deleteSuccess": "Type d'intervention supprime avec succes.",
+        "deleteError": "Impossible de supprimer ce type d'intervention."
+      }
+    }
+  },
   "detail": {
     "back": "Retour aux assets",
     "loadingTitle": "Chargement de l'asset",
@@ -57,6 +127,19 @@
       "configured": "Configure",
       "missing": "Manquant",
       "ongoing": "En cours"
+    },
+    "actions": {
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "cancelEdit": "Annuler la modification"
+    },
+    "exports": {
+      "snapshot": "Exporter la fiche",
+      "assignments": "Exporter les affectations",
+      "maintenance": "Exporter la maintenance",
+      "snapshotSuccess": "Fiche asset exportee.",
+      "assignmentsSuccess": "Historique des affectations exporte.",
+      "maintenanceSuccess": "Historique de maintenance exporte."
     },
     "stats": {
       "finance": "Finance asset",
@@ -104,9 +187,13 @@
       "historyTitle": "Historique des affectations",
       "validationError": "Veuillez remplir les champs obligatoires de l'affectation.",
       "submit": "Ajouter l'affectation",
+      "updateSubmit": "Mettre a jour l'affectation",
       "saving": "Creation...",
       "success": "Affectation creee avec succes.",
+      "updateSuccess": "Affectation mise a jour avec succes.",
       "error": "Impossible de creer cette affectation.",
+      "deleteSuccess": "Affectation supprimee avec succes.",
+      "deleteError": "Impossible de supprimer cette affectation.",
       "empty": "Aucune affectation n'a encore ete enregistree."
     },
     "maintenance": {
@@ -119,9 +206,13 @@
       "historyTitle": "Historique de maintenance",
       "validationError": "Veuillez choisir un type d'intervention.",
       "submit": "Ajouter le log",
+      "updateSubmit": "Mettre a jour le log",
       "saving": "Creation...",
       "success": "Log de maintenance cree avec succes.",
+      "updateSuccess": "Log de maintenance mis a jour avec succes.",
       "error": "Impossible de creer ce log de maintenance.",
+      "deleteSuccess": "Log de maintenance supprime avec succes.",
+      "deleteError": "Impossible de supprimer ce log de maintenance.",
       "empty": "Aucune maintenance n'a encore ete enregistree."
     }
   }
