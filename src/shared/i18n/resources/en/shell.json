@@ -7,6 +7,8 @@
   "nav": {
     "dashboard": "Dashboard",
     "assets": "Assets",
-    "assetReferences": "Asset references"
+    "assetReferences": "Asset references",
+    "employees": "Employees",
+    "employeeReferences": "Employee references"
   }
 }

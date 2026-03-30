@@ -7,6 +7,8 @@
   "nav": {
     "dashboard": "Tableau de bord",
     "assets": "Assets",
-    "assetReferences": "References assets"
+    "assetReferences": "References assets",
+    "employees": "Employes",
+    "employeeReferences": "References employees"
   }
 }

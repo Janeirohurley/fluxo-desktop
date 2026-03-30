@@ -1,0 +1,254 @@
+{
+  "title": "Employes",
+  "description": "Gerez les employes, leurs affectations, leurs contrats et les referentiels RH relies au tenant.",
+  "statuses": {
+    "active": "Actif",
+    "inactive": "Inactif",
+    "on_leave": "En conge",
+    "terminated": "Termine"
+  },
+  "contractStatuses": {
+    "draft": "Brouillon",
+    "active": "Actif",
+    "suspended": "Suspendu",
+    "terminated": "Termine",
+    "expired": "Expire"
+  },
+  "paymentFrequencies": {
+    "weekly": "Hebdomadaire",
+    "biweekly": "Toutes les deux semaines",
+    "monthly": "Mensuel",
+    "quarterly": "Trimestriel",
+    "annual": "Annuel"
+  },
+  "payrollStatuses": {
+    "draft": "Brouillon",
+    "issued": "Emis",
+    "paid": "Paye",
+    "cancelled": "Annule"
+  },
+  "stats": {
+    "totalEmployees": "Total employes",
+    "activeEmployees": "Employes actifs",
+    "withAssignment": "Avec affectation",
+    "withContract": "Avec contrat"
+  },
+  "table": {
+    "employeeNumber": "Numero employe",
+    "fullName": "Nom complet",
+    "firstName": "Prenom",
+    "lastName": "Nom",
+    "email": "Email",
+    "phone": "Telephone",
+    "status": "Statut",
+    "role": "Role",
+    "position": "Poste",
+    "location": "Lieu",
+    "hireDate": "Date d'embauche",
+    "contract": "Contrat",
+    "na": "N/A",
+    "loadError": "Impossible de charger les employes."
+  },
+  "create": {
+    "title": "Ajouter un employe",
+    "description": "Creez une nouvelle fiche employe dans votre tenant.",
+    "employeeNumber": "Numero employe",
+    "firstName": "Prenom",
+    "lastName": "Nom",
+    "email": "Email",
+    "phone": "Telephone",
+    "hireDate": "Date d'embauche",
+    "status": "Statut",
+    "submit": "Ajouter l'employe",
+    "submitting": "Ajout en cours...",
+    "cancel": "Annuler",
+    "success": "Employe cree avec succes.",
+    "error": "Impossible de creer l'employe.",
+    "validationError": "Completez les champs obligatoires avant de continuer."
+  },
+  "actions": {
+    "updateError": "Impossible de mettre a jour l'employe.",
+    "deleteSuccess": "Employe supprime avec succes.",
+    "deleteError": "Impossible de supprimer l'employe."
+  },
+  "references": {
+    "open": "References employees",
+    "back": "Retour aux employes",
+    "title": "References employees",
+    "description": "Administrez les roles, les postes et les lieux utilises dans le module employees.",
+    "stats": {
+      "roles": "Roles",
+      "positions": "Postes",
+      "locations": "Lieux"
+    },
+    "table": {
+      "name": "Nom",
+      "createdAt": "Cree le",
+      "updatedAt": "Mis a jour le",
+      "loadError": "Impossible de charger les references."
+    },
+    "form": {
+      "name": "Nom",
+      "cancel": "Annuler",
+      "submit": "Enregistrer",
+      "submitting": "Enregistrement..."
+    },
+    "sections": {
+      "roles": {
+        "title": "Roles",
+        "description": "Les roles structurent la responsabilite generale d'un employe.",
+        "createTitle": "Ajouter un role",
+        "createDescription": "Ajoutez un nouveau role utilisable dans les affectations employees.",
+        "namePlaceholder": "Ex. Responsable regional",
+        "createValidationError": "Saisissez un nom de role.",
+        "createSuccess": "Role cree avec succes.",
+        "createError": "Impossible de creer le role.",
+        "updateValidationError": "Saisissez un nom valide pour le role.",
+        "updateSuccess": "Role mis a jour avec succes.",
+        "updateError": "Impossible de mettre a jour le role.",
+        "deleteSuccess": "Role supprime avec succes.",
+        "deleteError": "Impossible de supprimer le role."
+      },
+      "positions": {
+        "title": "Postes",
+        "description": "Les postes decrivent la fonction occupee par l'employe.",
+        "createTitle": "Ajouter un poste",
+        "createDescription": "Ajoutez un nouveau poste utilisable dans les affectations employees.",
+        "namePlaceholder": "Ex. Comptable principal",
+        "createValidationError": "Saisissez un nom de poste.",
+        "createSuccess": "Poste cree avec succes.",
+        "createError": "Impossible de creer le poste.",
+        "updateValidationError": "Saisissez un nom valide pour le poste.",
+        "updateSuccess": "Poste mis a jour avec succes.",
+        "updateError": "Impossible de mettre a jour le poste.",
+        "deleteSuccess": "Poste supprime avec succes.",
+        "deleteError": "Impossible de supprimer le poste."
+      },
+      "locations": {
+        "title": "Lieux",
+        "description": "Les lieux permettent de localiser les affectations employees.",
+        "createTitle": "Ajouter un lieu",
+        "createDescription": "Ajoutez un nouveau lieu utilisable dans les affectations employees.",
+        "namePlaceholder": "Ex. Bureau principal",
+        "createValidationError": "Saisissez un nom de lieu.",
+        "createSuccess": "Lieu cree avec succes.",
+        "createError": "Impossible de creer le lieu.",
+        "updateValidationError": "Saisissez un nom valide pour le lieu.",
+        "updateSuccess": "Lieu mis a jour avec succes.",
+        "updateError": "Impossible de mettre a jour le lieu.",
+        "deleteSuccess": "Lieu supprime avec succes.",
+        "deleteError": "Impossible de supprimer le lieu."
+      }
+    }
+  },
+  "detail": {
+    "back": "Retour aux employes",
+    "loadingTitle": "Chargement de la fiche employe",
+    "loadingDescription": "Fluxo recupere les donnees RH de cet employe.",
+    "errorTitle": "Fiche employe introuvable",
+    "errorDescription": "Cet employe n'est plus disponible ou le backend n'a pas pu le charger.",
+    "lastUpdated": "Derniere mise a jour",
+    "labels": {
+      "missing": "Non configure",
+      "ongoing": "En cours"
+    },
+    "stats": {
+      "status": "Statut",
+      "assignment": "Affectation active",
+      "contract": "Contrat actif",
+      "linkedAssets": "Assets lies",
+      "payroll": "Paie",
+      "hireDate": "Embauche"
+    },
+    "sections": {
+      "overview": "Vue d'ensemble",
+      "assets": "Assets lies",
+      "payroll": "Paie",
+      "assignments": "Affectations",
+      "contracts": "Contrats"
+    },
+    "overview": {
+      "identityTitle": "Identite employe",
+      "relationshipsTitle": "Situation actuelle",
+      "employeeNumber": "Numero employe",
+      "status": "Statut",
+      "firstName": "Prenom",
+      "lastName": "Nom",
+      "email": "Email",
+      "phone": "Telephone",
+      "hireDate": "Date d'embauche"
+    },
+    "assignments": {
+      "title": "Affectations",
+      "role": "Role",
+      "position": "Poste",
+      "location": "Lieu",
+      "startDate": "Date de debut",
+      "endDate": "Date de fin",
+      "rolePlaceholder": "Selectionnez un role",
+      "positionPlaceholder": "Selectionnez un poste",
+      "locationPlaceholder": "Selectionnez un lieu",
+      "submit": "Ajouter l'affectation",
+      "updateSubmit": "Mettre a jour l'affectation",
+      "saving": "Enregistrement...",
+      "historyTitle": "Historique des affectations",
+      "empty": "Aucune affectation enregistree pour cet employe.",
+      "success": "Affectation creee avec succes.",
+      "updateSuccess": "Affectation mise a jour avec succes.",
+      "deleteSuccess": "Affectation supprimee avec succes.",
+      "error": "Impossible d'enregistrer l'affectation.",
+      "deleteError": "Impossible de supprimer l'affectation.",
+      "validationError": "Completez les informations obligatoires de l'affectation."
+    },
+    "assets": {
+      "title": "Assets lies",
+      "description": "Retrouvez les assets actuellement affectes a cet employe depuis le module assets.",
+      "loading": "Chargement des assets lies...",
+      "empty": "Aucun asset actif n'est actuellement lie a cet employe."
+    },
+    "payroll": {
+      "title": "Paie employee",
+      "description": "Visualisez les contrats de paie et les bulletins deja generes pour cet employe.",
+      "contractsCount": "Contrats paie",
+      "payslipsCount": "Bulletins",
+      "contractsTitle": "Contrats paie",
+      "payslipsTitle": "Bulletins de paie",
+      "loadingContracts": "Chargement des contrats paie...",
+      "loadingPaySlips": "Chargement des bulletins...",
+      "emptyContracts": "Aucun contrat paie n'est remonte pour cet employe.",
+      "emptyPaySlips": "Aucun bulletin n'a encore ete cree pour cet employe.",
+      "grossAmount": "Brut",
+      "netAmount": "Net"
+    },
+    "contracts": {
+      "title": "Contrats",
+      "contractType": "Type de contrat",
+      "status": "Statut",
+      "startDate": "Date de debut",
+      "endDate": "Date de fin",
+      "salaryAmount": "Salaire",
+      "currency": "Devise",
+      "paymentFrequency": "Frequence de paiement",
+      "submit": "Ajouter le contrat",
+      "updateSubmit": "Mettre a jour le contrat",
+      "saving": "Enregistrement...",
+      "historyTitle": "Historique des contrats",
+      "empty": "Aucun contrat enregistre pour cet employe.",
+      "success": "Contrat cree avec succes.",
+      "updateSuccess": "Contrat mis a jour avec succes.",
+      "deleteSuccess": "Contrat supprime avec succes.",
+      "error": "Impossible d'enregistrer le contrat.",
+      "deleteError": "Impossible de supprimer le contrat.",
+      "validationError": "Completez les informations obligatoires du contrat."
+    },
+    "exports": {
+      "summary": "Exporter la fiche",
+      "summarySuccess": "Fiche employee exportee."
+    },
+    "actions": {
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "cancelEdit": "Annuler la modification"
+    }
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "title": "Employees",
+  "description": "Manage employees, their assignments, contracts and HR references linked to the tenant.",
+  "statuses": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "on_leave": "On leave",
+    "terminated": "Terminated"
+  },
+  "contractStatuses": {
+    "draft": "Draft",
+    "active": "Active",
+    "suspended": "Suspended",
+    "terminated": "Terminated",
+    "expired": "Expired"
+  },
+  "paymentFrequencies": {
+    "weekly": "Weekly",
+    "biweekly": "Biweekly",
+    "monthly": "Monthly",
+    "quarterly": "Quarterly",
+    "annual": "Annual"
+  },
+  "payrollStatuses": {
+    "draft": "Draft",
+    "issued": "Issued",
+    "paid": "Paid",
+    "cancelled": "Cancelled"
+  },
+  "stats": {
+    "totalEmployees": "Total employees",
+    "activeEmployees": "Active employees",
+    "withAssignment": "With assignment",
+    "withContract": "With contract"
+  },
+  "table": {
+    "employeeNumber": "Employee number",
+    "fullName": "Full name",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "status": "Status",
+    "role": "Role",
+    "position": "Position",
+    "location": "Location",
+    "hireDate": "Hire date",
+    "contract": "Contract",
+    "na": "N/A",
+    "loadError": "Unable to load employees."
+  },
+  "create": {
+    "title": "Add employee",
+    "description": "Create a new employee record in your tenant.",
+    "employeeNumber": "Employee number",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "hireDate": "Hire date",
+    "status": "Status",
+    "submit": "Add employee",
+    "submitting": "Creating...",
+    "cancel": "Cancel",
+    "success": "Employee created successfully.",
+    "error": "Unable to create the employee.",
+    "validationError": "Complete the required fields before continuing."
+  },
+  "actions": {
+    "updateError": "Unable to update the employee.",
+    "deleteSuccess": "Employee deleted successfully.",
+    "deleteError": "Unable to delete the employee."
+  },
+  "references": {
+    "open": "Employee references",
+    "back": "Back to employees",
+    "title": "Employee references",
+    "description": "Manage roles, positions and locations used by the employees module.",
+    "stats": {
+      "roles": "Roles",
+      "positions": "Positions",
+      "locations": "Locations"
+    },
+    "table": {
+      "name": "Name",
+      "createdAt": "Created at",
+      "updatedAt": "Updated at",
+      "loadError": "Unable to load references."
+    },
+    "form": {
+      "name": "Name",
+      "cancel": "Cancel",
+      "submit": "Save",
+      "submitting": "Saving..."
+    },
+    "sections": {
+      "roles": {
+        "title": "Roles",
+        "description": "Roles define the general responsibility carried by an employee.",
+        "createTitle": "Add role",
+        "createDescription": "Add a new role available in employee assignments.",
+        "namePlaceholder": "Ex. Regional manager",
+        "createValidationError": "Enter a role name.",
+        "createSuccess": "Role created successfully.",
+        "createError": "Unable to create the role.",
+        "updateValidationError": "Enter a valid role name.",
+        "updateSuccess": "Role updated successfully.",
+        "updateError": "Unable to update the role.",
+        "deleteSuccess": "Role deleted successfully.",
+        "deleteError": "Unable to delete the role."
+      },
+      "positions": {
+        "title": "Positions",
+        "description": "Positions describe the function currently held by the employee.",
+        "createTitle": "Add position",
+        "createDescription": "Add a new position available in employee assignments.",
+        "namePlaceholder": "Ex. Senior accountant",
+        "createValidationError": "Enter a position name.",
+        "createSuccess": "Position created successfully.",
+        "createError": "Unable to create the position.",
+        "updateValidationError": "Enter a valid position name.",
+        "updateSuccess": "Position updated successfully.",
+        "updateError": "Unable to update the position.",
+        "deleteSuccess": "Position deleted successfully.",
+        "deleteError": "Unable to delete the position."
+      },
+      "locations": {
+        "title": "Locations",
+        "description": "Locations are used to place employee assignments in the organization.",
+        "createTitle": "Add location",
+        "createDescription": "Add a new location available in employee assignments.",
+        "namePlaceholder": "Ex. Main office",
+        "createValidationError": "Enter a location name.",
+        "createSuccess": "Location created successfully.",
+        "createError": "Unable to create the location.",
+        "updateValidationError": "Enter a valid location name.",
+        "updateSuccess": "Location updated successfully.",
+        "updateError": "Unable to update the location.",
+        "deleteSuccess": "Location deleted successfully.",
+        "deleteError": "Unable to delete the location."
+      }
+    }
+  },
+  "detail": {
+    "back": "Back to employees",
+    "loadingTitle": "Loading employee profile",
+    "loadingDescription": "Fluxo is retrieving the HR data for this employee.",
+    "errorTitle": "Employee profile not found",
+    "errorDescription": "This employee is no longer available or the backend could not load the profile.",
+    "lastUpdated": "Last updated",
+    "labels": {
+      "missing": "Not configured",
+      "ongoing": "Ongoing"
+    },
+    "stats": {
+      "status": "Status",
+      "assignment": "Active assignment",
+      "contract": "Active contract",
+      "linkedAssets": "Linked assets",
+      "payroll": "Payroll",
+      "hireDate": "Hire date"
+    },
+    "sections": {
+      "overview": "Overview",
+      "assets": "Linked assets",
+      "payroll": "Payroll",
+      "assignments": "Assignments",
+      "contracts": "Contracts"
+    },
+    "overview": {
+      "identityTitle": "Employee identity",
+      "relationshipsTitle": "Current situation",
+      "employeeNumber": "Employee number",
+      "status": "Status",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "phone": "Phone",
+      "hireDate": "Hire date"
+    },
+    "assignments": {
+      "title": "Assignments",
+      "role": "Role",
+      "position": "Position",
+      "location": "Location",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "rolePlaceholder": "Select a role",
+      "positionPlaceholder": "Select a position",
+      "locationPlaceholder": "Select a location",
+      "submit": "Add assignment",
+      "updateSubmit": "Update assignment",
+      "saving": "Saving...",
+      "historyTitle": "Assignment history",
+      "empty": "No assignment recorded for this employee.",
+      "success": "Assignment created successfully.",
+      "updateSuccess": "Assignment updated successfully.",
+      "deleteSuccess": "Assignment deleted successfully.",
+      "error": "Unable to save the assignment.",
+      "deleteError": "Unable to delete the assignment.",
+      "validationError": "Complete the required assignment information."
+    },
+    "assets": {
+      "title": "Linked assets",
+      "description": "See the assets currently assigned to this employee from the assets module.",
+      "loading": "Loading linked assets...",
+      "empty": "No active asset is currently linked to this employee."
+    },
+    "payroll": {
+      "title": "Employee payroll",
+      "description": "Review payroll contracts and payslips already generated for this employee.",
+      "contractsCount": "Payroll contracts",
+      "payslipsCount": "Payslips",
+      "contractsTitle": "Payroll contracts",
+      "payslipsTitle": "Payslips",
+      "loadingContracts": "Loading payroll contracts...",
+      "loadingPaySlips": "Loading payslips...",
+      "emptyContracts": "No payroll contract was found for this employee.",
+      "emptyPaySlips": "No payslip has been generated for this employee yet.",
+      "grossAmount": "Gross",
+      "netAmount": "Net"
+    },
+    "contracts": {
+      "title": "Contracts",
+      "contractType": "Contract type",
+      "status": "Status",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "salaryAmount": "Salary",
+      "currency": "Currency",
+      "paymentFrequency": "Payment frequency",
+      "submit": "Add contract",
+      "updateSubmit": "Update contract",
+      "saving": "Saving...",
+      "historyTitle": "Contract history",
+      "empty": "No contract recorded for this employee.",
+      "success": "Contract created successfully.",
+      "updateSuccess": "Contract updated successfully.",
+      "deleteSuccess": "Contract deleted successfully.",
+      "error": "Unable to save the contract.",
+      "deleteError": "Unable to delete the contract.",
+      "validationError": "Complete the required contract information."
+    },
+    "exports": {
+      "summary": "Export profile",
+      "summarySuccess": "Employee profile exported."
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "cancelEdit": "Cancel edit"
+    }
+  }
+}

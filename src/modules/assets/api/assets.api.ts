@@ -193,6 +193,7 @@ export async function fetchAssets(params: AssetListParams): Promise<AssetListRes
       search: params.search || undefined,
       categoryId: params.categoryId || undefined,
       statusId: params.statusId || undefined,
+      employeeId: params.employeeId || undefined,
       sortBy: params.sortBy ?? "createdAt",
       sortOrder: params.sortOrder ?? "desc",
     },

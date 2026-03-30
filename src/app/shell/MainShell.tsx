@@ -1,5 +1,5 @@
 import { type PropsWithChildren } from "react";
-import { Box, FolderTree, LayoutDashboard, LucideIcon } from "lucide-react";
+import { Box, FolderTree, LayoutDashboard, LucideIcon, Shapes, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAccessSession } from "@/modules/auth/hooks/useAccessSession";
 
@@ -29,7 +29,10 @@ export function MainShell({ children }: PropsWithChildren) {
     navItems.push({ label: t("nav.assetReferences"), to: "/assets/references", icon: FolderTree });
   }
 
-
+  if (session?.modules.includes("employees")) {
+    navItems.push({ label: t("nav.employees"), to: "/employees", icon: Users });
+    navItems.push({ label: t("nav.employeeReferences"), to: "/employees/references", icon: Shapes });
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground relative">

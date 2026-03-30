@@ -111,6 +111,7 @@ export type AssetListParams = {
   search?: string;
   categoryId?: string;
   statusId?: string;
+  employeeId?: string;
   sortBy?: "createdAt" | "updatedAt" | "name" | "inventoryCode";
   sortOrder?: "asc" | "desc";
 };
