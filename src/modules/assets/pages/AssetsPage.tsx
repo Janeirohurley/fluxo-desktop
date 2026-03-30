@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import { Boxes, CircleDollarSign, Plus, ShieldAlert, Wrench, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { createAsset, deleteAsset, updateAsset } from "@/modules/assets/api/assets.api";
@@ -69,6 +70,7 @@ function buildInitialForm(categoryId?: string, statusId?: string): AssetFormStat
 
 export function AssetsPage() {
   const { t } = useTranslation("assets");
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(20);
@@ -204,6 +206,15 @@ export function AssetsPage() {
       sortable: true,
       searchable: true,
       editable: true,
+      render: (row) => (
+        <button
+          type="button"
+          onClick={() => navigate({ to: "/assets/$assetId", params: { assetId: row.id } })}
+          className="font-medium text-blue-700 underline-offset-4 transition hover:underline dark:text-blue-300"
+        >
+          {row.inventoryCode}
+        </button>
+      ),
     },
     {
       key: "name",

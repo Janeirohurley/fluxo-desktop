@@ -45,5 +45,84 @@
     "updateError": "Impossible de mettre a jour cet asset.",
     "deleteSuccess": "Asset supprime avec succes.",
     "deleteError": "Impossible de supprimer cet asset."
+  },
+  "detail": {
+    "back": "Retour aux assets",
+    "loadingTitle": "Chargement de l'asset",
+    "loadingDescription": "Fluxo recupere les details complets de cet asset.",
+    "errorTitle": "Asset indisponible",
+    "errorDescription": "Impossible de charger les details de cet asset pour le moment.",
+    "lastUpdated": "Derniere mise a jour",
+    "labels": {
+      "configured": "Configure",
+      "missing": "Manquant",
+      "ongoing": "En cours"
+    },
+    "stats": {
+      "finance": "Finance asset",
+      "assignments": "Affectations",
+      "maintenance": "Maintenances",
+      "identity": "Identifiant"
+    },
+    "sections": {
+      "overview": "Apercu",
+      "finance": "Finance",
+      "assignments": "Assignments",
+      "maintenance": "Maintenance"
+    },
+    "overview": {
+      "identityTitle": "Identite de l'asset",
+      "relationshipsTitle": "Relations et couverture",
+      "inventoryCode": "Code inventaire",
+      "serialNumber": "Numero de serie",
+      "brand": "Marque",
+      "model": "Modele",
+      "category": "Categorie",
+      "status": "Statut"
+    },
+    "finance": {
+      "title": "Finance de l'asset",
+      "acquisitionDate": "Date d'acquisition",
+      "purchaseValue": "Valeur d'achat",
+      "estimatedLifeYears": "Duree de vie estimee (ans)",
+      "residualValue": "Valeur residuelle",
+      "snapshotTitle": "Lecture rapide",
+      "validationError": "Veuillez remplir les champs financiers obligatoires.",
+      "submit": "Enregistrer la finance",
+      "saving": "Enregistrement...",
+      "success": "Finance de l'asset enregistree.",
+      "error": "Impossible d'enregistrer la finance de l'asset."
+    },
+    "assignments": {
+      "title": "Assignments de l'asset",
+      "employee": "Employe",
+      "employeePlaceholder": "Choisir un employe",
+      "location": "Lieu",
+      "locationPlaceholder": "Choisir un lieu",
+      "startDate": "Date de debut",
+      "endDate": "Date de fin",
+      "historyTitle": "Historique des affectations",
+      "validationError": "Veuillez remplir les champs obligatoires de l'affectation.",
+      "submit": "Ajouter l'affectation",
+      "saving": "Creation...",
+      "success": "Affectation creee avec succes.",
+      "error": "Impossible de creer cette affectation.",
+      "empty": "Aucune affectation n'a encore ete enregistree."
+    },
+    "maintenance": {
+      "title": "Maintenance de l'asset",
+      "interventionType": "Type d'intervention",
+      "typePlaceholder": "Choisir un type",
+      "description": "Description",
+      "provider": "Prestataire",
+      "interventionCost": "Cout d'intervention",
+      "historyTitle": "Historique de maintenance",
+      "validationError": "Veuillez choisir un type d'intervention.",
+      "submit": "Ajouter le log",
+      "saving": "Creation...",
+      "success": "Log de maintenance cree avec succes.",
+      "error": "Impossible de creer ce log de maintenance.",
+      "empty": "Aucune maintenance n'a encore ete enregistree."
+    }
   }
 }

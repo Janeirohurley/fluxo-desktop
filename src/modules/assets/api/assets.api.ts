@@ -1,5 +1,17 @@
 import { apiClient } from "@/shared/api/client";
-import { type AssetCategory, type AssetListParams, type AssetListResponse, type AssetRecord, type AssetStatus } from "@/modules/assets/types/assets.types";
+import {
+  type AssetAssignmentPayload,
+  type AssetCategory,
+  type AssetFinancePayload,
+  type AssetListParams,
+  type AssetListResponse,
+  type AssetRecord,
+  type AssetStatus,
+  type EmployeeOption,
+  type InterventionType,
+  type LocationOption,
+  type MaintenanceLogPayload,
+} from "@/modules/assets/types/assets.types";
 
 type AssetCategoryDto = {
   id: string;
@@ -93,6 +105,17 @@ type CreateAssetPayload = {
 };
 
 type UpdateAssetPayload = Partial<CreateAssetPayload>;
+
+type EmployeeRecordDto = {
+  id: string;
+  employee_number: string;
+  full_name: string;
+  status: string;
+};
+
+type PaginatedEmployeesDto = {
+  data: EmployeeRecordDto[];
+};
 
 function mapCategory(dto: AssetCategoryDto): AssetCategory {
   return {
@@ -191,6 +214,84 @@ export async function fetchAssetCategories() {
 export async function fetchAssetStatuses() {
   const response = await apiClient.get<ListReferenceDto<AssetStatusDto>>("/api/assets/statuses");
   return (response.data.data ?? []).map(mapStatus);
+}
+
+export async function fetchAssetById(id: string) {
+  const response = await apiClient.get<SingleAssetDto>(`/api/assets/${id}`);
+  return mapAsset(response.data.data);
+}
+
+export async function upsertAssetFinance(assetId: string, payload: AssetFinancePayload) {
+  const response = await apiClient.put<SingleAssetDto["data"] | SingleAssetDto>(`/api/assets/${assetId}/finance`, {
+    acquisitionDate: payload.acquisitionDate,
+    purchaseValue: payload.purchaseValue,
+    estimatedLifeYears: payload.estimatedLifeYears,
+    residualValue: payload.residualValue ?? undefined,
+  });
+
+  return "data" in response.data ? response.data.data : response.data;
+}
+
+export async function createAssetAssignment(assetId: string, payload: AssetAssignmentPayload) {
+  const response = await apiClient.post(`/api/assets/${assetId}/assignments`, {
+    employeeId: payload.employeeId,
+    locationId: payload.locationId,
+    startDate: payload.startDate,
+    endDate: payload.endDate || undefined,
+  });
+
+  return response.data;
+}
+
+export async function createAssetMaintenanceLog(assetId: string, payload: MaintenanceLogPayload) {
+  const response = await apiClient.post(`/api/assets/${assetId}/maintenance`, {
+    interventionTypeId: payload.interventionTypeId,
+    description: payload.description || undefined,
+    interventionCost: payload.interventionCost ?? undefined,
+    provider: payload.provider || undefined,
+  });
+
+  return response.data;
+}
+
+export async function fetchInterventionTypes() {
+  const response = await apiClient.get<ListReferenceDto<AssetCategoryDto>>("/api/assets/intervention-types");
+  return (response.data.data ?? []).map((item): InterventionType => ({
+    id: item.id,
+    name: item.name,
+    createdAt: item.created_at,
+    updatedAt: item.updated_at,
+  }));
+}
+
+export async function fetchEmployeeOptions() {
+  const response = await apiClient.get<PaginatedEmployeesDto>("/api/employees", {
+    params: {
+      page: 1,
+      pageSize: 100,
+      sortBy: "lastName",
+      sortOrder: "asc",
+    },
+  });
+
+  return (response.data.data ?? []).map(
+    (employee): EmployeeOption => ({
+      id: employee.id,
+      employeeNumber: employee.employee_number,
+      fullName: employee.full_name,
+      status: employee.status,
+    }),
+  );
+}
+
+export async function fetchLocationOptions() {
+  const response = await apiClient.get<ListReferenceDto<AssetCategoryDto>>("/api/employees/locations");
+  return (response.data.data ?? []).map(
+    (location): LocationOption => ({
+      id: location.id,
+      name: location.name,
+    }),
+  );
 }
 
 export async function createAsset(payload: CreateAssetPayload) {

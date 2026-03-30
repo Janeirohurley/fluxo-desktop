@@ -46,6 +46,25 @@ export type MaintenanceLog = {
   updatedAt: string;
 };
 
+export type InterventionType = {
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type EmployeeOption = {
+  id: string;
+  employeeNumber: string;
+  fullName: string;
+  status: string;
+};
+
+export type LocationOption = {
+  id: string;
+  name: string;
+};
+
 export type AssetRecord = {
   id: string;
   inventoryCode: string;
@@ -75,3 +94,24 @@ export type AssetListParams = {
 };
 
 export type AssetListResponse = PaginatedResponse<AssetRecord>;
+
+export type AssetFinancePayload = {
+  acquisitionDate: string;
+  purchaseValue: number;
+  estimatedLifeYears: number;
+  residualValue?: number;
+};
+
+export type AssetAssignmentPayload = {
+  employeeId: string;
+  locationId: string;
+  startDate: string;
+  endDate?: string;
+};
+
+export type MaintenanceLogPayload = {
+  interventionTypeId: string;
+  description?: string;
+  interventionCost?: number;
+  provider?: string;
+};

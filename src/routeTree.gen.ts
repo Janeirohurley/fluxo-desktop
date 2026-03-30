@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssetsIndexRouteImport } from './routes/assets/index'
 import { Route as AuthAccessKeyRouteImport } from './routes/auth/access-key'
+import { Route as AssetsAssetIdRouteImport } from './routes/assets/$assetId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,33 +29,42 @@ const AuthAccessKeyRoute = AuthAccessKeyRouteImport.update({
   path: '/auth/access-key',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AssetsAssetIdRoute = AssetsAssetIdRouteImport.update({
+  id: '/assets/$assetId',
+  path: '/assets/$assetId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/assets/$assetId': typeof AssetsAssetIdRoute
   '/auth/access-key': typeof AuthAccessKeyRoute
   '/assets/': typeof AssetsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/assets/$assetId': typeof AssetsAssetIdRoute
   '/auth/access-key': typeof AuthAccessKeyRoute
   '/assets': typeof AssetsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/assets/$assetId': typeof AssetsAssetIdRoute
   '/auth/access-key': typeof AuthAccessKeyRoute
   '/assets/': typeof AssetsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth/access-key' | '/assets/'
+  fullPaths: '/' | '/assets/$assetId' | '/auth/access-key' | '/assets/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth/access-key' | '/assets'
-  id: '__root__' | '/' | '/auth/access-key' | '/assets/'
+  to: '/' | '/assets/$assetId' | '/auth/access-key' | '/assets'
+  id: '__root__' | '/' | '/assets/$assetId' | '/auth/access-key' | '/assets/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AssetsAssetIdRoute: typeof AssetsAssetIdRoute
   AuthAccessKeyRoute: typeof AuthAccessKeyRoute
   AssetsIndexRoute: typeof AssetsIndexRoute
 }
@@ -82,11 +92,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAccessKeyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/assets/$assetId': {
+      id: '/assets/$assetId'
+      path: '/assets/$assetId'
+      fullPath: '/assets/$assetId'
+      preLoaderRoute: typeof AssetsAssetIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AssetsAssetIdRoute: AssetsAssetIdRoute,
   AuthAccessKeyRoute: AuthAccessKeyRoute,
   AssetsIndexRoute: AssetsIndexRoute,
 }

@@ -45,5 +45,84 @@
     "updateError": "Unable to update this asset.",
     "deleteSuccess": "Asset deleted successfully.",
     "deleteError": "Unable to delete this asset."
+  },
+  "detail": {
+    "back": "Back to assets",
+    "loadingTitle": "Loading asset",
+    "loadingDescription": "Fluxo is fetching the complete details of this asset.",
+    "errorTitle": "Asset unavailable",
+    "errorDescription": "Unable to load this asset details for the moment.",
+    "lastUpdated": "Last updated",
+    "labels": {
+      "configured": "Configured",
+      "missing": "Missing",
+      "ongoing": "Ongoing"
+    },
+    "stats": {
+      "finance": "Asset finance",
+      "assignments": "Assignments",
+      "maintenance": "Maintenance",
+      "identity": "Identifier"
+    },
+    "sections": {
+      "overview": "Overview",
+      "finance": "Finance",
+      "assignments": "Assignments",
+      "maintenance": "Maintenance"
+    },
+    "overview": {
+      "identityTitle": "Asset identity",
+      "relationshipsTitle": "Relationships and coverage",
+      "inventoryCode": "Inventory code",
+      "serialNumber": "Serial number",
+      "brand": "Brand",
+      "model": "Model",
+      "category": "Category",
+      "status": "Status"
+    },
+    "finance": {
+      "title": "Asset finance",
+      "acquisitionDate": "Acquisition date",
+      "purchaseValue": "Purchase value",
+      "estimatedLifeYears": "Estimated life (years)",
+      "residualValue": "Residual value",
+      "snapshotTitle": "Quick reading",
+      "validationError": "Please fill in the required finance fields.",
+      "submit": "Save finance",
+      "saving": "Saving...",
+      "success": "Asset finance saved.",
+      "error": "Unable to save asset finance."
+    },
+    "assignments": {
+      "title": "Asset assignments",
+      "employee": "Employee",
+      "employeePlaceholder": "Choose an employee",
+      "location": "Location",
+      "locationPlaceholder": "Choose a location",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "historyTitle": "Assignment history",
+      "validationError": "Please fill in the required assignment fields.",
+      "submit": "Add assignment",
+      "saving": "Creating...",
+      "success": "Assignment created successfully.",
+      "error": "Unable to create this assignment.",
+      "empty": "No assignment has been recorded yet."
+    },
+    "maintenance": {
+      "title": "Asset maintenance",
+      "interventionType": "Intervention type",
+      "typePlaceholder": "Choose a type",
+      "description": "Description",
+      "provider": "Provider",
+      "interventionCost": "Intervention cost",
+      "historyTitle": "Maintenance history",
+      "validationError": "Please choose an intervention type.",
+      "submit": "Add log",
+      "saving": "Creating...",
+      "success": "Maintenance log created successfully.",
+      "error": "Unable to create this maintenance log.",
+      "empty": "No maintenance has been recorded yet."
+    }
   }
 }
