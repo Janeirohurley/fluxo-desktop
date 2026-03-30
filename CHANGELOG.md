@@ -1,6 +1,18 @@
 # Changelog
 
 This file records all notable changes made to the project.
+### [0.1.15](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.14...v0.1.15) (2026-03-30)
+
+
+### Features
+
+* add asset detail page with finance, assignments, and maintenance sections ([4fee3ad](https://github.com/Janeirohurley/fluxo-desktop/commit/4fee3ad7d2381cc5432f6c45a3e1be69b2dcc71f))
+* **assets:** add asset references management ([f778d5f](https://github.com/Janeirohurley/fluxo-desktop/commit/f778d5ff4c828205d5d15abc498439db1f1c0e4e))
+* **dashboard:** enhance module overview and insights display ([a35627b](https://github.com/Janeirohurley/fluxo-desktop/commit/a35627be640f4a5b60f89426c811e82e51aa635f))
+* **employees:** add employee management module with types, API, hooks, and routes ([904654f](https://github.com/Janeirohurley/fluxo-desktop/commit/904654f8ecba0a5adcb71a0c182ca40956f5a4fd))
+* **finance:** add finance module with transaction, journal entry, and reconciliation management ([d26ea5e](https://github.com/Janeirohurley/fluxo-desktop/commit/d26ea5e1b3fa72f85434036ca37157a46f1d8a55))
+* **payroll:** add payroll payslip detail page and routes ([4a22470](https://github.com/Janeirohurley/fluxo-desktop/commit/4a22470a4503be0611e5d50d5e106f5830f163e3))
+
 ### [0.1.14](https://github.com/Janeirohurley/fluxo-desktop/compare/v0.1.13...v0.1.14) (2026-03-29)
 
 
