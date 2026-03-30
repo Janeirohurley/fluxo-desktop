@@ -16,10 +16,44 @@
     "insights": "Insights",
     "criticalInsights": "Critical insights"
   },
+  "modules": {
+    "assets": "Assets",
+    "finance": "Finance",
+    "employees": "Employees",
+    "payroll": "Payroll"
+  },
+  "statuses": {
+    "ready": "Ready",
+    "empty": "Empty",
+    "disabled": "Disabled",
+    "not_implemented": "Not implemented",
+    "unavailable": "Unavailable",
+    "insufficient_modules": "Insufficient modules"
+  },
+  "insightSeverities": {
+    "info": "Info",
+    "warning": "Warning",
+    "critical": "Critical"
+  },
+  "commandCenter": {
+    "title": "Module command center",
+    "description": "Jump directly into each domain and review its readiness and top signals.",
+    "openModule": "Open",
+    "boundaries": "Scopes",
+    "kpis": "KPIs",
+    "insights": "Insights"
+  },
+  "priorityInsights": {
+    "title": "Priority signals",
+    "description": "Fluxo groups the most actionable signals here across all modules.",
+    "valueLabel": "Value",
+    "empty": "No priority signal is currently raised."
+  },
   "crossModuleTitle": "Cross-module view",
   "crossModuleDescription": "This section combines signals from several modules to provide a global reading of the company.",
   "crossModuleEnabled": "Cross-module analysis enabled",
   "crossModuleDisabled": "Cross-module analysis disabled",
+  "crossModuleBadge": "Cross-module",
   "crossModuleInsights": "Cross-module insights",
   "filters": {
     "title": "Overview filters",
@@ -42,6 +76,15 @@
     "selectedMetric": "Selected KPI",
     "periodAll": "Full reading",
     "periodValue": "Reading over {{count}} periods"
+  },
+  "moduleCard": {
+    "scopesCount": "{{count}} scopes",
+    "openModule": "Open module",
+    "noKpis": "No KPI is available for this module.",
+    "focusMetric": "Focused KPI",
+    "periodAll": "Full window",
+    "periodValue": "{{count}}-period window",
+    "insightsTitle": "Insights"
   },
   "noCrossModuleKpis": "No cross-module KPI available for the moment.",
   "noInsights": "No insight to display for the moment."

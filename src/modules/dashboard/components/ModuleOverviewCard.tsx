@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Badge, Card } from "@/shared/ui";
-import { type OverviewModuleResult } from "@/modules/dashboard/types/overview.types";
+import { Button } from "@/shared/ui";
+import { type OverviewModuleName, type OverviewModuleResult } from "@/modules/dashboard/types/overview.types";
 import { formatMetricLabel, formatMetricValue, getModuleTone, getStatusTone, sliceChartDataForPeriod } from "./dashboard.utils";
 import { InsightList } from "./InsightList";
 import { OverviewChartPanel } from "./OverviewChartPanel";
@@ -9,9 +12,16 @@ type ModuleOverviewCardProps = {
   moduleResult: OverviewModuleResult;
   emptyInsightsLabel: string;
   periodWindow?: string;
+  onOpenModule?: (moduleName: OverviewModuleName) => void;
 };
 
-export function ModuleOverviewCard({ moduleResult, emptyInsightsLabel, periodWindow = "all" }: ModuleOverviewCardProps) {
+export function ModuleOverviewCard({
+  moduleResult,
+  emptyInsightsLabel,
+  periodWindow = "all",
+  onOpenModule,
+}: ModuleOverviewCardProps) {
+  const { t } = useTranslation("dashboard");
   const [selectedMetricKey, setSelectedMetricKey] = useState<string | null>(null);
   const moduleTone = getModuleTone(moduleResult.module);
   const kpis = Object.entries(moduleResult.kpis ?? {});
@@ -31,15 +41,28 @@ export function ModuleOverviewCard({ moduleResult, emptyInsightsLabel, periodWin
         <div className="space-y-2">
           <div className="flex items-center gap-3">
             <h3 className="text-xl font-semibold capitalize text-slate-900 dark:text-white">
-              {moduleResult.module}
+              {t(`modules.${moduleResult.module}`, { defaultValue: moduleResult.module })}
             </h3>
-            <Badge tone={getStatusTone(moduleResult.status)}>{moduleResult.status}</Badge>
-            <Badge className={moduleTone.softClassName}>{moduleResult.boundaries.length} scopes</Badge>
+            <Badge tone={getStatusTone(moduleResult.status)}>
+              {t(`statuses.${moduleResult.status}`, { defaultValue: moduleResult.status })}
+            </Badge>
+            <Badge className={moduleTone.softClassName}>
+              {t("moduleCard.scopesCount", { count: moduleResult.boundaries.length })}
+            </Badge>
           </div>
           <p className="text-sm text-slate-500 dark:text-slate-400">{moduleResult.description}</p>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {onOpenModule ? (
+            <Button
+              variant="secondary"
+              leftIcon={<ArrowRight className="h-4 w-4" />}
+              onClick={() => onOpenModule(moduleResult.module)}
+            >
+              {t("moduleCard.openModule")}
+            </Button>
+          ) : null}
           {moduleResult.boundaries.map((boundary) => (
             <Badge key={boundary} tone="outline">
               {boundary}
@@ -72,14 +95,14 @@ export function ModuleOverviewCard({ moduleResult, emptyInsightsLabel, periodWin
                 </button>
               ))
             ) : (
-              <p className="text-sm text-slate-500 dark:text-slate-400">Aucun KPI disponible pour ce module.</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{t("moduleCard.noKpis")}</p>
             )}
           </div>
 
           {selectedMetricEntry ? (
             <div className={`rounded-2xl border p-5 ${moduleTone.borderClassName} ${moduleTone.softClassName}`}>
               <p className="text-xs uppercase tracking-wide opacity-80">
-                KPI en focus
+                {t("moduleCard.focusMetric")}
               </p>
               <div className="mt-3 flex flex-wrap items-end justify-between gap-3">
                 <div>
@@ -100,14 +123,18 @@ export function ModuleOverviewCard({ moduleResult, emptyInsightsLabel, periodWin
                 title={formatMetricLabel(chartKey)}
                 chartData={sliceChartDataForPeriod(chartValue, periodWindow)}
                 accentColor={moduleTone.accent}
-                subtitle={`Fenetre ${periodWindow === "all" ? "complete" : `${periodWindow} periodes`}`}
+                subtitle={
+                  periodWindow === "all"
+                    ? t("moduleCard.periodAll")
+                    : t("moduleCard.periodValue", { count: periodWindow })
+                }
               />
             ))}
           </div>
         </div>
 
         <div className="grid gap-3">
-          <p className="text-sm font-semibold text-slate-900 dark:text-white">Insights</p>
+          <p className="text-sm font-semibold text-slate-900 dark:text-white">{t("moduleCard.insightsTitle")}</p>
           <InsightList insights={moduleResult.insights} emptyLabel={emptyInsightsLabel} />
         </div>
       </div>

@@ -16,10 +16,44 @@
     "insights": "Insights",
     "criticalInsights": "Insights critiques"
   },
+  "modules": {
+    "assets": "Assets",
+    "finance": "Finance",
+    "employees": "Employes",
+    "payroll": "Payroll"
+  },
+  "statuses": {
+    "ready": "Pret",
+    "empty": "Vide",
+    "disabled": "Desactive",
+    "not_implemented": "Non implemente",
+    "unavailable": "Indisponible",
+    "insufficient_modules": "Modules insuffisants"
+  },
+  "insightSeverities": {
+    "info": "Info",
+    "warning": "Attention",
+    "critical": "Critique"
+  },
+  "commandCenter": {
+    "title": "Centre de pilotage des modules",
+    "description": "Accedez rapidement a chaque domaine, relisez son niveau de preparation et ses signaux principaux.",
+    "openModule": "Ouvrir",
+    "boundaries": "Scopes",
+    "kpis": "KPIs",
+    "insights": "Insights"
+  },
+  "priorityInsights": {
+    "title": "Points de vigilance",
+    "description": "Fluxo regroupe ici les signaux a traiter en priorite, tous modules confondus.",
+    "valueLabel": "Valeur",
+    "empty": "Aucun signal prioritaire n'est remonte pour le moment."
+  },
   "crossModuleTitle": "Lecture transverse",
   "crossModuleDescription": "Cette section combine les signaux venant de plusieurs modules pour donner une lecture globale de l'entreprise.",
   "crossModuleEnabled": "Analyse croisee active",
   "crossModuleDisabled": "Analyse croisee inactive",
+  "crossModuleBadge": "Transverse",
   "crossModuleInsights": "Insights transverses",
   "filters": {
     "title": "Filtrage de l'overview",
@@ -42,6 +76,15 @@
     "selectedMetric": "KPI selectionne",
     "periodAll": "Lecture complete",
     "periodValue": "Lecture sur {{count}} periodes"
+  },
+  "moduleCard": {
+    "scopesCount": "{{count}} scopes",
+    "openModule": "Ouvrir le module",
+    "noKpis": "Aucun KPI disponible pour ce module.",
+    "focusMetric": "KPI en focus",
+    "periodAll": "Fenetre complete",
+    "periodValue": "Fenetre {{count}} periodes",
+    "insightsTitle": "Insights"
   },
   "noCrossModuleKpis": "Aucun KPI transverse disponible pour le moment.",
   "noInsights": "Aucun insight a afficher pour le moment."

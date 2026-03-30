@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Activity, AlertTriangle, BarChart3, Filter, Layers3, ShieldCheck, Sparkles } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { Activity, AlertTriangle, ArrowRight, BarChart3, Filter, Layers3, ShieldCheck, Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAccessSession } from "@/modules/auth/hooks/useAccessSession";
 import { InsightList } from "@/modules/dashboard/components/InsightList";
@@ -13,12 +14,35 @@ import {
   sliceChartDataForPeriod,
 } from "@/modules/dashboard/components/dashboard.utils";
 import { useOverview } from "@/modules/dashboard/hooks/useOverview";
+import { type OverviewInsight, type OverviewModuleName } from "@/modules/dashboard/types/overview.types";
 import { Badge, Button, Card, Spinner, Toggle } from "@/shared/ui";
 import { SingleSelectDropdown } from "@/shared/ui/SingleSelectDropdown";
 
 const periodOptions = ["3", "6", "12", "all"] as const;
 
+const moduleRoutes: Record<OverviewModuleName, string> = {
+  assets: "/assets",
+  employees: "/employees",
+  finance: "/finance",
+  payroll: "/payroll",
+};
+
+type PriorityInsightItem = {
+  scope: string;
+  toneClassName: string;
+  insight: OverviewInsight;
+};
+
+function buildPriorityInsights(items: PriorityInsightItem[], limit = 6) {
+  const severityOrder = { critical: 0, warning: 1, info: 2 };
+
+  return [...items]
+    .sort((left, right) => severityOrder[left.insight.severity] - severityOrder[right.insight.severity])
+    .slice(0, limit);
+}
+
 export function DashboardPage() {
+  const navigate = useNavigate();
   const { data: session } = useAccessSession();
   const { data: overview, isLoading, isError, refetch } = useOverview();
   const { t } = useTranslation("dashboard");
@@ -36,7 +60,7 @@ export function DashboardPage() {
     { id: "all", label: t("filters.allModules") },
     ...modules.map((moduleResult) => ({
       id: moduleResult.module,
-      label: moduleResult.module,
+      label: t(`modules.${moduleResult.module}`, { defaultValue: moduleResult.module }),
     })),
   ];
 
@@ -72,6 +96,25 @@ export function DashboardPage() {
     focusedKpiEntries[0] ??
     null;
   const focusTone = focusedModule ? getModuleTone(focusedModule.module) : getModuleTone("overview");
+
+  const priorityInsights = buildPriorityInsights([
+    ...modules.flatMap((moduleResult) =>
+      moduleResult.insights.map((insight) => ({
+        scope: t(`modules.${moduleResult.module}`, { defaultValue: moduleResult.module }),
+        toneClassName: getModuleTone(moduleResult.module).softClassName,
+        insight,
+      })),
+    ),
+    ...(crossModule?.insights ?? []).map((insight) => ({
+      scope: t("crossModuleBadge"),
+      toneClassName: getModuleTone("overview").softClassName,
+      insight,
+    })),
+  ]);
+
+  const handleOpenModule = (moduleName: OverviewModuleName) => {
+    navigate({ to: moduleRoutes[moduleName] });
+  };
 
   if (isLoading) {
     return (
@@ -132,7 +175,7 @@ export function DashboardPage() {
             <div className="flex flex-wrap gap-2 pt-2">
               {(companyContext?.enabledModules ?? []).map((moduleName) => (
                 <Badge key={moduleName} className="bg-white/12 text-white">
-                  {moduleName}
+                  {t(`modules.${moduleName}`, { defaultValue: moduleName })}
                 </Badge>
               ))}
             </div>
@@ -222,13 +265,104 @@ export function DashboardPage() {
         />
       </div>
 
+      <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+        <Card className="grid gap-5 p-6">
+          <div className="space-y-1">
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{t("commandCenter.title")}</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400">{t("commandCenter.description")}</p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {modules.map((moduleResult) => {
+              const tone = getModuleTone(moduleResult.module);
+              return (
+                <div key={`module-center-${moduleResult.module}`} className={`rounded-2xl border p-5 ${tone.borderClassName}`}>
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="space-y-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                          {t(`modules.${moduleResult.module}`, { defaultValue: moduleResult.module })}
+                        </h3>
+                        <Badge tone={moduleResult.status === "ready" ? "success" : "info"}>
+                          {t(`statuses.${moduleResult.status}`, { defaultValue: moduleResult.status })}
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">{moduleResult.description}</p>
+                    </div>
+
+                    <Button
+                      variant="secondary"
+                      leftIcon={<ArrowRight className="h-4 w-4" />}
+                      onClick={() => handleOpenModule(moduleResult.module)}
+                    >
+                      {t("commandCenter.openModule")}
+                    </Button>
+                  </div>
+
+                  <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                    <div className="rounded-xl border border-border bg-background/70 p-3">
+                      <p className="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">{t("commandCenter.boundaries")}</p>
+                      <p className="mt-2 text-lg font-semibold text-slate-900 dark:text-white">{moduleResult.boundaries.length}</p>
+                    </div>
+                    <div className="rounded-xl border border-border bg-background/70 p-3">
+                      <p className="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">{t("commandCenter.kpis")}</p>
+                      <p className="mt-2 text-lg font-semibold text-slate-900 dark:text-white">{Object.keys(moduleResult.kpis ?? {}).length}</p>
+                    </div>
+                    <div className="rounded-xl border border-border bg-background/70 p-3">
+                      <p className="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">{t("commandCenter.insights")}</p>
+                      <p className="mt-2 text-lg font-semibold text-slate-900 dark:text-white">{moduleResult.insights.length}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+
+        <Card className="grid gap-5 p-6">
+          <div className="space-y-1">
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{t("priorityInsights.title")}</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400">{t("priorityInsights.description")}</p>
+          </div>
+
+          {priorityInsights.length > 0 ? (
+            <div className="grid gap-3">
+              {priorityInsights.map(({ scope, toneClassName, insight }, index) => (
+                <div key={`${scope}-${insight.code}-${index}`} className="rounded-2xl border border-border bg-background/70 p-4">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge className={toneClassName}>{scope}</Badge>
+                    <Badge tone={insight.severity === "critical" ? "warning" : insight.severity === "warning" ? "warning" : "info"}>
+                      {t(`insightSeverities.${insight.severity}`, { defaultValue: insight.severity })}
+                    </Badge>
+                  </div>
+                  <p className="mt-3 text-sm font-medium text-slate-900 dark:text-white">{insight.message}</p>
+                  {insight.value !== undefined && insight.value !== null ? (
+                    <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                      {t("priorityInsights.valueLabel")}: {formatMetricValue(insight.value)}
+                    </p>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-border p-8 text-sm text-slate-500 dark:text-slate-400">
+              {t("priorityInsights.empty")}
+            </div>
+          )}
+        </Card>
+      </div>
+
       <Card className="grid gap-6 p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <BarChart3 className="h-5 w-5 text-blue-600 dark:text-blue-300" />
               <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
-                {focusedModule ? t("focus.titleModule", { module: focusedModule.module }) : t("focus.titleGlobal")}
+                {focusedModule
+                  ? t("focus.titleModule", {
+                      module: t(`modules.${focusedModule.module}`, { defaultValue: focusedModule.module }),
+                    })
+                  : t("focus.titleGlobal")}
               </h2>
             </div>
             <p className="text-sm text-slate-500 dark:text-slate-400">
@@ -237,7 +371,9 @@ export function DashboardPage() {
           </div>
 
           <Badge tone={focusedModule ? "info" : crossModule?.status === "ready" ? "success" : "info"}>
-            {focusedModule?.status ?? crossModule?.status ?? "empty"}
+            {t(`statuses.${focusedModule?.status ?? crossModule?.status ?? "empty"}`, {
+              defaultValue: focusedModule?.status ?? crossModule?.status ?? "empty",
+            })}
           </Badge>
         </div>
 
@@ -318,7 +454,7 @@ export function DashboardPage() {
           </div>
           <div className="flex items-center gap-3">
             <Badge tone={crossModule?.status === "ready" ? "success" : "info"}>
-              {crossModule?.status ?? "empty"}
+              {t(`statuses.${crossModule?.status ?? "empty"}`, { defaultValue: crossModule?.status ?? "empty" })}
             </Badge>
             <span className="text-sm text-slate-500 dark:text-slate-400">
               {crossModule?.enabled ? t("crossModuleEnabled") : t("crossModuleDisabled")}
@@ -355,6 +491,7 @@ export function DashboardPage() {
             moduleResult={moduleResult}
             emptyInsightsLabel={t("noInsights")}
             periodWindow={periodWindow}
+            onOpenModule={handleOpenModule}
           />
         ))}
       </div>
