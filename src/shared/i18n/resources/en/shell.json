@@ -8,6 +8,10 @@
     "dashboard": "Dashboard",
     "assets": "Assets",
     "assetReferences": "Asset references",
+    "finance": "Finance",
+    "financeReferences": "Finance references",
+    "financeJournalEntries": "Journal entries",
+    "financeReconciliations": "Reconciliations",
     "employees": "Employees",
     "employeeReferences": "Employee references"
   }

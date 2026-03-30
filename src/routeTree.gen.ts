@@ -10,8 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FinanceIndexRouteImport } from './routes/finance/index'
 import { Route as EmployeesIndexRouteImport } from './routes/employees/index'
 import { Route as AssetsIndexRouteImport } from './routes/assets/index'
+import { Route as FinanceReferencesRouteImport } from './routes/finance/references'
+import { Route as FinanceReconciliationsRouteImport } from './routes/finance/reconciliations'
+import { Route as FinanceJournalEntriesRouteImport } from './routes/finance/journal-entries'
 import { Route as EmployeesReferencesRouteImport } from './routes/employees/references'
 import { Route as EmployeesEmployeeIdRouteImport } from './routes/employees/$employeeId'
 import { Route as AuthAccessKeyRouteImport } from './routes/auth/access-key'
@@ -23,6 +27,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FinanceIndexRoute = FinanceIndexRouteImport.update({
+  id: '/finance/',
+  path: '/finance/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmployeesIndexRoute = EmployeesIndexRouteImport.update({
   id: '/employees/',
   path: '/employees/',
@@ -31,6 +40,21 @@ const EmployeesIndexRoute = EmployeesIndexRouteImport.update({
 const AssetsIndexRoute = AssetsIndexRouteImport.update({
   id: '/assets/',
   path: '/assets/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinanceReferencesRoute = FinanceReferencesRouteImport.update({
+  id: '/finance/references',
+  path: '/finance/references',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinanceReconciliationsRoute = FinanceReconciliationsRouteImport.update({
+  id: '/finance/reconciliations',
+  path: '/finance/reconciliations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinanceJournalEntriesRoute = FinanceJournalEntriesRouteImport.update({
+  id: '/finance/journal-entries',
+  path: '/finance/journal-entries',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmployeesReferencesRoute = EmployeesReferencesRouteImport.update({
@@ -66,8 +90,12 @@ export interface FileRoutesByFullPath {
   '/auth/access-key': typeof AuthAccessKeyRoute
   '/employees/$employeeId': typeof EmployeesEmployeeIdRoute
   '/employees/references': typeof EmployeesReferencesRoute
+  '/finance/journal-entries': typeof FinanceJournalEntriesRoute
+  '/finance/reconciliations': typeof FinanceReconciliationsRoute
+  '/finance/references': typeof FinanceReferencesRoute
   '/assets/': typeof AssetsIndexRoute
   '/employees/': typeof EmployeesIndexRoute
+  '/finance/': typeof FinanceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -76,8 +104,12 @@ export interface FileRoutesByTo {
   '/auth/access-key': typeof AuthAccessKeyRoute
   '/employees/$employeeId': typeof EmployeesEmployeeIdRoute
   '/employees/references': typeof EmployeesReferencesRoute
+  '/finance/journal-entries': typeof FinanceJournalEntriesRoute
+  '/finance/reconciliations': typeof FinanceReconciliationsRoute
+  '/finance/references': typeof FinanceReferencesRoute
   '/assets': typeof AssetsIndexRoute
   '/employees': typeof EmployeesIndexRoute
+  '/finance': typeof FinanceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -87,8 +119,12 @@ export interface FileRoutesById {
   '/auth/access-key': typeof AuthAccessKeyRoute
   '/employees/$employeeId': typeof EmployeesEmployeeIdRoute
   '/employees/references': typeof EmployeesReferencesRoute
+  '/finance/journal-entries': typeof FinanceJournalEntriesRoute
+  '/finance/reconciliations': typeof FinanceReconciliationsRoute
+  '/finance/references': typeof FinanceReferencesRoute
   '/assets/': typeof AssetsIndexRoute
   '/employees/': typeof EmployeesIndexRoute
+  '/finance/': typeof FinanceIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -99,8 +135,12 @@ export interface FileRouteTypes {
     | '/auth/access-key'
     | '/employees/$employeeId'
     | '/employees/references'
+    | '/finance/journal-entries'
+    | '/finance/reconciliations'
+    | '/finance/references'
     | '/assets/'
     | '/employees/'
+    | '/finance/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -109,8 +149,12 @@ export interface FileRouteTypes {
     | '/auth/access-key'
     | '/employees/$employeeId'
     | '/employees/references'
+    | '/finance/journal-entries'
+    | '/finance/reconciliations'
+    | '/finance/references'
     | '/assets'
     | '/employees'
+    | '/finance'
   id:
     | '__root__'
     | '/'
@@ -119,8 +163,12 @@ export interface FileRouteTypes {
     | '/auth/access-key'
     | '/employees/$employeeId'
     | '/employees/references'
+    | '/finance/journal-entries'
+    | '/finance/reconciliations'
+    | '/finance/references'
     | '/assets/'
     | '/employees/'
+    | '/finance/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -130,8 +178,12 @@ export interface RootRouteChildren {
   AuthAccessKeyRoute: typeof AuthAccessKeyRoute
   EmployeesEmployeeIdRoute: typeof EmployeesEmployeeIdRoute
   EmployeesReferencesRoute: typeof EmployeesReferencesRoute
+  FinanceJournalEntriesRoute: typeof FinanceJournalEntriesRoute
+  FinanceReconciliationsRoute: typeof FinanceReconciliationsRoute
+  FinanceReferencesRoute: typeof FinanceReferencesRoute
   AssetsIndexRoute: typeof AssetsIndexRoute
   EmployeesIndexRoute: typeof EmployeesIndexRoute
+  FinanceIndexRoute: typeof FinanceIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -141,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/finance/': {
+      id: '/finance/'
+      path: '/finance'
+      fullPath: '/finance/'
+      preLoaderRoute: typeof FinanceIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/employees/': {
@@ -155,6 +214,27 @@ declare module '@tanstack/react-router' {
       path: '/assets'
       fullPath: '/assets/'
       preLoaderRoute: typeof AssetsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/finance/references': {
+      id: '/finance/references'
+      path: '/finance/references'
+      fullPath: '/finance/references'
+      preLoaderRoute: typeof FinanceReferencesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/finance/reconciliations': {
+      id: '/finance/reconciliations'
+      path: '/finance/reconciliations'
+      fullPath: '/finance/reconciliations'
+      preLoaderRoute: typeof FinanceReconciliationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/finance/journal-entries': {
+      id: '/finance/journal-entries'
+      path: '/finance/journal-entries'
+      fullPath: '/finance/journal-entries'
+      preLoaderRoute: typeof FinanceJournalEntriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/employees/references': {
@@ -202,8 +282,12 @@ const rootRouteChildren: RootRouteChildren = {
   AuthAccessKeyRoute: AuthAccessKeyRoute,
   EmployeesEmployeeIdRoute: EmployeesEmployeeIdRoute,
   EmployeesReferencesRoute: EmployeesReferencesRoute,
+  FinanceJournalEntriesRoute: FinanceJournalEntriesRoute,
+  FinanceReconciliationsRoute: FinanceReconciliationsRoute,
+  FinanceReferencesRoute: FinanceReferencesRoute,
   AssetsIndexRoute: AssetsIndexRoute,
   EmployeesIndexRoute: EmployeesIndexRoute,
+  FinanceIndexRoute: FinanceIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

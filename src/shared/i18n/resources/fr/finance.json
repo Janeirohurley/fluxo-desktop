@@ -1,0 +1,277 @@
+{
+  "title": "Finance",
+  "description": "Pilotez les transactions financieres, les references de paiement et les comptes comptables depuis un espace unique.",
+  "stats": {
+    "totalTransactions": "Transactions",
+    "transactionVolume": "Volume de la page",
+    "linkedEmployees": "Liees a un employe",
+    "linkedAssets": "Liees a un asset",
+    "payrollLinked": "Liees a la paie"
+  },
+  "table": {
+    "loadError": "Impossible de charger les donnees finance.",
+    "na": "N/A",
+    "transactionDate": "Date",
+    "transactionType": "Type de transaction",
+    "accountingCategory": "Categorie comptable",
+    "amount": "Montant",
+    "paymentMethod": "Moyen de paiement",
+    "referenceNumber": "Reference",
+    "description": "Description",
+    "payroll": "Paie",
+    "payrollLinked": "Lie a la paie",
+    "updatedAt": "Mis a jour"
+  },
+  "create": {
+    "title": "Ajouter une transaction",
+    "description": "Enregistrez un nouveau mouvement financier dans le tenant courant.",
+    "validationError": "Le type, le moyen de paiement, la categorie, le montant et la date sont obligatoires.",
+    "success": "Transaction creee avec succes.",
+    "error": "Impossible de creer la transaction.",
+    "cancel": "Annuler",
+    "submit": "Ajouter la transaction",
+    "submitting": "Creation...",
+    "transactionType": "Type de transaction",
+    "transactionTypePlaceholder": "Selectionnez un type",
+    "paymentMethod": "Moyen de paiement",
+    "paymentMethodPlaceholder": "Selectionnez un moyen",
+    "accountingCategory": "Categorie comptable",
+    "amount": "Montant",
+    "referenceNumber": "Reference",
+    "transactionDate": "Date de transaction",
+    "descriptionField": "Description"
+  },
+  "actions": {
+    "updateError": "Impossible de mettre a jour la transaction.",
+    "deleteSuccess": "Transaction supprimee avec succes.",
+    "deleteError": "Impossible de supprimer la transaction."
+  },
+  "journalEntries": {
+    "open": "Ecritures",
+    "back": "Retour a la finance",
+    "title": "Ecritures comptables",
+    "description": "Creez, postez et suivez les ecritures comptables du tenant.",
+    "statuses": {
+      "draft": "Brouillon",
+      "posted": "Postee"
+    },
+    "stats": {
+      "total": "Ecritures",
+      "draft": "Brouillons",
+      "posted": "Postees",
+      "payrollLines": "Lignes liees a la paie"
+    },
+    "table": {
+      "loadError": "Impossible de charger les ecritures comptables.",
+      "entryNumber": "Numero",
+      "entryDate": "Date",
+      "status": "Statut",
+      "period": "Periode",
+      "lines": "Lignes",
+      "payroll": "Paie",
+      "payrollLinkedCount_one": "{{count}} ligne paie",
+      "payrollLinkedCount_other": "{{count}} lignes paie",
+      "updatedAt": "Mis a jour"
+    },
+    "actions": {
+      "post": "Poster",
+      "postSuccess": "Ecriture postee avec succes.",
+      "postError": "Impossible de poster l'ecriture."
+    },
+    "create": {
+      "title": "Ajouter une ecriture",
+      "description": "Preparez une ecriture equilibree avec au moins deux lignes.",
+      "validationError": "Le numero, la date et la periode sont obligatoires.",
+      "linesValidationError": "Les lignes doivent etre valides, contenir un seul sens debit/credit et rester equilibrees.",
+      "success": "Ecriture creee avec succes.",
+      "error": "Impossible de creer l'ecriture.",
+      "cancel": "Annuler",
+      "submit": "Ajouter l'ecriture",
+      "submitting": "Creation...",
+      "entryNumber": "Numero d'ecriture",
+      "entryDate": "Date d'ecriture",
+      "descriptionField": "Description",
+      "periodYear": "Annee comptable",
+      "periodMonth": "Mois comptable",
+      "status": "Statut initial",
+      "linesTitle": "Lignes comptables",
+      "linesDescription": "Chaque ligne doit contenir soit un debit, soit un credit.",
+      "addLine": "Ajouter une ligne",
+      "lineTitle": "Ligne {{index}}",
+      "account": "Compte",
+      "accountPlaceholder": "Selectionnez un compte",
+      "debit": "Debit",
+      "credit": "Credit",
+      "referenceNumber": "Reference",
+      "lineDescription": "Description de ligne",
+      "totalDebit": "Total debit",
+      "totalCredit": "Total credit"
+    }
+  },
+  "reconciliations": {
+    "open": "Rapprochements",
+    "back": "Retour a la finance",
+    "title": "Rapprochements",
+    "description": "Suivez les rapprochements ouverts ou clos et rattachez-y les transactions.",
+    "statuses": {
+      "open": "Ouvert",
+      "closed": "Clos"
+    },
+    "stats": {
+      "total": "Rapprochements",
+      "open": "Ouverts",
+      "closed": "Clos",
+      "items": "Items rapproches"
+    },
+    "table": {
+      "loadError": "Impossible de charger les rapprochements.",
+      "reconciliationType": "Type",
+      "account": "Compte",
+      "statementStartDate": "Debut releve",
+      "statementEndDate": "Fin releve",
+      "statementBalance": "Solde releve",
+      "bookBalance": "Solde livre",
+      "gap": "Ecart",
+      "status": "Statut",
+      "items": "Items",
+      "updatedAt": "Mis a jour"
+    },
+    "actions": {
+      "addItem": "Ajouter un item",
+      "close": "Clore",
+      "closeSuccess": "Rapprochement clos avec succes.",
+      "closeError": "Impossible de clore le rapprochement."
+    },
+    "create": {
+      "title": "Ajouter un rapprochement",
+      "description": "Initialisez un nouveau rapprochement bancaire ou comptable.",
+      "validationError": "Le type, le compte, les dates et les soldes sont obligatoires.",
+      "success": "Rapprochement cree avec succes.",
+      "error": "Impossible de creer le rapprochement.",
+      "cancel": "Annuler",
+      "submit": "Ajouter le rapprochement",
+      "submitting": "Creation...",
+      "reconciliationType": "Type de rapprochement",
+      "account": "Compte",
+      "accountPlaceholder": "Selectionnez un compte",
+      "statementStartDate": "Debut de releve",
+      "statementEndDate": "Fin de releve",
+      "statementBalance": "Solde du releve",
+      "bookBalance": "Solde comptable"
+    },
+    "item": {
+      "title": "Ajouter un item",
+      "description": "Rattachez une transaction ou une ligne d'ecriture a un rapprochement ouvert.",
+      "validationError": "Selectionnez une source a rapprocher.",
+      "success": "Item de rapprochement ajoute avec succes.",
+      "error": "Impossible d'ajouter l'item de rapprochement.",
+      "cancel": "Annuler",
+      "submit": "Ajouter l'item",
+      "submitting": "Ajout...",
+      "sourceType": "Type de source",
+      "sourceOptions": {
+        "transaction": "Transaction",
+        "journalEntryLine": "Ligne d'ecriture"
+      },
+      "transaction": "Transaction",
+      "transactionPlaceholder": "Selectionnez une transaction",
+      "journalEntryLine": "Ligne d'ecriture",
+      "journalEntryLinePlaceholder": "Selectionnez une ligne d'ecriture",
+      "debit": "Debit",
+      "credit": "Credit",
+      "payrollMarker": "Paie"
+    }
+  },
+  "references": {
+    "open": "References finance",
+    "back": "Retour a la finance",
+    "title": "References finance",
+    "description": "Administrez les moyens de paiement, les types de transaction et les comptes comptables utilises par le module.",
+    "table": {
+      "loadError": "Impossible de charger les references finance.",
+      "name": "Nom",
+      "createdAt": "Cree le",
+      "updatedAt": "Mis a jour le"
+    },
+    "form": {
+      "name": "Nom",
+      "cancel": "Annuler",
+      "submit": "Enregistrer",
+      "submitting": "Enregistrement..."
+    },
+    "stats": {
+      "paymentMethods": "Moyens de paiement",
+      "transactionTypes": "Types de transaction",
+      "accounts": "Comptes"
+    },
+    "sections": {
+      "paymentMethods": {
+        "title": "Moyens de paiement",
+        "description": "Gerer les canaux de paiement utilises pour enregistrer les transactions.",
+        "createTitle": "Ajouter un moyen de paiement",
+        "createDescription": "Ajoutez un nouveau moyen de paiement disponible dans le tenant.",
+        "namePlaceholder": "Ex. virement bancaire",
+        "createValidationError": "Le nom du moyen de paiement est obligatoire.",
+        "createSuccess": "Moyen de paiement cree avec succes.",
+        "createError": "Impossible de creer le moyen de paiement.",
+        "updateValidationError": "Le nom du moyen de paiement est obligatoire.",
+        "updateSuccess": "Moyen de paiement mis a jour avec succes.",
+        "updateError": "Impossible de mettre a jour le moyen de paiement.",
+        "deleteSuccess": "Moyen de paiement supprime avec succes.",
+        "deleteError": "Impossible de supprimer le moyen de paiement."
+      },
+      "transactionTypes": {
+        "title": "Types de transaction",
+        "description": "Gerer les familles de transactions utilisees pour qualifier les mouvements financiers.",
+        "createTitle": "Ajouter un type de transaction",
+        "createDescription": "Ajoutez un nouveau type de transaction disponible dans le tenant.",
+        "namePlaceholder": "Ex. expense",
+        "createValidationError": "Le nom du type de transaction est obligatoire.",
+        "createSuccess": "Type de transaction cree avec succes.",
+        "createError": "Impossible de creer le type de transaction.",
+        "updateValidationError": "Le nom du type de transaction est obligatoire.",
+        "updateSuccess": "Type de transaction mis a jour avec succes.",
+        "updateError": "Impossible de mettre a jour le type de transaction.",
+        "deleteSuccess": "Type de transaction supprime avec succes.",
+        "deleteError": "Impossible de supprimer le type de transaction."
+      },
+      "accounts": {
+        "title": "Comptes comptables",
+        "description": "Gerer les comptes utilises dans les ecritures, les transactions et les rapprochements."
+      }
+    },
+    "accounts": {
+      "createTitle": "Ajouter un compte comptable",
+      "createDescription": "Configurez un nouveau compte comptable pour le tenant courant.",
+      "createValidationError": "Le code et le nom du compte sont obligatoires.",
+      "createSuccess": "Compte comptable cree avec succes.",
+      "createError": "Impossible de creer le compte comptable.",
+      "updateSuccess": "Compte comptable mis a jour avec succes.",
+      "updateError": "Impossible de mettre a jour le compte comptable.",
+      "deleteSuccess": "Compte comptable supprime avec succes.",
+      "deleteError": "Impossible de supprimer le compte comptable.",
+      "active": "Actif",
+      "inactive": "Inactif",
+      "fields": {
+        "code": "Code",
+        "name": "Nom",
+        "accountType": "Type de compte",
+        "status": "Statut"
+      },
+      "table": {
+        "code": "Code",
+        "name": "Nom",
+        "accountType": "Type",
+        "isActive": "Statut",
+        "updatedAt": "Mis a jour"
+      }
+    }
+  },
+  "accountTypes": {
+    "asset": "Actif",
+    "liability": "Passif",
+    "equity": "Capitaux propres",
+    "revenue": "Revenu",
+    "expense": "Depense"
+  }
+}

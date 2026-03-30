@@ -8,6 +8,10 @@
     "dashboard": "Tableau de bord",
     "assets": "Assets",
     "assetReferences": "References assets",
+    "finance": "Finance",
+    "financeReferences": "References finance",
+    "financeJournalEntries": "Ecritures",
+    "financeReconciliations": "Rapprochements",
     "employees": "Employes",
     "employeeReferences": "References employees"
   }

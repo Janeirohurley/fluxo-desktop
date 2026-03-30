@@ -1,5 +1,5 @@
 import { type PropsWithChildren } from "react";
-import { Box, FolderTree, LayoutDashboard, LucideIcon, Shapes, Users } from "lucide-react";
+import { Box, CircleDollarSign, FolderTree, LayoutDashboard, LucideIcon, Landmark, Shapes, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useAccessSession } from "@/modules/auth/hooks/useAccessSession";
 
@@ -27,6 +27,13 @@ export function MainShell({ children }: PropsWithChildren) {
   if (session?.modules.includes("assets")) {
     navItems.push({ label: t("nav.assets"), to: "/assets", icon: Box });
     navItems.push({ label: t("nav.assetReferences"), to: "/assets/references", icon: FolderTree });
+  }
+
+  if (session?.modules.includes("finance")) {
+    navItems.push({ label: t("nav.finance"), to: "/finance", icon: CircleDollarSign });
+    navItems.push({ label: t("nav.financeJournalEntries"), to: "/finance/journal-entries", icon: Landmark });
+    navItems.push({ label: t("nav.financeReconciliations"), to: "/finance/reconciliations", icon: Landmark });
+    navItems.push({ label: t("nav.financeReferences"), to: "/finance/references", icon: Landmark });
   }
 
   if (session?.modules.includes("employees")) {

@@ -1,0 +1,277 @@
+{
+  "title": "Finance",
+  "description": "Manage financial transactions, payment references and accounting accounts from one operational workspace.",
+  "stats": {
+    "totalTransactions": "Transactions",
+    "transactionVolume": "Page volume",
+    "linkedEmployees": "Linked to employee",
+    "linkedAssets": "Linked to asset",
+    "payrollLinked": "Linked to payroll"
+  },
+  "table": {
+    "loadError": "Could not load finance data.",
+    "na": "N/A",
+    "transactionDate": "Date",
+    "transactionType": "Transaction type",
+    "accountingCategory": "Accounting category",
+    "amount": "Amount",
+    "paymentMethod": "Payment method",
+    "referenceNumber": "Reference",
+    "description": "Description",
+    "payroll": "Payroll",
+    "payrollLinked": "Payroll linked",
+    "updatedAt": "Updated at"
+  },
+  "create": {
+    "title": "Add transaction",
+    "description": "Register a new financial movement in the current tenant.",
+    "validationError": "Transaction type, payment method, category, amount and date are required.",
+    "success": "Transaction created successfully.",
+    "error": "Could not create the transaction.",
+    "cancel": "Cancel",
+    "submit": "Add transaction",
+    "submitting": "Creating...",
+    "transactionType": "Transaction type",
+    "transactionTypePlaceholder": "Select a type",
+    "paymentMethod": "Payment method",
+    "paymentMethodPlaceholder": "Select a method",
+    "accountingCategory": "Accounting category",
+    "amount": "Amount",
+    "referenceNumber": "Reference",
+    "transactionDate": "Transaction date",
+    "descriptionField": "Description"
+  },
+  "actions": {
+    "updateError": "Could not update the transaction.",
+    "deleteSuccess": "Transaction deleted successfully.",
+    "deleteError": "Could not delete the transaction."
+  },
+  "journalEntries": {
+    "open": "Journal entries",
+    "back": "Back to finance",
+    "title": "Journal entries",
+    "description": "Create, post and monitor accounting journal entries for the tenant.",
+    "statuses": {
+      "draft": "Draft",
+      "posted": "Posted"
+    },
+    "stats": {
+      "total": "Entries",
+      "draft": "Draft",
+      "posted": "Posted",
+      "payrollLines": "Payroll-linked lines"
+    },
+    "table": {
+      "loadError": "Could not load journal entries.",
+      "entryNumber": "Entry number",
+      "entryDate": "Entry date",
+      "status": "Status",
+      "period": "Period",
+      "lines": "Lines",
+      "payroll": "Payroll",
+      "payrollLinkedCount_one": "{{count}} payroll line",
+      "payrollLinkedCount_other": "{{count}} payroll lines",
+      "updatedAt": "Updated at"
+    },
+    "actions": {
+      "post": "Post",
+      "postSuccess": "Journal entry posted successfully.",
+      "postError": "Could not post the journal entry."
+    },
+    "create": {
+      "title": "Add journal entry",
+      "description": "Prepare a balanced journal entry with at least two lines.",
+      "validationError": "Entry number, date and accounting period are required.",
+      "linesValidationError": "Lines must be valid, contain only one debit/credit direction and stay balanced.",
+      "success": "Journal entry created successfully.",
+      "error": "Could not create the journal entry.",
+      "cancel": "Cancel",
+      "submit": "Add journal entry",
+      "submitting": "Creating...",
+      "entryNumber": "Entry number",
+      "entryDate": "Entry date",
+      "descriptionField": "Description",
+      "periodYear": "Fiscal year",
+      "periodMonth": "Fiscal month",
+      "status": "Initial status",
+      "linesTitle": "Journal lines",
+      "linesDescription": "Each line must contain either a debit or a credit.",
+      "addLine": "Add line",
+      "lineTitle": "Line {{index}}",
+      "account": "Account",
+      "accountPlaceholder": "Select an account",
+      "debit": "Debit",
+      "credit": "Credit",
+      "referenceNumber": "Reference",
+      "lineDescription": "Line description",
+      "totalDebit": "Total debit",
+      "totalCredit": "Total credit"
+    }
+  },
+  "reconciliations": {
+    "open": "Reconciliations",
+    "back": "Back to finance",
+    "title": "Reconciliations",
+    "description": "Track open or closed reconciliations and attach matching transactions.",
+    "statuses": {
+      "open": "Open",
+      "closed": "Closed"
+    },
+    "stats": {
+      "total": "Reconciliations",
+      "open": "Open",
+      "closed": "Closed",
+      "items": "Matched items"
+    },
+    "table": {
+      "loadError": "Could not load reconciliations.",
+      "reconciliationType": "Type",
+      "account": "Account",
+      "statementStartDate": "Statement start",
+      "statementEndDate": "Statement end",
+      "statementBalance": "Statement balance",
+      "bookBalance": "Book balance",
+      "gap": "Gap",
+      "status": "Status",
+      "items": "Items",
+      "updatedAt": "Updated at"
+    },
+    "actions": {
+      "addItem": "Add item",
+      "close": "Close",
+      "closeSuccess": "Reconciliation closed successfully.",
+      "closeError": "Could not close the reconciliation."
+    },
+    "create": {
+      "title": "Add reconciliation",
+      "description": "Initialize a new bank or accounting reconciliation.",
+      "validationError": "Type, account, dates and balances are required.",
+      "success": "Reconciliation created successfully.",
+      "error": "Could not create the reconciliation.",
+      "cancel": "Cancel",
+      "submit": "Add reconciliation",
+      "submitting": "Creating...",
+      "reconciliationType": "Reconciliation type",
+      "account": "Account",
+      "accountPlaceholder": "Select an account",
+      "statementStartDate": "Statement start date",
+      "statementEndDate": "Statement end date",
+      "statementBalance": "Statement balance",
+      "bookBalance": "Book balance"
+    },
+    "item": {
+      "title": "Add item",
+      "description": "Attach a transaction or journal entry line to an open reconciliation.",
+      "validationError": "Select a source to reconcile.",
+      "success": "Reconciliation item added successfully.",
+      "error": "Could not add the reconciliation item.",
+      "cancel": "Cancel",
+      "submit": "Add item",
+      "submitting": "Adding...",
+      "sourceType": "Source type",
+      "sourceOptions": {
+        "transaction": "Transaction",
+        "journalEntryLine": "Journal entry line"
+      },
+      "transaction": "Transaction",
+      "transactionPlaceholder": "Select a transaction",
+      "journalEntryLine": "Journal entry line",
+      "journalEntryLinePlaceholder": "Select a journal entry line",
+      "debit": "Debit",
+      "credit": "Credit",
+      "payrollMarker": "Payroll"
+    }
+  },
+  "references": {
+    "open": "Finance references",
+    "back": "Back to finance",
+    "title": "Finance references",
+    "description": "Administer payment methods, transaction types and accounting accounts used by the module.",
+    "table": {
+      "loadError": "Could not load finance references.",
+      "name": "Name",
+      "createdAt": "Created at",
+      "updatedAt": "Updated at"
+    },
+    "form": {
+      "name": "Name",
+      "cancel": "Cancel",
+      "submit": "Save",
+      "submitting": "Saving..."
+    },
+    "stats": {
+      "paymentMethods": "Payment methods",
+      "transactionTypes": "Transaction types",
+      "accounts": "Accounts"
+    },
+    "sections": {
+      "paymentMethods": {
+        "title": "Payment methods",
+        "description": "Manage the payment channels used to record financial transactions.",
+        "createTitle": "Add payment method",
+        "createDescription": "Add a new payment method available in this tenant.",
+        "namePlaceholder": "Ex. bank transfer",
+        "createValidationError": "Payment method name is required.",
+        "createSuccess": "Payment method created successfully.",
+        "createError": "Could not create the payment method.",
+        "updateValidationError": "Payment method name is required.",
+        "updateSuccess": "Payment method updated successfully.",
+        "updateError": "Could not update the payment method.",
+        "deleteSuccess": "Payment method deleted successfully.",
+        "deleteError": "Could not delete the payment method."
+      },
+      "transactionTypes": {
+        "title": "Transaction types",
+        "description": "Manage the transaction families used to qualify financial movements.",
+        "createTitle": "Add transaction type",
+        "createDescription": "Add a new transaction type available in this tenant.",
+        "namePlaceholder": "Ex. expense",
+        "createValidationError": "Transaction type name is required.",
+        "createSuccess": "Transaction type created successfully.",
+        "createError": "Could not create the transaction type.",
+        "updateValidationError": "Transaction type name is required.",
+        "updateSuccess": "Transaction type updated successfully.",
+        "updateError": "Could not update the transaction type.",
+        "deleteSuccess": "Transaction type deleted successfully.",
+        "deleteError": "Could not delete the transaction type."
+      },
+      "accounts": {
+        "title": "Accounting accounts",
+        "description": "Manage the accounts used in entries, transactions and reconciliations."
+      }
+    },
+    "accounts": {
+      "createTitle": "Add accounting account",
+      "createDescription": "Configure a new accounting account for the current tenant.",
+      "createValidationError": "Account code and name are required.",
+      "createSuccess": "Accounting account created successfully.",
+      "createError": "Could not create the accounting account.",
+      "updateSuccess": "Accounting account updated successfully.",
+      "updateError": "Could not update the accounting account.",
+      "deleteSuccess": "Accounting account deleted successfully.",
+      "deleteError": "Could not delete the accounting account.",
+      "active": "Active",
+      "inactive": "Inactive",
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "accountType": "Account type",
+        "status": "Status"
+      },
+      "table": {
+        "code": "Code",
+        "name": "Name",
+        "accountType": "Type",
+        "isActive": "Status",
+        "updatedAt": "Updated at"
+      }
+    }
+  },
+  "accountTypes": {
+    "asset": "Asset",
+    "liability": "Liability",
+    "equity": "Equity",
+    "revenue": "Revenue",
+    "expense": "Expense"
+  }
+}
