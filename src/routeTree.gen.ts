@@ -10,9 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PayrollIndexRouteImport } from './routes/payroll/index'
 import { Route as FinanceIndexRouteImport } from './routes/finance/index'
 import { Route as EmployeesIndexRouteImport } from './routes/employees/index'
 import { Route as AssetsIndexRouteImport } from './routes/assets/index'
+import { Route as PayrollContractsRouteImport } from './routes/payroll/contracts'
+import { Route as PayrollPaySlipIdRouteImport } from './routes/payroll/$paySlipId'
 import { Route as FinanceReferencesRouteImport } from './routes/finance/references'
 import { Route as FinanceReconciliationsRouteImport } from './routes/finance/reconciliations'
 import { Route as FinanceJournalEntriesRouteImport } from './routes/finance/journal-entries'
@@ -25,6 +28,11 @@ import { Route as AssetsAssetIdRouteImport } from './routes/assets/$assetId'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PayrollIndexRoute = PayrollIndexRouteImport.update({
+  id: '/payroll/',
+  path: '/payroll/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FinanceIndexRoute = FinanceIndexRouteImport.update({
@@ -40,6 +48,16 @@ const EmployeesIndexRoute = EmployeesIndexRouteImport.update({
 const AssetsIndexRoute = AssetsIndexRouteImport.update({
   id: '/assets/',
   path: '/assets/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PayrollContractsRoute = PayrollContractsRouteImport.update({
+  id: '/payroll/contracts',
+  path: '/payroll/contracts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PayrollPaySlipIdRoute = PayrollPaySlipIdRouteImport.update({
+  id: '/payroll/$paySlipId',
+  path: '/payroll/$paySlipId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FinanceReferencesRoute = FinanceReferencesRouteImport.update({
@@ -93,9 +111,12 @@ export interface FileRoutesByFullPath {
   '/finance/journal-entries': typeof FinanceJournalEntriesRoute
   '/finance/reconciliations': typeof FinanceReconciliationsRoute
   '/finance/references': typeof FinanceReferencesRoute
+  '/payroll/$paySlipId': typeof PayrollPaySlipIdRoute
+  '/payroll/contracts': typeof PayrollContractsRoute
   '/assets/': typeof AssetsIndexRoute
   '/employees/': typeof EmployeesIndexRoute
   '/finance/': typeof FinanceIndexRoute
+  '/payroll/': typeof PayrollIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -107,9 +128,12 @@ export interface FileRoutesByTo {
   '/finance/journal-entries': typeof FinanceJournalEntriesRoute
   '/finance/reconciliations': typeof FinanceReconciliationsRoute
   '/finance/references': typeof FinanceReferencesRoute
+  '/payroll/$paySlipId': typeof PayrollPaySlipIdRoute
+  '/payroll/contracts': typeof PayrollContractsRoute
   '/assets': typeof AssetsIndexRoute
   '/employees': typeof EmployeesIndexRoute
   '/finance': typeof FinanceIndexRoute
+  '/payroll': typeof PayrollIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -122,9 +146,12 @@ export interface FileRoutesById {
   '/finance/journal-entries': typeof FinanceJournalEntriesRoute
   '/finance/reconciliations': typeof FinanceReconciliationsRoute
   '/finance/references': typeof FinanceReferencesRoute
+  '/payroll/$paySlipId': typeof PayrollPaySlipIdRoute
+  '/payroll/contracts': typeof PayrollContractsRoute
   '/assets/': typeof AssetsIndexRoute
   '/employees/': typeof EmployeesIndexRoute
   '/finance/': typeof FinanceIndexRoute
+  '/payroll/': typeof PayrollIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -138,9 +165,12 @@ export interface FileRouteTypes {
     | '/finance/journal-entries'
     | '/finance/reconciliations'
     | '/finance/references'
+    | '/payroll/$paySlipId'
+    | '/payroll/contracts'
     | '/assets/'
     | '/employees/'
     | '/finance/'
+    | '/payroll/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -152,9 +182,12 @@ export interface FileRouteTypes {
     | '/finance/journal-entries'
     | '/finance/reconciliations'
     | '/finance/references'
+    | '/payroll/$paySlipId'
+    | '/payroll/contracts'
     | '/assets'
     | '/employees'
     | '/finance'
+    | '/payroll'
   id:
     | '__root__'
     | '/'
@@ -166,9 +199,12 @@ export interface FileRouteTypes {
     | '/finance/journal-entries'
     | '/finance/reconciliations'
     | '/finance/references'
+    | '/payroll/$paySlipId'
+    | '/payroll/contracts'
     | '/assets/'
     | '/employees/'
     | '/finance/'
+    | '/payroll/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -181,9 +217,12 @@ export interface RootRouteChildren {
   FinanceJournalEntriesRoute: typeof FinanceJournalEntriesRoute
   FinanceReconciliationsRoute: typeof FinanceReconciliationsRoute
   FinanceReferencesRoute: typeof FinanceReferencesRoute
+  PayrollPaySlipIdRoute: typeof PayrollPaySlipIdRoute
+  PayrollContractsRoute: typeof PayrollContractsRoute
   AssetsIndexRoute: typeof AssetsIndexRoute
   EmployeesIndexRoute: typeof EmployeesIndexRoute
   FinanceIndexRoute: typeof FinanceIndexRoute
+  PayrollIndexRoute: typeof PayrollIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -193,6 +232,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payroll/': {
+      id: '/payroll/'
+      path: '/payroll'
+      fullPath: '/payroll/'
+      preLoaderRoute: typeof PayrollIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/finance/': {
@@ -214,6 +260,20 @@ declare module '@tanstack/react-router' {
       path: '/assets'
       fullPath: '/assets/'
       preLoaderRoute: typeof AssetsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payroll/contracts': {
+      id: '/payroll/contracts'
+      path: '/payroll/contracts'
+      fullPath: '/payroll/contracts'
+      preLoaderRoute: typeof PayrollContractsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payroll/$paySlipId': {
+      id: '/payroll/$paySlipId'
+      path: '/payroll/$paySlipId'
+      fullPath: '/payroll/$paySlipId'
+      preLoaderRoute: typeof PayrollPaySlipIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/finance/references': {
@@ -285,9 +345,12 @@ const rootRouteChildren: RootRouteChildren = {
   FinanceJournalEntriesRoute: FinanceJournalEntriesRoute,
   FinanceReconciliationsRoute: FinanceReconciliationsRoute,
   FinanceReferencesRoute: FinanceReferencesRoute,
+  PayrollPaySlipIdRoute: PayrollPaySlipIdRoute,
+  PayrollContractsRoute: PayrollContractsRoute,
   AssetsIndexRoute: AssetsIndexRoute,
   EmployeesIndexRoute: EmployeesIndexRoute,
   FinanceIndexRoute: FinanceIndexRoute,
+  PayrollIndexRoute: PayrollIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -13,6 +13,8 @@
     "financeJournalEntries": "Ecritures",
     "financeReconciliations": "Rapprochements",
     "employees": "Employes",
-    "employeeReferences": "References employees"
+    "employeeReferences": "References employees",
+    "payroll": "Payroll",
+    "payrollContracts": "Contrats payroll"
   }
 }

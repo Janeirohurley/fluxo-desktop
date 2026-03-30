@@ -34,13 +34,13 @@ export function useFinanceTransactions(params: FinanceTransactionListParams) {
   });
 }
 
-export function usePaymentMethods() {
+export function usePaymentMethods(enabled = true) {
   const accessKey = useStoredAccessKey();
 
   return useQuery({
     queryKey: financeQueryKeys.paymentMethods,
     queryFn: fetchPaymentMethods,
-    enabled: Boolean(accessKey),
+    enabled: Boolean(accessKey && enabled),
   });
 }
 
@@ -54,23 +54,23 @@ export function useJournalEntries(params: JournalEntryListParams) {
   });
 }
 
-export function useTransactionTypes() {
+export function useTransactionTypes(enabled = true) {
   const accessKey = useStoredAccessKey();
 
   return useQuery({
     queryKey: financeQueryKeys.transactionTypes,
     queryFn: fetchTransactionTypes,
-    enabled: Boolean(accessKey),
+    enabled: Boolean(accessKey && enabled),
   });
 }
 
-export function useAccountingAccounts() {
+export function useAccountingAccounts(enabled = true) {
   const accessKey = useStoredAccessKey();
 
   return useQuery({
     queryKey: financeQueryKeys.accounts,
     queryFn: fetchAccountingAccounts,
-    enabled: Boolean(accessKey),
+    enabled: Boolean(accessKey && enabled),
   });
 }
 

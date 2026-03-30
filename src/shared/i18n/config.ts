@@ -7,6 +7,7 @@ import frCommon from "./resources/fr/common.json";
 import frDashboard from "./resources/fr/dashboard.json";
 import frEmployees from "./resources/fr/employees.json";
 import frFinance from "./resources/fr/finance.json";
+import frPayroll from "./resources/fr/payroll.json";
 import frShell from "./resources/fr/shell.json";
 import frUpdater from "./resources/fr/updater.json";
 import enAuth from "./resources/en/auth.json";
@@ -15,6 +16,7 @@ import enCommon from "./resources/en/common.json";
 import enDashboard from "./resources/en/dashboard.json";
 import enEmployees from "./resources/en/employees.json";
 import enFinance from "./resources/en/finance.json";
+import enPayroll from "./resources/en/payroll.json";
 import enShell from "./resources/en/shell.json";
 import enUpdater from "./resources/en/updater.json";
 
@@ -31,6 +33,7 @@ const resources = {
     dashboard: frDashboard,
     employees: frEmployees,
     finance: frFinance,
+    payroll: frPayroll,
     shell: frShell,
     updater: frUpdater,
   },
@@ -41,6 +44,7 @@ const resources = {
     dashboard: enDashboard,
     employees: enEmployees,
     finance: enFinance,
+    payroll: enPayroll,
     shell: enShell,
     updater: enUpdater,
   },
@@ -55,7 +59,7 @@ if (!i18n.isInitialized) {
       fallbackLng: "fr",
       supportedLngs: supportedLanguages,
       defaultNS: "common",
-      ns: ["common", "auth", "assets", "dashboard", "employees", "finance", "shell", "updater"],
+      ns: ["common", "auth", "assets", "dashboard", "employees", "finance", "payroll", "shell", "updater"],
       interpolation: {
         escapeValue: false,
       },

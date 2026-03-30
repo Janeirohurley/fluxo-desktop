@@ -13,6 +13,8 @@
     "financeJournalEntries": "Journal entries",
     "financeReconciliations": "Reconciliations",
     "employees": "Employees",
-    "employeeReferences": "Employee references"
+    "employeeReferences": "Employee references",
+    "payroll": "Payroll",
+    "payrollContracts": "Payroll contracts"
   }
 }
